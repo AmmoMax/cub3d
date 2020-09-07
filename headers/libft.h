@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/01 19:50:39 by amayor            #+#    #+#             */
-/*   Updated: 2020/09/02 22:55:01 by amayor           ###   ########.fr       */
+/*   Updated: 2020/09/06 19:41:59 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,32 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-typedef struct		s_list
+typedef struct			s_list
 {
-	void			*content;
-	struct s_list	*next;
-}					t_list;
+	void				*content;
+	struct s_list		*next;
+}						t_list;
+
+typedef struct			maze_config
+{
+	struct resolution	*m_resolution;
+	char				*no_texture;
+	char				*so_texture;
+	char				*we_texture;
+	char				*ea_texture;
+	char				*s_texture;
+	int					*color_floor;
+	int					*ceilling_floor;
+	char				**map;
+	int					*gamer_pos;
+}						m_config;
+
+typedef struct			resolution
+{
+	int					x;
+	int					y;
+}						m_resolution;
+
 
 void				*ft_memset(void *dst, int c, size_t count);
 void				ft_bzero(void *s, size_t n);
