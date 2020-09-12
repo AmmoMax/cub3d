@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 22:39:43 by amayor            #+#    #+#             */
-/*   Updated: 2020/09/07 23:11:58 by amayor           ###   ########.fr       */
+/*   Updated: 2020/09/12 22:35:01 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,39 +16,7 @@
 #define ERROR 1
 #define OK 0
 
-/*
-* Парсинг строки с разрешением экрана из файла конфига.
-* На вход принимает только ВАЛИДНУЮ строку.
-* Разрешение экрана строка типа: R 1920 1080
-*/
 
-int			res_handler(char *line, m_resolution **res)
-{
-	size_t	i;
-	size_t	flag_x;
-	char	*tmp;
-
-	i = 1;
-	flag_x = 0;
-	tmp = line;
-	while (line[i])
-	{
-		if (line[i] == ' ' || (ft_isdigit(line[i]) && ft_isdigit(line[i - 1])))
-			i++;
-		if (ft_isdigit(line[i]) && !ft_isdigit(line[i - 1]))
-		{
-			if (flag_x == 0)
-			{
-				(*res)->x = ft_atoi(tmp + i);
-				flag_x = 1;
-			}
-			else
-				(*res)->y = ft_atoi(tmp + i);
-			i++;
-		}
-	}
-	return (0);
-}
 
 /*
 * Предполагается что функция будет обрабатывать строку из файла и для каждой опции вызывать нужный суб-обработчик
@@ -59,14 +27,15 @@ int			line_handler(char *line)
 	{
 		if (*line == 'R')
 			res_handler(line);
-		if (*line = 'N' || *line == 'S' \
+		else if (*line = 'N' || *line == 'S' \
 			|| *line == 'W' || *line == 'E' || *line == 'S')
 			texture_handler(line);
-		if (*line == 'F' || *line == 'C')
+		else if (*line == 'F' || *line == 'C')
 			color_handler(line);
-		if (*line == 1)
+		else if (*line == 1)
 			map_handler(line);
-		
+		else
+			line++;
 	}
 }
 
