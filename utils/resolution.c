@@ -79,11 +79,21 @@ void			res_handler(char *line, m_resolution **res)
 * 3. Если одно из чисел разрешения содержит в себе букву
 * 4. Если чисел разрешения больше чем 2.
 * 5. 
+* Строка валидна если:
+* 1. В начале строки 0 или больше пробелов 
+* 2. Первый символ после пробелов это буква R
+* 3. Буква R только одна
+* 4. После буквы R идет 1 или больше пробелов
+* 5. В строке встречается два числа, состоящих из цифр и разделенных 1 или больше пробелов.
+* 6. В конце строки может идти 0 или больше пробелов
+* 
 * "R  1920   1080";v
 * "1  R  1920   1080";iv
 * "R  19a20   1080";iv
 * "q  19a20   1080";iv
+* "R  1920";iv
 */
+
 int				res_validator(char *line)
 {
 	size_t		i;
@@ -95,33 +105,67 @@ int				res_validator(char *line)
 	flag_r = 0;
 	while (line[i])
 	{
-		if (line[i] == ' ')
+		if (line[i] == ' ' || (ft_isdigit(line[i]) && ft_isdigit(line[i + 1])))
 			i++;
 		else if (line[i] == 'R' && line[i + 1] == ' ' && flag_r == 0)
 		{
-			i++;
 			flag_r = 1;
-		}
-		else if (ft_isdigit(line[i]) && line[i + 1] == ' ' && flag_r == 1 && nbr_count < 2)
+			i++;
+		} 
+		else if (ft_isdigit(line[i]) && (line[i + 1] == ' ' || line[i + 1] == '\0') && nbr_count <= 2)
 		{
 			nbr_count++;
 			i++;
 		}
-		else if (ft_isdigit(line[i]) && (ft_isdigit(line[i + 1]) || line[i + 1] == '\0'))
-			i++;
-		else
-			return (1);
+		else return (1);
 	}
-	return (0);
+	return ((nbr_count != 2 || flag_r != 1)? 1 : 0);
 }
+
+// int				res_validator(char *line)
+// {
+// 	size_t		i;
+// 	size_t		nbr_count;
+// 	int			flag_r;
+// 	i = 0;
+// 	nbr_count = 0;
+// 	flag_r = 0;
+// 	while (line[i])
+// 	{
+// 		if (line[i] == ' ' && line[i + 1] == '\0' && nbr_count < 2)
+// 			return (1);
+// 		else if (line[i] == ' ')
+// 			i++;
+// 		else if (line[i] == 'R' && line[i + 1] == ' ' && flag_r == 0)
+// 		{
+// 			i++;
+// 			flag_r = 1;
+// 		}
+// 		else if (ft_isdigit(line[i]) && line[i + 1] == ' ' && flag_r == 1 && nbr_count <= 2)
+// 		{
+// 			nbr_count++;
+// 			i++;
+// 		}
+// 		else if (ft_isdigit(line[i]) && (ft_isdigit(line[i + 1]) || line[i + 1] == '\0') && nbr_count <= 2)
+// 			i++;
+// 		else
+// 			return (1);
+// 	}
+// 	return (0);
+// }
 
 int main()
 {
 	char			*line;
 	// m_resolution	*res;
 
-
-	line = "R   1920  1080";
+	// line = "R  1920   1080";
+	// line = "1 R  1920   1080";
+	// line = "R  19a20   1080";
+	// line = "q  19a20   1080";
+	// line = "R  1920";
+	// line = "   1920 1080   ";
+	line = "  R 1920     1080   ";
 	// res->x = 0;	
 	// res->y = 0;
 	if (res_validator(line) == 1)

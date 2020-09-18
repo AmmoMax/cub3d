@@ -6,11 +6,12 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 22:39:43 by amayor            #+#    #+#             */
-/*   Updated: 2020/09/12 22:35:01 by amayor           ###   ########.fr       */
+/*   Updated: 2020/09/15 21:49:47 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/libft.h"
+#include "../headers/utils.h"
 #include <fcntl.h>
 #include <stdio.h>
 #define ERROR 1
