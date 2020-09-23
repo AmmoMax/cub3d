@@ -42,7 +42,7 @@ int	ft_atoi(char *str)
 }
 
 
-void			res_handler(char *line, m_resolution **res)
+void		res_handler(char *line, m_resolution **res)
 {
 	size_t	i;
 	size_t	flag_x;
@@ -51,11 +51,13 @@ void			res_handler(char *line, m_resolution **res)
 	i = 1;
 	flag_x = 0;
 	tmp = line;
+	// line = "  R 1920     1080   ";
 	while (line[i])
 	{
+		printf("%c\n", line[i]);
 		if (line[i] == ' ' || (ft_isdigit(line[i]) && ft_isdigit(line[i - 1])))
 			i++;
-		if (ft_isdigit(line[i]) && !ft_isdigit(line[i - 1]))
+		else if (ft_isdigit(line[i]) && !ft_isdigit(line[i - 1]))
 		{
 			if (flag_x == 0)
 			{
@@ -66,6 +68,8 @@ void			res_handler(char *line, m_resolution **res)
 				(*res)->y = ft_atoi(tmp + i);
 			i++;
 		}
+		else
+			i++;
 	}
 }
 
@@ -157,7 +161,8 @@ int				res_validator(char *line)
 int main()
 {
 	char			*line;
-	// m_resolution	*res;
+	m_resolution	res;
+	m_resolution	*res_p;
 
 	// line = "R  1920   1080";
 	// line = "1 R  1920   1080";
@@ -165,13 +170,15 @@ int main()
 	// line = "q  19a20   1080";
 	// line = "R  1920";
 	// line = "   1920 1080   ";
-	line = "  R 1920     1080   ";
-	// res->x = 0;	
-	// res->y = 0;
+	line = "     R               800     600   ";
+	res_p = &res;
 	if (res_validator(line) == 1)
+	{
 		printf("Map is invalid\n\n");
+		return (1);
+	}
 	else
 		printf("Map is valid\n\n");
-	// res_handler(line, &res);
-	// printf("x = %d\ny = %d\n", res->x ,res->y);
+	res_handler(line, &res_p);
+	printf("x = %d\ny = %d\n", res.x ,res.y);
 }

@@ -6,38 +6,36 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 22:39:43 by amayor            #+#    #+#             */
-/*   Updated: 2020/09/15 21:49:47 by amayor           ###   ########.fr       */
+/*   Updated: 2020/09/23 23:34:17 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/libft.h"
 #include "../headers/utils.h"
 #include <fcntl.h>
-#include <stdio.h>
 #define ERROR 1
 #define OK 0
 
+#include <stdio.h>
 
 
 /*
 * Предполагается что функция будет обрабатывать строку из файла и для каждой опции вызывать нужный суб-обработчик
 */
-int			line_handler(char *line)
+int			line_handler(char *line, m_config **config)
 {
-	while (line)
-	{
-		if (*line == 'R')
-			res_handler(line);
-		else if (*line = 'N' || *line == 'S' \
-			|| *line == 'W' || *line == 'E' || *line == 'S')
-			texture_handler(line);
-		else if (*line == 'F' || *line == 'C')
-			color_handler(line);
-		else if (*line == 1)
-			map_handler(line);
-		else
-			line++;
-	}
+
+	if (ft_strchr(line, 'R'))
+		return (res_handler(line, config));
+	else
+		return (1);
+	// else if (*line = 'N' || *line == 'S' 
+	// 	|| *line == 'W' || *line == 'E' || *line == 'S')
+	// 	texture_handler(line);
+	// else if (*line == 'F' || *line == 'C')
+	// 	color_handler(line);
+	// else if (*line == 1)
+	// 	map_handler(line);
 }
 
 /*
@@ -61,28 +59,38 @@ int			line_handler(char *line)
 // 	}
 // }
 
-int				main (int argc, char * argv[])
+int					main (int argc, char *argv[])
 {
-	int			fd;
-	char		*line;
-	t_list		*head;
-	m_config	*config;
+	int				fd;
+	char			*line;
+	// t_list		*head;
+	m_config		config;
+	m_config		*config_p;
 
 	line = NULL;
-	head = NULL;
-	config = NULL;
-
-	fd = open(argv[1], O_RDONLY);
+	
+	config_p = &config;
+	if (argc == 1)
+	{
+		ft_putendl_fd("Use: cub3d <path to map.cub>", 1);
+		return (1);
+	}
+	fd = open(argv[1], O_RDONLY); // обработка ошибок открытия файла
 	while (get_next_line(fd, &line)) // malloc line
 	{
-		if (line_handler(line &config))
-			if (!(ft_lstadd_back(&head, ft_lstnew(line)))) //malloc ft_lstnew
-				return (ERROR);
-		else
-			return (ERROR);
+		if (line_handler(line, &config_p) != 0)
+			;
 	}
-	if (!(ft_lstadd_back(&head, ft_lstnew(line)))) //malloc ft_lstnew
-			return (ERROR);
-	make_map(&head, ft_lstsize(head));
-	return (OK);
+	printf("END\n");
+	printf("resolution: x = %d, y = %d", config_p->x, config_p->y);	
 }
+// 			if (!(ft_lstadd_back(&head, ft_lstnew(line)))) //malloc ft_lstnew
+// 				return (ERROR);
+// 		else
+// 			return (ERROR);
+// 	}
+// 	if (!(ft_lstadd_back(&head, ft_lstnew(line)))) //malloc ft_lstnew
+// 			return (ERROR);
+// 	make_map(&head, ft_lstsize(head));
+// 	return (OK);
+// }

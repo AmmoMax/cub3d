@@ -6,34 +6,20 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/12 22:28:35 by amayor            #+#    #+#             */
-/*   Updated: 2020/09/18 22:29:29 by amayor           ###   ########.fr       */
+/*   Updated: 2020/09/23 23:35:33 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/libft.h"
 #include "../headers/utils.h"
-
-/*
-*Принимает необработанную строку от парсера файла конфигурации.
-Валидирует и парсит строку, сохраняет разрешение в общую структуру.
-Если строка невалидна - возвращает ошибку.
-TODO: Добавить конкретный код ошибки о невалидной строке. 
-*/
-
-void		res_handler(char *line, m_resolution **res)
-{
-	if (res_validator == 0)
-		res_parser(line, res);
-	else
-		return 1;
-}
+#include <stdio.h>
 
 /*
 * Парсинг строки с разрешением экрана из файла конфига.
 * На вход принимает только ВАЛИДНУЮ строку.
 * Разрешение экрана строка типа: R 1920 1080
 */
-static void	res_parser(char *line, m_resolution **res)
+static void	res_parser(char *line,  m_config **config)
 {
 	size_t	i;
 	size_t	flag_x;
@@ -46,17 +32,19 @@ static void	res_parser(char *line, m_resolution **res)
 	{
 		if (line[i] == ' ' || (ft_isdigit(line[i]) && ft_isdigit(line[i - 1])))
 			i++;
-		if (ft_isdigit(line[i]) && !ft_isdigit(line[i - 1]))
+		else if (ft_isdigit(line[i]) && !ft_isdigit(line[i - 1]))
 		{
 			if (flag_x == 0)
 			{
-				(*res)->x = ft_atoi(tmp + i);
+				(*config)->x = ft_atoi(tmp + i);
 				flag_x = 1;
 			}
 			else
-				(*res)->y = ft_atoi(tmp + i);
+				(*config)->y = ft_atoi(tmp + i);
 			i++;
 		}
+		else
+			i++;
 	}
 }
 
@@ -65,7 +53,7 @@ static void	res_parser(char *line, m_resolution **res)
 * Валидная строка: начинается с R, потом идет любое количество пробелов и два числа > 0, разделенные любым кол-вом пробелов.
 * Возвращает 0 если строка валидна, и 1 если невалидна.
 */
-int			res_validator(char *line)
+static int res_validator(char *line)
 {
 	size_t	i;
 	size_t	nbr_count;
@@ -91,4 +79,22 @@ int			res_validator(char *line)
 		else return (1);
 	}
 	return ((nbr_count != 2 || flag_r != 1)? 1 : 0);
+}
+
+/*
+*Принимает необработанную строку от парсера файла конфигурации.
+Валидирует и парсит строку, сохраняет разрешение в общую структуру.
+Если строка невалидна - возвращает ошибку.
+TODO: Добавить конкретный код ошибки о невалидной строке. 
+*/
+
+int		res_handler(char *line, m_config **config)
+{
+	if (res_validator(line) == 0)
+	{
+		res_parser(line, config);
+		return (0);
+	}
+	else
+		return (1);
 }
