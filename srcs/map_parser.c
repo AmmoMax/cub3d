@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 22:39:43 by amayor            #+#    #+#             */
-/*   Updated: 2020/09/23 23:34:17 by amayor           ###   ########.fr       */
+/*   Updated: 2020/09/24 21:56:45 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,10 @@ int			line_handler(char *line, m_config **config)
 
 	if (ft_strchr(line, 'R'))
 		return (res_handler(line, config));
+	else if (ft_strchr(line, 'N') || ft_strchr(line, 'S') || ft_strchr(line, 'W') || ft_strchr(line, 'E'))
+		return (texture_handler(line, config));
 	else
-		return (1);
-	// else if (*line = 'N' || *line == 'S' 
-	// 	|| *line == 'W' || *line == 'E' || *line == 'S')
-	// 	texture_handler(line);
+		return (ERROR);
 	// else if (*line == 'F' || *line == 'C')
 	// 	color_handler(line);
 	// else if (*line == 1)
@@ -78,19 +77,9 @@ int					main (int argc, char *argv[])
 	fd = open(argv[1], O_RDONLY); // обработка ошибок открытия файла
 	while (get_next_line(fd, &line)) // malloc line
 	{
-		if (line_handler(line, &config_p) != 0)
+		if (line_handler(line, &config_p) != 0) // если обработчик строки вернул ошибку - возвращаем ошибку тут
 			;
 	}
-	printf("END\n");
-	printf("resolution: x = %d, y = %d", config_p->x, config_p->y);	
+	printf("resolution: x = %d, y = %d\n", config_p->x, config_p->y);
+	return (0);
 }
-// 			if (!(ft_lstadd_back(&head, ft_lstnew(line)))) //malloc ft_lstnew
-// 				return (ERROR);
-// 		else
-// 			return (ERROR);
-// 	}
-// 	if (!(ft_lstadd_back(&head, ft_lstnew(line)))) //malloc ft_lstnew
-// 			return (ERROR);
-// 	make_map(&head, ft_lstsize(head));
-// 	return (OK);
-// }
