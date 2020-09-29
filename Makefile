@@ -6,7 +6,7 @@
 #    By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/21 23:12:54 by amayor            #+#    #+#              #
-#    Updated: 2020/09/22 22:43:42 by amayor           ###   ########.fr        #
+#    Updated: 2020/09/29 22:25:55 by amayor           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,9 @@ HEADER_FILES_DIR = headers
 FLAGS = -Wall -Wextra -Werror
 LIBFT_DIR = libft
 LIBFT_PATH = LIBFT_DIR/libft.a
-SRC_FILES = map_parser.c\
-			resolution_parser.c\
+SRC_FILES = map_parser.c \
+			resolution_parser.c \
+			textures_parser.c \
 
 override OBJ_ALL ?=$(OBJ_FILES)
 

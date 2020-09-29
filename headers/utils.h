@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 21:40:16 by amayor            #+#    #+#             */
-/*   Updated: 2020/09/23 23:33:03 by amayor           ###   ########.fr       */
+/*   Updated: 2020/09/29 22:22:43 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,3 +33,4 @@ typedef struct			maze_config
 // }						m_resolution;
 
 int		res_handler(char *line, m_config **config);
+int		texture_handler(char *line, m_config **config);

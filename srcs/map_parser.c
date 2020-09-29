@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 22:39:43 by amayor            #+#    #+#             */
-/*   Updated: 2020/09/24 21:56:45 by amayor           ###   ########.fr       */
+/*   Updated: 2020/09/29 22:36:13 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,12 @@ int					main (int argc, char *argv[])
 	while (get_next_line(fd, &line)) // malloc line
 	{
 		if (line_handler(line, &config_p) != 0) // если обработчик строки вернул ошибку - возвращаем ошибку тут
-			;
+			printf("Error processing line: %s\n", line);
 	}
 	printf("resolution: x = %d, y = %d\n", config_p->x, config_p->y);
+	printf("Path to NO texture = %s\n", config.no_texture);
+	printf("Path to SO texture = %s\n", config.so_texture);
+	printf("Path to WE texture = %s\n", config.we_texture);
+	printf("Path to EA texture = %s\n", config.ea_texture);
 	return (0);
 }
