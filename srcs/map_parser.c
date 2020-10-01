@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 22:39:43 by amayor            #+#    #+#             */
-/*   Updated: 2020/09/29 22:36:13 by amayor           ###   ########.fr       */
+/*   Updated: 2020/10/01 22:30:58 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,13 @@ int			line_handler(char *line, m_config **config)
 
 	if (ft_strchr(line, 'R'))
 		return (res_handler(line, config));
-	else if (ft_strchr(line, 'N') || ft_strchr(line, 'S') || ft_strchr(line, 'W') || ft_strchr(line, 'E'))
+	else if (ft_strchr(line, 'N') || ft_strnstr(line, "SO", ft_strlen(line)) ||
+			 ft_strchr(line, 'W') || ft_strchr(line, 'E'))
 		return (texture_handler(line, config));
+	else if (ft_strchr(line, 'S'))
+		return (sprite_handler(line, config));
 	else
-		return (ERROR);
+		return (OK);
 	// else if (*line == 'F' || *line == 'C')
 	// 	color_handler(line);
 	// else if (*line == 1)
@@ -78,12 +81,17 @@ int					main (int argc, char *argv[])
 	while (get_next_line(fd, &line)) // malloc line
 	{
 		if (line_handler(line, &config_p) != 0) // если обработчик строки вернул ошибку - возвращаем ошибку тут
+		{
 			printf("Error processing line: %s\n", line);
+			printf("Map not valid\n");
+			// return (1);
+		}
 	}
 	printf("resolution: x = %d, y = %d\n", config_p->x, config_p->y);
 	printf("Path to NO texture = %s\n", config.no_texture);
 	printf("Path to SO texture = %s\n", config.so_texture);
 	printf("Path to WE texture = %s\n", config.we_texture);
 	printf("Path to EA texture = %s\n", config.ea_texture);
+	printf("Path to Sprite = %s\n", config.s_texture);
 	return (0);
 }
