@@ -51,10 +51,8 @@ void		res_handler(char *line, m_resolution **res)
 	i = 1;
 	flag_x = 0;
 	tmp = line;
-	// line = "  R 1920     1080   ";
 	while (line[i])
 	{
-		printf("%c\n", line[i]);
 		if (line[i] == ' ' || (ft_isdigit(line[i]) && ft_isdigit(line[i - 1])))
 			i++;
 		else if (ft_isdigit(line[i]) && !ft_isdigit(line[i - 1]))
