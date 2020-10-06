@@ -39,28 +39,31 @@ int	ft_atoi(char *str)
 *	Начинается с буквы F или C
 *	Содержит ровно 3 числа от 0 до 255
 *
+* TODO: Добавить обработку переполнения atoi
 */
 static int	color_validator(char *line)
 {
 	size_t	i;
 	size_t	num_cnt;
 	char 	*tmp;
+	size_t	flag_color;
 
-	i = 0;
+	i = -1;
 	num_cnt = 0;
 	tmp = line;
-	while(line[i])
+	// flag_color = 0;
+	while(line[++i])
 	{
-		if (line[i] == 'C' || line[i] == 'F' || 
-			line[i] == ' ' || line[i] == ',' || 
-			(ft_isdigit(line[i]) && ft_isdigit(line[i - 1])))
-			i++;
+		if ((line[i] == 'C' || line[i] == 'F') && line[i + 1] == ' ')
+				flag_color = 1;
+		else if (line[i] == ' ' || line[i] == ',' ||
+				(ft_isdigit(line[i]) && ft_isdigit(line[i - 1])))
+				;
 		else if (ft_isdigit(line[i]) && !(ft_isdigit(line[i - 1])))
 		{
-			if (ft_atoi(tmp + i) > 255 && ft_atoi(tmp + i) > 0)
+			if (ft_atoi(tmp + i) > 255 || ft_atoi(tmp + i) < 0 || flag_color != 1)
 				return (1);
 			num_cnt++;
-			i++;
 		}
 		else
 			return (1);
@@ -97,9 +100,9 @@ int main()
 	m_config	*config_p;
 
 	config_p = &config;
-	valid = "F 220,100,0";
-	invalid = "225,30,122 F";
-	if (color_handler(invalid, &config_p) == 0)
+	valid = "C 100,255,255";
+	invalid = "F 122,31 ";
+	if (color_handler(valid, &config_p) == 0)
 	{
 		printf("Color param is valid!\n");
 		// printf("Color param = %s");
