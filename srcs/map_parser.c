@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 22:39:43 by amayor            #+#    #+#             */
-/*   Updated: 2020/10/08 22:29:19 by amayor           ###   ########.fr       */
+/*   Updated: 2020/10/11 15:41:12 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ int					main (int argc, char *argv[])
 
 	line = NULL;
 	
+	config.floor = NULL;
+	config.ceiling = NULL;
 	config_p = &config;
 	if (argc == 1)
 	{
@@ -86,7 +88,7 @@ int					main (int argc, char *argv[])
 		{
 			printf("Error processing line: %s\n", line);
 			printf("Map file not valid\n");
-			// return (1);
+			return (1);
 		}
 	}
 	printf("resolution: x = %d, y = %d\n", config_p->x, config_p->y);
