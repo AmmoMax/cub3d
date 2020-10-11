@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 22:39:43 by amayor            #+#    #+#             */
-/*   Updated: 2020/10/11 15:41:12 by amayor           ###   ########.fr       */
+/*   Updated: 2020/10/11 20:06:40 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ int					main (int argc, char *argv[])
 			printf("Map file not valid\n");
 			return (1);
 		}
+		free(line);
 	}
 	printf("resolution: x = %d, y = %d\n", config_p->x, config_p->y);
 	printf("Path to NO texture = %s\n", config.no_texture);

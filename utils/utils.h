@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 21:40:16 by amayor            #+#    #+#             */
-/*   Updated: 2020/10/05 21:20:01 by amayor           ###   ########.fr       */
+/*   Updated: 2020/10/11 20:12:37 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ typedef struct			maze_config_t
 	char				*we_texture;
 	char				*ea_texture;
 	char				*s_texture;
-	// int					*color_floor;
-	// int					*ceilling_floor;
 	color				*floor;
 	color				*ceiling;
 	char				**map;
