@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 22:39:43 by amayor            #+#    #+#             */
-/*   Updated: 2020/10/01 23:10:43 by amayor           ###   ########.fr       */
+/*   Updated: 2020/10/08 22:29:19 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int			line_handler(char *line, m_config **config)
 	else if (ft_strchr(line, 'S'))
 		return (sprite_handler(line, config));
 	else if (ft_strchr(line, 'F')|| ft_strchr(line, 'C'))
-		return(color_handler(line));
+		return(color_handler(line, config));
 	else
 		return (OK);
 	// else if (*line == 1)
@@ -85,7 +85,7 @@ int					main (int argc, char *argv[])
 		if (line_handler(line, &config_p) != 0) // если обработчик строки вернул ошибку - возвращаем ошибку тут
 		{
 			printf("Error processing line: %s\n", line);
-			printf("Map not valid\n");
+			printf("Map file not valid\n");
 			// return (1);
 		}
 	}
@@ -95,5 +95,9 @@ int					main (int argc, char *argv[])
 	printf("Path to WE texture = %s\n", config.we_texture);
 	printf("Path to EA texture = %s\n", config.ea_texture);
 	printf("Path to Sprite = %s\n", config.s_texture);
+	printf("Color ceiling: red = %d, green = %d, blue = %d\n", config.ceiling->red, config.ceiling->green, config.ceiling->blue);
+	printf("Color floor: red = %d, green = %d, blue = %d\n", config.floor->red, config.floor->green, config.floor->blue);
+	free(config.ceiling);
+	free(config.floor);
 	return (0);
 }
