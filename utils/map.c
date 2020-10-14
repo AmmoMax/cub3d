@@ -4,52 +4,120 @@
 #include "libft.h"
 #include <fcntl.h>
 
+static int	first_line_map_v(char *line)
+{
+	printf("first_line_map_v\n");
+	size_t	i;
+
+	i = -1;
+	while (line[++i])
+	{
+		if (line[i] != '1')
+			return (1);
+	}
+	return (0);
+}
+
+static int	common_line_map_v(char *line)
+{
+	// printf("common_line_map_v\n");
+	size_t	i;
+	t_list	*map;
+
+	if (line[0] != '1')
+		return (1);
+	i = 1;
+	while(line[i])
+	{
+		if (line[i] == '1' || line[i] == '0' || 
+			line[i] == '2' || line[i] == 'N' || 
+			line[i] == 'S' || line[i] == 'W' || 
+			line[i] == 'E' || (line[i] == '1' && line[i + 1] == '\0'))
+			i++;
+		else
+			return (1);
+	}
+	return (0);
+}
+
 /*
 * Валидирует конкретную строку карты.
 * Валидная строка начинается и заканчивается 1.
 * Если это первая строка карты - она вся содержит 1.
 * Если это последняя строка карты - она вся содержит 1 и EOF.
 */
-static int map_validator()
+static int map_validator(char *line, m_config **config)
 {
-
+	
+	if (!((*config)->map)) // если это первая строка
+		return (first_line_map_v(line));
+	else
+		return (common_line_map_v(line));
+	
 }
 
-static int map_parser()
+/*
+* Добавляет в конец односвязного списка, который представляет карту, новую строку.
+* Принимает строку и общий конфиг.
+*
+*/
+static int map_parser(char *line, m_config **config)
 {
+	t_list	*map_string;
+	t_list	**map;
 
+	map = &(*config)->map;
+	map_string = ft_lstnew(line);
+
+	return (ft_lstadd_back(map, map_string));
 }
 
 /*
 * Обработчик строки предполагаемой карты из файла.
-* В аргументах получает строку с картой и общий конфиг.
+* Принимает строку с картой и общий конфиг.
 */
-int map_handler(char *line, m_config **config)
+int map_handler(char *line, m_config **config, int flag_last_line)
 {
-	if (map_validator(line) == 0)
-		return (map_parser);
+	if (flag_last_line == 0)
+	{
+		if (map_validator(line, config) == 0)
+			return (map_parser(line, config));
+		else
+			return (1);
+	}
+	else
+		if (first_line_map_v(line) == 0)
+			return (map_parser(line, config));
+		else
+			return (1);
 }
-
 
 int main()
 {
 	char 		*map_line;
 	int			fd;
 	m_config	config;
-	size_t		i;
+	m_config	*config_p;
 
-	i = 0;
-	fd = open('map.cub', O_RDONLY);
-	while (get_next_line(fd, map_line))
+	config_p = &config;
+	config.map = NULL;
+	fd = open("map.cub", O_RDONLY);
+	while (get_next_line(fd, &map_line))
 	{
-		if(map_handler)
+		printf("map_line = %s\n", map_line);
+		if(map_handler(map_line, &config_p, 0) == 1)
 		{
 			printf("Map is INVALID!\n");
 			return (1);
 		}
 		printf("Map line is valid!\n");
-		printf("line map: %s\n", config.map[i]);
-		i++;
 	}
+	printf("last line = %s\n", map_line);
+	if (map_handler(map_line, &config_p, 1) == 1)
+	{
+		printf("Map is INVALID!\n");
+		return (1);
+	}
+	printf("Map is valid!\n");
 	return (0);
 }
