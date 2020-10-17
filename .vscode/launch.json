@@ -5,13 +5,13 @@
 	"version": "0.2.0",
 	"configurations": [
 	{
-		"name": "(gdb) Launch",
+		"name": "Map",
 		"type": "cppdbg",
 		"request": "launch",
-		"program": "${workspaceFolder}/a.out",
+		"program": "${fileDirname}/a.out", // директория текущего открытого файла
 		"args": [],
 		"stopAtEntry": false,
-		"cwd": "${workspaceFolder}",
+		"cwd": "${fileDirname}",
 		"environment": [],
 		"externalConsole": false,
 		"MIMode": "gdb",
@@ -21,28 +21,30 @@
 				"text": "-enable-pretty-printing",
 				"ignoreFailures": true
 			}
-		]
+		],
+		// "preLaunchTask": "Map run",
+		// "miDebuggerPath": "/usr/bin/gdb"
 	},
-		{
-			"name": "gcc - Build and debug active file",
-			"type": "cppdbg",
-			"request": "launch",
-			"program": "${fileDirname}/${fileBasenameNoExtension}",
-			"args": ["../maps/basic_map.cub"],
-			"stopAtEntry": false,
-			"cwd": "${fileDirname}",
-			"environment": [],
-			"externalConsole": false,
-			"MIMode": "gdb",
-			"setupCommands": [
-				{
-					"description": "Enable pretty-printing for gdb",
-					"text": "-enable-pretty-printing",
-					"ignoreFailures": true
-				}
-			],
-			"preLaunchTask": "Parser run",
-			"miDebuggerPath": "/usr/bin/gdb"
-		}
+		// {
+		// 	"name": "gcc - Build and debug active file",
+		// 	"type": "cppdbg",
+		// 	"request": "launch",
+		// 	"program": "${fileDirname}/${fileBasenameNoExtension}",
+		// 	"args": ["../maps/basic_map.cub"],
+		// 	"stopAtEntry": false,
+		// 	"cwd": "${fileDirname}",
+		// 	"environment": [],
+		// 	"externalConsole": false,
+		// 	"MIMode": "gdb",
+		// 	"setupCommands": [
+		// 		{
+		// 			"description": "Enable pretty-printing for gdb",
+		// 			"text": "-enable-pretty-printing",
+		// 			"ignoreFailures": true
+		// 		}
+		// 	],
+		// 	"preLaunchTask": "Parser run",
+		// 	"miDebuggerPath": "/usr/bin/gdb"
+		// }
 	]
 }

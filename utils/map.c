@@ -6,21 +6,83 @@
 
 static int	first_line_map_v(char *line)
 {
-	printf("first_line_map_v\n");
 	size_t	i;
+	size_t	num_flag;
 
-	i = -1;
-	while (line[++i])
+	i = 0;
+	num_flag = 0;
+	while (line[i])
 	{
-		if (line[i] != '1')
+		if (line[i] == ' ' && num_flag == 0)
+			i++;
+		else if (line[i] == '1')
+		{
+			num_flag = 1;
+			i++;
+		}
+		else
 			return (1);
 	}
 	return (0);
 }
 
+
+int	max_len_line(t_list *head)
+{
+	int max_len;
+	size_t	len;
+
+	max_len = 0;
+	len = 0;
+	while (head->next)
+	{
+		len = ft_strlen(head->content);
+		if (len > max_len)
+			max_len = len;
+		head = head->next;
+	}
+	return (max_len);
+}
+
+/*
+* Конвертирует карту из формата односвязного списка в двумерный массив.
+* Принимает указатель на первый элемент списка.
+* Возвращает указатель на двумерный массив.
+*/
+char		**convert_map(t_list *head)
+{
+	int		max_len;
+	char 	**map;
+	size_t	i;
+
+	i = 0;
+	max_len = max_len_line(head);
+	map = (char **)ft_calloc(ft_lstsize(head) + 1, sizeof(char *));
+	while (head->next)
+	{
+		map[i] = head->content;
+		i++;
+		head = head->next;
+	}
+	map[i] = head->content;
+	return (map);
+}
+
+void	print_map(char **map)
+{
+	size_t	i;
+	size_t	j;
+
+	i = -1;
+	while (map[++i])
+	{
+		printf("%ld :: %s\n", i, map[i]);
+	}
+	
+}
+
 static int	common_line_map_v(char *line)
 {
-	// printf("common_line_map_v\n");
 	size_t	i;
 	t_list	*map;
 
@@ -105,12 +167,15 @@ int main()
 	while (get_next_line(fd, &map_line))
 	{
 		printf("map_line = %s\n", map_line);
-		if(map_handler(map_line, &config_p, 0) == 1)
+		if(map_handler(map_line, &config_p, 0) == 0)
 		{
-			printf("Map is INVALID!\n");
+			printf("Line is valid!\n");
+		}
+		else
+		{
+			printf("Line is INVALID!\n");
 			return (1);
 		}
-		printf("Map line is valid!\n");
 	}
 	printf("last line = %s\n", map_line);
 	if (map_handler(map_line, &config_p, 1) == 1)
@@ -118,6 +183,9 @@ int main()
 		printf("Map is INVALID!\n");
 		return (1);
 	}
-	printf("Map is valid!\n");
+	close(fd);
+	printf("Map is valid!\n\n");
+	printf("max len in map: %d\n", max_len_line(config.map));
+	print_map(convert_map(config.map));
 	return (0);
 }

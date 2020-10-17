@@ -2,18 +2,16 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Parser run",
+            "label": "Map run",
             "command": "clang",
             "args": [
-                "-g",
-                "${file}",
+                "-g3",
+                "${fileBasename}",
                 "-L.",
                 "-lft",
-                "-o",
-                "${fileDirname}/${fileBasenameNoExtension}"
             ],
             "options": {
-                "cwd": "${fileDirname}"
+                "cwd": "${relativeFileDirname}"
             },
             "problemMatcher": [
                 "$gcc"
