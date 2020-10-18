@@ -29,7 +29,7 @@ static int	first_line_map_v(char *line)
 
 int	max_len_line(t_list *head)
 {
-	int max_len;
+	size_t max_len;
 	size_t	len;
 
 	max_len = 0;
@@ -51,32 +51,75 @@ int	max_len_line(t_list *head)
 */
 char		**convert_map(t_list *head)
 {
-	int		max_len;
 	char 	**map;
+	int		max_len;
 	size_t	i;
 
-	i = 0;
+	i = 1;
 	max_len = max_len_line(head);
-	map = (char **)ft_calloc(ft_lstsize(head) + 1, sizeof(char *));
+	if (!(map = (char **)ft_calloc(ft_lstsize(head) + 1, sizeof(char *))))
+		return (NULL);
+	if (!(map[0] = (char *)ft_calloc((max_len + 1) * ft_lstsize(head),sizeof(char))))
+		return (NULL);
 	while (head->next)
 	{
-		map[i] = head->content;
+		map[i] = map[0] + i * max_len;
+		ft_strlcpy(map[i], head->content, ft_strlen(head->content));
+		printf("**%s**\n", map[i]);
 		i++;
 		head = head->next;
 	}
-	map[i] = head->content;
+	map[i] = map[0] + i * max_len;
+	ft_strlcpy(map[i], head->content, ft_strlen(head->content));
+	printf("**%s**\n", map[i]);
 	return (map);
 }
 
-void	print_map(char **map)
+/*
+* Читает карты в формате двумерного массива, 
+* и дополняет строки пробелами до размера самой длинной строки.
+* Принимает указатель на двумерный массив.
+*/
+// void		normalize_map(char **map, t_list *head)
+// {
+// 	size_t	max_len;
+// 	size_t	i;
+
+// 	max_len = max_len_line(head);
+// 	i = -1;
+// 	while (map[++i])
+// 	{
+// 		if (ft_strlen(map[i]) < max_len)
+// 			normalize_str(map[i]);
+// 	}
+// }
+
+// void		normalize_str(char *str)
+// {
+// 	size_t	i;
+
+// 	i = -1;
+// 	while(str[++i])
+// 	{
+
+// 	}
+// }
+
+/*
+*
+* ФУНКЦИЯ ТЕСТОВАЯ, НЕ ИСПОЛЬЗОВАТЬ НА ПРОДЕ.
+*/
+void	print_map(char **map, int len)
 {
 	size_t	i;
-	size_t	j;
+	char **tmp;
 
-	i = -1;
-	while (map[++i])
+	i = 1;
+	tmp = map;
+	while (map[i])
 	{
 		printf("%ld :: %s\n", i, map[i]);
+		i++;
 	}
 	
 }
@@ -186,6 +229,6 @@ int main()
 	close(fd);
 	printf("Map is valid!\n\n");
 	printf("max len in map: %d\n", max_len_line(config.map));
-	print_map(convert_map(config.map));
+	print_map(convert_map(config.map), max_len_line(config.map));
 	return (0);
 }
