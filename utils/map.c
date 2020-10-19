@@ -4,6 +4,7 @@
 #include "libft.h"
 #include <fcntl.h>
 
+
 static int	first_line_map_v(char *line)
 {
 	size_t	i;
@@ -44,6 +45,19 @@ int	max_len_line(t_list *head)
 	return (max_len);
 }
 
+void		normalize_str(char **str, size_t str_len, int max_len)
+{
+	char *tmp;
+
+	tmp = *str;
+	while (str_len < max_len)
+	{
+		tmp[str_len] = ' ';
+		str_len++;
+	}
+	tmp[str_len] = '\0';
+}
+
 /*
 * Конвертирует карту из формата односвязного списка в двумерный массив.
 * Принимает указатель на первый элемент списка.
@@ -64,14 +78,18 @@ char		**convert_map(t_list *head)
 	while (head->next)
 	{
 		map[i] = map[0] + i * max_len;
-		ft_strlcpy(map[i], head->content, ft_strlen(head->content));
-		printf("**%s**\n", map[i]);
+		// ft_strlcpy(map[i], head->content, ft_strlen(head->content));
+		ft_strcpy(map[i], head->content);
+		normalize_str(&map[i], ft_strlen(head->content), max_len);
+		printf("map[i] = *%s*\n", map[i]);
 		i++;
 		head = head->next;
 	}
 	map[i] = map[0] + i * max_len;
-	ft_strlcpy(map[i], head->content, ft_strlen(head->content));
-	printf("**%s**\n", map[i]);
+	// ft_strlcpy(map[i], head->content, ft_strlen(head->content));
+	ft_strcpy(map[i], head->content);
+	normalize_str(&map[i], ft_strlen(head->content), max_len);
+	printf("map[i] = *%s*\n", map[i]);
 	return (map);
 }
 
@@ -80,30 +98,18 @@ char		**convert_map(t_list *head)
 * и дополняет строки пробелами до размера самой длинной строки.
 * Принимает указатель на двумерный массив.
 */
-// void		normalize_map(char **map, t_list *head)
+// void		normalize_map(char **map, int max_len)
 // {
-// 	size_t	max_len;
 // 	size_t	i;
 
-// 	max_len = max_len_line(head);
-// 	i = -1;
+// 	i = 0;
 // 	while (map[++i])
 // 	{
 // 		if (ft_strlen(map[i]) < max_len)
-// 			normalize_str(map[i]);
+// 			normalize_str(map[i], max_len);
 // 	}
 // }
 
-// void		normalize_str(char *str)
-// {
-// 	size_t	i;
-
-// 	i = -1;
-// 	while(str[++i])
-// 	{
-
-// 	}
-// }
 
 /*
 *
@@ -118,7 +124,7 @@ void	print_map(char **map, int len)
 	tmp = map;
 	while (map[i])
 	{
-		printf("%ld :: %s\n", i, map[i]);
+		printf("%ld :: *%s*\n", i, map[i]);
 		i++;
 	}
 	
