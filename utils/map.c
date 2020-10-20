@@ -4,6 +4,19 @@
 #include "libft.h"
 #include <fcntl.h>
 
+char				*ft_strcpy(char *dst, const char *src)
+{
+	size_t			i;
+
+	i = 0;
+	while (src[i])
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return (dst);
+}
 
 static int	first_line_map_v(char *line)
 {
@@ -75,40 +88,27 @@ char		**convert_map(t_list *head)
 		return (NULL);
 	if (!(map[0] = (char *)ft_calloc((max_len + 1) * ft_lstsize(head),sizeof(char))))
 		return (NULL);
-	while (head->next)
+	while (i < (ft_lstsize(head) + 1))
 	{
 		map[i] = map[0] + i * max_len;
-		// ft_strlcpy(map[i], head->content, ft_strlen(head->content));
+		i++;
+	}
+	i = 0;
+	while (head->next)
+	{
 		ft_strcpy(map[i], head->content);
 		normalize_str(&map[i], ft_strlen(head->content), max_len);
-		printf("map[i] = *%s*\n", map[i]);
+		printf("map[%ld] = *%s*\n", i, map[i]);
 		i++;
 		head = head->next;
 	}
 	map[i] = map[0] + i * max_len;
-	// ft_strlcpy(map[i], head->content, ft_strlen(head->content));
 	ft_strcpy(map[i], head->content);
 	normalize_str(&map[i], ft_strlen(head->content), max_len);
-	printf("map[i] = *%s*\n", map[i]);
+	printf("map[%ld] = *%s*\n", i, map[i]);
+	printf("=%c=\n", map[0][10]);
 	return (map);
 }
-
-/*
-* Читает карты в формате двумерного массива, 
-* и дополняет строки пробелами до размера самой длинной строки.
-* Принимает указатель на двумерный массив.
-*/
-// void		normalize_map(char **map, int max_len)
-// {
-// 	size_t	i;
-
-// 	i = 0;
-// 	while (map[++i])
-// 	{
-// 		if (ft_strlen(map[i]) < max_len)
-// 			normalize_str(map[i], max_len);
-// 	}
-// }
 
 
 /*
@@ -119,8 +119,10 @@ void	print_map(char **map, int len)
 {
 	size_t	i;
 	char **tmp;
+	size_t	j;
 
 	i = 1;
+	j = 0;
 	tmp = map;
 	while (map[i])
 	{
