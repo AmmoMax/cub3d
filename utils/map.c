@@ -58,17 +58,40 @@ int	max_len_line(t_list *head)
 	return (max_len);
 }
 
-void		normalize_str(char **str, size_t str_len, int max_len)
+/*
+* Возвращает символ-сосед, который находится над текущим символом.
+* Принимает указатель на текущий символ
+*
+*/
+char	get_up_neighbour(char *str, int max_len)
 {
 	char *tmp;
 
-	tmp = *str;
-	while (str_len < max_len)
+	tmp = str - max_len;
+	printf("neighbour for [%c] is [%c]\n", *str, *tmp);
+	return (*tmp);
+}
+
+void		normalize_map(char **map, int max_len)
+{
+	size_t	i;
+	size_t	str_len;
+
+	i = 0;
+	while(map[i] != 0)
 	{
-		tmp[str_len] = ' ';
-		str_len++;
+		str_len = ft_strlen(map[i]);
+		if (str_len < max_len)
+		{
+			while (str_len < max_len)
+			{
+				map[i][str_len] = ' ';
+				str_len++;
+			}
+			map[i][str_len] = '\0';
+		}
+		i++;
 	}
-	tmp[str_len] = '\0';
 }
 
 /*
@@ -88,25 +111,21 @@ char		**convert_map(t_list *head)
 		return (NULL);
 	if (!(map[0] = (char *)ft_calloc((max_len + 1) * ft_lstsize(head),sizeof(char))))
 		return (NULL);
-	while (i < (ft_lstsize(head) + 1))
+	while (i < (ft_lstsize(head)))
 	{
-		map[i] = map[0] + i * max_len;
+		map[i] = map[0] + i * (max_len + 1);
 		i++;
 	}
 	i = 0;
 	while (head->next)
 	{
 		ft_strcpy(map[i], head->content);
-		normalize_str(&map[i], ft_strlen(head->content), max_len);
-		printf("map[%ld] = *%s*\n", i, map[i]);
 		i++;
 		head = head->next;
 	}
-	map[i] = map[0] + i * max_len;
 	ft_strcpy(map[i], head->content);
-	normalize_str(&map[i], ft_strlen(head->content), max_len);
-	printf("map[%ld] = *%s*\n", i, map[i]);
-	printf("=%c=\n", map[0][10]);
+	// map[i + 1] = NULL;
+	normalize_map(map, max_len);
 	return (map);
 }
 
@@ -118,18 +137,15 @@ char		**convert_map(t_list *head)
 void	print_map(char **map, int len)
 {
 	size_t	i;
-	char **tmp;
-	size_t	j;
 
-	i = 1;
-	j = 0;
-	tmp = map;
+	printf("*** Start print_map ***\n");
+	i = 0;
 	while (map[i])
 	{
 		printf("%ld :: *%s*\n", i, map[i]);
 		i++;
 	}
-	
+	printf("*** End print_map ***\n");
 }
 
 static int	common_line_map_v(char *line)
@@ -211,6 +227,9 @@ int main()
 	int			fd;
 	m_config	config;
 	m_config	*config_p;
+	char 		**map;
+	size_t		i = 0;
+	char		str;
 
 	config_p = &config;
 	config.map = NULL;
@@ -218,25 +237,21 @@ int main()
 	while (get_next_line(fd, &map_line))
 	{
 		printf("map_line = %s\n", map_line);
-		if(map_handler(map_line, &config_p, 0) == 0)
-		{
-			printf("Line is valid!\n");
-		}
-		else
-		{
-			printf("Line is INVALID!\n");
-			return (1);
-		}
+		map_parser(map_line, &config_p);
 	}
 	printf("last line = %s\n", map_line);
-	if (map_handler(map_line, &config_p, 1) == 1)
-	{
-		printf("Map is INVALID!\n");
-		return (1);
-	}
+	map_parser(map_line, &config_p);
 	close(fd);
-	printf("Map is valid!\n\n");
 	printf("max len in map: %d\n", max_len_line(config.map));
 	print_map(convert_map(config.map), max_len_line(config.map));
+	// map = convert_map(config.map), max_len_line(config.map);
+
+	// str = get_up_neighbour(&map[0][28], max_len_line(config.map));
+	// while (map[0][i])
+	// {
+	// 	printf("%ld ::: %c\n", i, map[0][i]);
+	// 	i++;
+	// }
+
 	return (0);
 }
