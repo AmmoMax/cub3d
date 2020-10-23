@@ -236,34 +236,6 @@ int	map_handler(char *line, m_config **config)
 	return (map_parser(line, config));
 }
 
-/*
-* Валидирует карту из двумерного массива.
-* Вызывает три отдельных валидатор - для первой строки, для последней
-* и всех остальных.
-* Принимает указатель на карту и длину карты.
-* Возвращает 1 если карта не валидна и 0 если валидна
-*/
-int	map_validator(char **map, int len_map)
-{
-	size_t	i;
-	int		len_str;
-
-	i = -1;
-	while (map[++i])
-	{
-		len_str = ft_strlen(map[i]);
-		if (i == 0)
-			if (!(validator_1_str(map[i]) == 0))
-				return (1);
-		else if (i == (len_map - 1))
-			if (!(validator_last_str(map[i]) == 0))
-				return (1);
-		else
-			if (!(validator_common_str(map[i], len_str) == 0))
-				return (1);
-	}
-	return (0);
-}
 
 /*
 * Валидирует первую строку карты.
@@ -278,13 +250,16 @@ static int	validator_1_str(char *str)
 	i = 0;
 	while(str[i])
 	{
-		if (str[i] == 1 || str[i] == ' ')
+		if (str[i] == '1' || str[i] == ' ')
 			i++;
 		else
 			return (1);
 	}
 	return (0);
 }
+
+
+
 
 /*
 * Валидирует последнюю строку карты.
@@ -298,7 +273,7 @@ static int	validator_last_str(char *str)
 	i = 0;
 	while(str[i])
 	{
-		if (str[i] == 1 || str[i] == ' ')
+		if (str[i] == '1' || str[i] == ' ')
 			i++;
 		else
 			return (1);
@@ -307,20 +282,106 @@ static int	validator_last_str(char *str)
 }
 
 /*
-* Валирует обычную строку карты.
-* 
+* Проверяет клетку с пустым пространством в карте, т.е. с 0.
+* Проверяет чтобы клетка с нулем была закрытой - т.е. не соседствовала
+* с пробелом ни по одному из 8 направлений
+* Если клетка валидна - возвращает 0, если нет то 1.
+*/
+static int	check_zero_symbol(char *str, int len)
+{
+	if (*(str - len) == ' ')
+		return (1);
+	else if (*(str - (len + 1)) == ' ')
+		return (1);
+	else if (*(str - (len + 2)) == ' ')
+		return (1);
+	else if (*(str - 1) == ' ')
+		return (1);
+	else if ((*(str + 1) == ' ') || (*(str + 1) == '\0'))
+		return (1);
+	else if (*(str + len) == ' ')
+		return (1);
+	else if (*(str + (len + 1)) == 32)
+	{
+		printf("neighbour = *%c*\n", *(str + (len - 1)));
+		return (1);
+	}
+	else if (*(str + (len + 2)) == ' ')
+		return (1);
+	else
+		return (0);
+}
+
+/*
+* Валирует обычную строку карты относительно других строк.
+* Принимает указатель на текущую строку карты и длину этой строки
 * TODO: Добавить проверку на наличие в карте > 1 игрока.
 */
 static int	validator_common_str(char *str, int len)
 {
 	size_t	i;
+	int		flag_gamer;
+
+	i = 1;
+	flag_gamer = 0;
+	if (str[0] == ' ' || str[0] == '1')
+		while(str[i])
+		{
+			if (str[i] == ' ' || str[i] == '1')
+				i++;
+			else if (str[i] == '0' && check_zero_symbol(str + i, len) == 0)
+				i++;
+			else if (str[i] == '2')
+				i++;
+			else if ((str[i] == 'N' || str[i] == 'S' || 
+					 str[i] == 'W' || str[i] == 'E') && flag_gamer < 1)
+				{
+					i++;
+					flag_gamer++;
+				}
+			else
+			{
+				printf("invalid line: *%s*\n", str);
+				return (1);
+			}
+		}
+	else
+	{
+		printf("invalid line: *%s*\n", str);
+		return (1);
+	}
+	return (0);
+}
+
+/*
+* Валидирует карту из двумерного массива.
+* Вызывает три отдельных валидатор - для первой строки, для последней
+* и всех остальных.
+* Принимает указатель на карту и длину карты.
+* Возвращает 1 если карта не валидна и 0 если валидна
+*/
+int	map_validator(char **map, int len_map)
+{
+	size_t	i;
+	int		len_str;
 
 	i = 0;
-	while(str[i])
-	{
-		
-	}
-
+	if (!(validator_1_str(map[i]) == 0))
+		return (1);
+	else
+		while (map[++i])
+		{
+			len_str = ft_strlen(map[i]);
+			if (i == (len_map - 1))
+			{
+				if (!(validator_last_str(map[i]) == 0))
+					return (1);
+			}
+			else
+				if (!(validator_common_str(map[i], len_str) == 0))
+					return (1);
+		}
+	return (0);
 }
 
 int main()
@@ -349,10 +410,10 @@ int main()
 	map = convert_map(config.map);
 	print_map(map);
 	len_map = ft_lstsize(config.map);
-	if (map_validator(map, len_map))
-		printf("Map is NOT VALID!");
+	if (map_validator(map, len_map) == 1)
+		printf("Map is NOT VALID!\n");
 	else
-		printf("Map is VALID!");
+		printf("Map is VALID!\n");
 		
 
 	// TODO: написать функцию очистки памяти под список с картой
