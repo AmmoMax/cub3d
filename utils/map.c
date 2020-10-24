@@ -302,10 +302,7 @@ static int	check_zero_symbol(char *str, int len)
 	else if (*(str + len) == ' ')
 		return (1);
 	else if (*(str + (len + 1)) == 32)
-	{
-		printf("neighbour = *%c*\n", *(str + (len - 1)));
 		return (1);
-	}
 	else if (*(str + (len + 2)) == ' ')
 		return (1);
 	else
@@ -317,39 +314,30 @@ static int	check_zero_symbol(char *str, int len)
 * Принимает указатель на текущую строку карты и длину этой строки
 * TODO: Добавить проверку на наличие в карте > 1 игрока.
 */
-static int	validator_common_str(char *str, int len)
+static int	validator_common_str(char *str, int len, int *flag_gamer)
 {
 	size_t	i;
-	int		flag_gamer;
 
 	i = 1;
-	flag_gamer = 0;
 	if (str[0] == ' ' || str[0] == '1')
 		while(str[i])
 		{
-			if (str[i] == ' ' || str[i] == '1')
+			if (str[i] == ' ' || str[i] == '1' || str[i] == '2')
 				i++;
 			else if (str[i] == '0' && check_zero_symbol(str + i, len) == 0)
 				i++;
-			else if (str[i] == '2')
-				i++;
 			else if ((str[i] == 'N' || str[i] == 'S' || 
-					 str[i] == 'W' || str[i] == 'E') && flag_gamer < 1)
+					 str[i] == 'W' || str[i] == 'E') && 
+					 check_zero_symbol(str + i, len) == 0)
 				{
 					i++;
-					flag_gamer++;
+					(*flag_gamer)++;
 				}
 			else
-			{
-				printf("invalid line: *%s*\n", str);
 				return (1);
-			}
 		}
 	else
-	{
-		printf("invalid line: *%s*\n", str);
 		return (1);
-	}
 	return (0);
 }
 
@@ -360,12 +348,14 @@ static int	validator_common_str(char *str, int len)
 * Принимает указатель на карту и длину карты.
 * Возвращает 1 если карта не валидна и 0 если валидна
 */
-int	map_validator(char **map, int len_map)
+int			map_validator(char **map, int len_map)
 {
 	size_t	i;
 	int		len_str;
+	int		flag_gamer;
 
 	i = 0;
+	flag_gamer = 0;
 	if (!(validator_1_str(map[i]) == 0))
 		return (1);
 	else
@@ -378,10 +368,10 @@ int	map_validator(char **map, int len_map)
 					return (1);
 			}
 			else
-				if (!(validator_common_str(map[i], len_str) == 0))
+				if (!(validator_common_str(map[i], len_str, &flag_gamer) == 0))
 					return (1);
 		}
-	return (0);
+	return (flag_gamer == 1 ? 0 : 1);
 }
 
 int main()
