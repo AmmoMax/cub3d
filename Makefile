@@ -6,7 +6,7 @@
 #    By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/21 23:12:54 by amayor            #+#    #+#              #
-#    Updated: 2020/10/08 22:24:55 by amayor           ###   ########.fr        #
+#    Updated: 2020/10/24 15:31:19 by amayor           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,14 +15,16 @@
 COMPILER = clang
 NAME = cub3D
 HEADER_FILES_DIR = headers
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -g3
 LIBFT_DIR = libft
 LIBFT_PATH = LIBFT_DIR/libft.a
-SRC_FILES = map_parser.c \
+SRC_FILES = config_parser.c \
 			resolution_parser.c \
 			textures_parser.c \
 			sprite_parser.c \
 			color_parser.c \
+			map_parser.c \
+			map_validator.c
 
 override OBJ_ALL ?=$(OBJ_FILES)
 

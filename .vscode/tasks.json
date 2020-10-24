@@ -8,7 +8,7 @@
                 "-g3",
                 "${fileBasename}",
                 "-L.",
-                "-lft",
+                "-lft"
             ],
             "options": {
                 "cwd": "${relativeFileDirname}"
@@ -20,6 +20,24 @@
                 "kind": "build",
                 "isDefault": true
             }
-        }
+        },
+        // {
+        //     "type": "shell",
+        //     "label": "C/C++: clang build active file",
+        //     "command": "/usr/bin/clang",
+        //     "args": [
+        //         "-g",
+        //         "${file}",
+        //         "-o",
+        //         "${fileDirname}/${fileBasenameNoExtension}"
+        //     ],
+        //     "options": {
+        //         "cwd": "${workspaceFolder}"
+        //     },
+        //     "problemMatcher": [
+        //         "$gcc"
+        //     ],
+        //     "group": "build"
+        // }
     ]
 }
