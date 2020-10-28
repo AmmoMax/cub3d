@@ -1,15 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   g_flat_map.c                                       :+:      :+:    :+:   */
+/*   general.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/27 23:24:26 by amayor            #+#    #+#             */
-/*   Updated: 2020/10/28 11:37:39 by amayor           ###   ########.fr       */
+/*   Created: 2020/10/28 11:32:54 by amayor            #+#    #+#             */
+/*   Updated: 2020/10/28 17:30:37 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/general.h"
+#ifndef GENERAL_H
+# define GENERAL_H
 
+#include "libft.h"
+#include "utils.h"
+#include "mlx.h"
+#include "errors.h"
 
+#endif

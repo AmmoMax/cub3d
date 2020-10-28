@@ -90,3 +90,4 @@ dkms.conf
 .history
 
 /libft
+/ext_libs

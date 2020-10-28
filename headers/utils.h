@@ -6,11 +6,14 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 21:40:16 by amayor            #+#    #+#             */
-/*   Updated: 2020/10/27 23:18:49 by amayor           ###   ########.fr       */
+/*   Updated: 2020/10/28 22:35:16 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#ifndef UTILS_H
+# define UTILS_H
+
+#include <fcntl.h>
 
 typedef struct			color_t
 {
@@ -31,6 +34,7 @@ typedef struct			maze_config
 	color				*floor;
 	color				*ceiling;
 	t_list				*map;
+	char				**flat_map;
 	int					*gamer_pos;
 }						m_config;
 
@@ -64,3 +68,8 @@ int		color_handler(char *line, m_config **config);
 int		map_handler(char *line, m_config **config);
 char	**convert_map(t_list **head);
 int		map_validator(char **map, int len_map);
+int		read_config (char *path);
+int		cleanup_map(m_config *config);
+int		start_cub_3d(char *path, char *save_flag);
+
+#endif

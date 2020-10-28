@@ -1,15 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   g_flat_map.c                                       :+:      :+:    :+:   */
+/*   errors.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/27 23:24:26 by amayor            #+#    #+#             */
-/*   Updated: 2020/10/28 11:37:39 by amayor           ###   ########.fr       */
+/*   Created: 2020/10/28 17:28:03 by amayor            #+#    #+#             */
+/*   Updated: 2020/10/28 23:21:18 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/general.h"
+#ifndef ERRORS_H
+# define ERRORS_H
 
+typedef enum	e_errors
+{
+	ERR_OK = 0,
+	ERR_PARSE = -1,
+	ERR_MEMALLOC = -2,
+	ERR_INVMAP = -3
+}				t_error;
 
+#endif

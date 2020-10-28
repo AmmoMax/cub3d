@@ -6,18 +6,15 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 22:39:43 by amayor            #+#    #+#             */
-/*   Updated: 2020/10/24 22:06:09 by amayor           ###   ########.fr       */
+/*   Updated: 2020/10/28 23:33:03 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/libft.h"
-#include "../headers/utils.h"
-#include <fcntl.h>
-#define ERROR 1
-#define OK 0
+#include "../headers/general.h"
 
 /*
-* Предполагается что функция будет обрабатывать строку из файла и для каждой опции вызывать нужный суб-обработчик
+** Получает строку из файла и отправляет в нужный обработчик.
+** Возвращает код, который вернул обработчик.
 */
 int			line_handler(char *line, m_config **config)
 {
@@ -41,52 +38,24 @@ int			line_handler(char *line, m_config **config)
 		return (OK);
 }
 
-
-int					main (int argc, char *argv[])
+m_config			*read_config (char *path)
 {
 	int				fd;
 	char			*line;
-	m_config		config;
 	m_config		*config_p;
-	char			**map;
-	int				len_map;
+	int				res_line_handler;
 
 	line = NULL;
-	config.floor = NULL;
-	config.ceiling = NULL;
-	config_p = malloc(sizeof(m_config));
-	if (argc == 1)
-	{
-		ft_putendl_fd("Use: cub3d <path to map.cub>", 1);
-		return (1);
-	}
-	fd = open(argv[1], O_RDONLY); // обработка ошибок открытия файла
+	if (!(config_p = ft_calloc(1, sizeof(m_config))) ||
+			(fd = open(path, O_RDONLY)) < 0)
+			return (NULL);
 	while (get_next_line(fd, &line)) // malloc line
 	{
-		// printf("config line = *%s*\n", line);
-		if (line_handler(line, &config_p) != 0) // если обработчик строки вернул ошибку - возвращаем ошибку тут
-		{
-			printf("Error processing line: *%s*\n", line);
-			printf("Map file not valid\n");
-			return (1);
-		}
+		res_line_handler = line_handler(line, &config_p);
+		if (res_line_handler != 0)
+			return (res_line_handler);
+		//TODO: добавить выделение памяти для каждой строки конфига, чтобы каждый раз очищать line
 		// free(line);
 	}
-	map = convert_map(&(config_p->map));
-	len_map = ft_lstsize(config.map);
-	if (map_validator(map, len_map) == 1)
-		printf("***\nMap is NOT VALID!\n***\n\n");
-	else
-		printf("***\nMap is VALID!\n***\n\n");
-	printf("resolution: x = %d, y = %d\n", config_p->x, config_p->y);
-	printf("Path to NO texture = %s\n", config_p->no_texture);
-	printf("Path to SO texture = %s\n", config_p->so_texture);
-	printf("Path to WE texture = %s\n", config_p->we_texture);
-	printf("Path to EA texture = %s\n", config_p->ea_texture);
-	printf("Path to Sprite = %s\n", config_p->s_texture);
-	printf("Color ceiling: red = %d, green = %d, blue = %d\n", config_p->ceiling->red, config_p->ceiling->green, config_p->ceiling->blue);
-	printf("Color floor: red = %d, green = %d, blue = %d\n", config_p->floor->red, config_p->floor->green, config_p->floor->blue);
-	free(config.ceiling);
-	free(config.floor);
-	return (0);
+	return (config_p);
 }

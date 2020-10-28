@@ -6,12 +6,11 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 15:09:13 by amayor            #+#    #+#             */
-/*   Updated: 2020/10/24 15:21:15 by amayor           ###   ########.fr       */
+/*   Updated: 2020/10/28 23:22:38 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/libft.h"
-#include "../headers/utils.h"
+#include "../headers/general.h"
 
 /*
 * Валидирует первую строку карты.
@@ -118,7 +117,7 @@ static int	validator_common_str(char *str, int len, int *flag_gamer)
 * Вызывает три отдельных валидатор - для первой строки, для последней
 * и всех остальных.
 * Принимает указатель на карту и длину карты.
-* Возвращает 1 если карта не валидна и 0 если валидна
+* Возвращает ERR_INVMAP если карта не валидна и 0 если валидна
 */
 int			map_validator(char **map, int len_map)
 {
@@ -137,11 +136,11 @@ int			map_validator(char **map, int len_map)
 			if (i == (len_map - 1))
 			{
 				if (!(validator_last_str(map[i]) == 0))
-					return (1);
+					return (ERR_INVMAP);
 			}
 			else
 				if (!(validator_common_str(map[i], len_str, &flag_gamer) == 0))
-					return (1);
+					return (ERR_INVMAP);
 		}
-	return (flag_gamer == 1 ? 0 : 1);
+	return (flag_gamer == 1 ? 0 : ERR_INVMAP);
 }
