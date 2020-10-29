@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 21:40:16 by amayor            #+#    #+#             */
-/*   Updated: 2020/10/28 22:35:16 by amayor           ###   ########.fr       */
+/*   Updated: 2020/10/29 23:07:22 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,16 @@ typedef struct 			s_world
 	int					y;
 }						t_world;
 
-int		res_handler(char *line, m_config **config);
-int		texture_handler(char *line, m_config **config);
-int		sprite_handler(char *line, m_config **config);
-int		color_handler(char *line, m_config **config);
-int		map_handler(char *line, m_config **config);
-char	**convert_map(t_list **head);
-int		map_validator(char **map, int len_map);
-int		read_config (char *path);
-int		cleanup_map(m_config *config);
-int		start_cub_3d(char *path, char *save_flag);
+int			res_handler(char *line, m_config **config);
+int			texture_handler(char *line, m_config **config);
+int			sprite_handler(char *line, m_config **config);
+int			color_handler(char *line, m_config **config);
+int			map_handler(char *line, m_config **config);
+char		**convert_map(t_list *head);
+int			map_validator(char **map, int len_map);
+m_config	*read_config (char *path);
+void		cleanup_map(m_config *config);
+int			start_cub3d(char *path, char *save_flag);
+void		cleanup_flat_map(char **map);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/21 23:12:54 by amayor            #+#    #+#              #
-#    Updated: 2020/10/24 15:31:19 by amayor           ###   ########.fr        #
+#    Updated: 2020/10/29 19:01:50 by amayor           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,10 @@ SRC_FILES = config_parser.c \
 			sprite_parser.c \
 			color_parser.c \
 			map_parser.c \
-			map_validator.c
+			map_validator.c \
+			clean.c \
+			engine.c \
+			main.c \
 
 override OBJ_ALL ?=$(OBJ_FILES)
 

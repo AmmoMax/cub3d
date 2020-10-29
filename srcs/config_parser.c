@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 22:39:43 by amayor            #+#    #+#             */
-/*   Updated: 2020/10/28 23:33:03 by amayor           ###   ########.fr       */
+/*   Updated: 2020/10/29 23:18:53 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ int			line_handler(char *line, m_config **config)
 	else if (ft_strchr(line, '1')) // TODO: более точное условие строки с картой
 		return (map_handler(line, config));
 	else if (line[0] == '\n' || line[0] == 0)
-		return (OK);
+		return (0);
 	else
-		return (OK);
+		return (1);
 }
 
 m_config			*read_config (char *path)
@@ -46,16 +46,19 @@ m_config			*read_config (char *path)
 	int				res_line_handler;
 
 	line = NULL;
-	if (!(config_p = ft_calloc(1, sizeof(m_config))) ||
+	if (!(config_p = (m_config *)ft_calloc(1, sizeof(m_config))) ||
 			(fd = open(path, O_RDONLY)) < 0)
 			return (NULL);
 	while (get_next_line(fd, &line)) // malloc line
 	{
 		res_line_handler = line_handler(line, &config_p);
 		if (res_line_handler != 0)
-			return (res_line_handler);
-		//TODO: добавить выделение памяти для каждой строки конфига, чтобы каждый раз очищать line
-		// free(line);
+			return (NULL); // TODO: добавить печать ошибки перед возвратом
+		free(line);
 	}
+	res_line_handler = line_handler(line, &config_p);
+	if (res_line_handler != 0)
+		return (NULL); // TODO: добавить печать ошибки перед возвратом
+	free(line);
 	return (config_p);
 }

@@ -6,12 +6,11 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 22:22:19 by amayor            #+#    #+#             */
-/*   Updated: 2020/10/01 22:24:23 by amayor           ###   ########.fr       */
+/*   Updated: 2020/10/29 19:50:51 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/libft.h"
-#include "../headers/utils.h"
+#include "../headers/general.h"
 
 /*
 * Валидирует и записывает в конфиг строку со спрайтом.
@@ -52,11 +51,15 @@ static int	sprite_validator(char *line)
 static int	sprite_parser(char *line, m_config **config)
 {
 	size_t	i;
+	char *str;
 
+	str = (char *)malloc(sizeof(char) * ft_strlen(line) + 1);
+	if (!str)
+		return (ERR_MEMALLOC); // TODO: возможно надо очищение памяти
 	i = 0;
 	while(line[i] == ' ' || line[i] == 'S')
 		i++;
-	(*config)->s_texture = line + i;
+	(*config)->s_texture = ft_strcpy(str, line + i);
 	return (0);
 }
 

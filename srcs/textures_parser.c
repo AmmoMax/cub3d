@@ -6,28 +6,35 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 22:09:19 by amayor            #+#    #+#             */
-/*   Updated: 2020/10/24 21:15:29 by amayor           ###   ########.fr       */
+/*   Updated: 2020/10/29 19:51:18 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/libft.h"
-#include "../headers/utils.h"
+#include "../headers/general.h"
 
+/*
+** Парсит строку с путем к текстуре из файла и сохраняет ее в структуру конфига.
+** TODO: добавить очищение памяти если память не выделилась под одну из строк
+*/
 static int	tex_parser(char *line, char flag, m_config **config)
 {
 	size_t	i;
+	char	*str;
 
 	i = 0;
+	str = (char *)malloc(sizeof(char) * ft_strlen(line) + 1);
+	if (!str)
+		return (ERR_MEMALLOC);
 	while (line[i] == ' ')
 		i++;
 	if(flag == 'N')
-		(*config)->no_texture = line + i;
+		(*config)->no_texture = ft_strcpy(str, line + i);
 	else if(flag == 'S')
-		(*config)->so_texture = line + i;
+		(*config)->so_texture = ft_strcpy(str, line + i);
 	else if(flag =='W')
-		(*config)->we_texture = line + i;
+		(*config)->we_texture = ft_strcpy(str, line + i);
 	else if(flag == 'E')
-		(*config)->ea_texture = line + i;
+		(*config)->ea_texture = ft_strcpy(str, line + i);
 	return (0);
 }
 

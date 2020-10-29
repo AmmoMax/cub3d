@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 15:27:15 by amayor            #+#    #+#             */
-/*   Updated: 2020/10/28 22:52:30 by amayor           ###   ########.fr       */
+/*   Updated: 2020/10/29 18:49:05 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void			cleanup_map(m_config *config)
 
 void			cleanup_flat_map(char **map)
 {
-	free(map[0];
+	free(map[0]);
 	free(map);
 	map = NULL;
 	return ;

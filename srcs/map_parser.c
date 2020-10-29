@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 13:48:41 by amayor            #+#    #+#             */
-/*   Updated: 2020/10/28 23:23:49 by amayor           ###   ########.fr       */
+/*   Updated: 2020/10/29 23:27:07 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,16 @@ static int	map_parser(char *line, m_config **config)
 {
 	t_list	*map_string;
 	t_list	**map;
+	char	*line_map;
 
-	map = &(*config)->map;
-	map_string = ft_lstnew(line);
+	map = &((*config)->map);
+	line_map = (char *)malloc(sizeof(char) * ft_strlen(line) + 1);
+	if (!line_map)
+		return (ERR_MEMALLOC);
+	map_string = ft_lstnew(ft_strcpy(line_map, line));
 	if (!map_string)
 	{
-		cleanup_map(config);
+		cleanup_map(*config);
 		return (ERR_MEMALLOC);
 	}
 	return(ft_lstadd_back(map, map_string));
@@ -41,6 +45,7 @@ static int	max_len_line(t_list *head)
 	while (head->next)
 	{
 		len = ft_strlen(head->content);
+		printf("max_ln_line :: head->content = %s\n", head->content);
 		if (len > max_len)
 			max_len = len;
 		head = head->next;
@@ -49,25 +54,25 @@ static int	max_len_line(t_list *head)
 }
 /*
 ** Общий обработчик строки карты. В зависимости от строки вызывает нужный валидатор.
-** Сначала вызывает парсер карты, который записывает карту из файла в односвязный список.
-** Потом вызывает конвертор карты из односвязного списка в двумерный массив.
-** Потом вызывает валидатор карты, который валидирует карту.
+** Сначала вызывает парсер карты, который записывает строку из файла в односвязный список.
 ** Принимает строку из файла и общий конфиг
 */
 int				map_handler(char *line, m_config **config)
 {
 	m_config	*tmp;
-	int			len_map;
+	// int			len_map;
 
 	tmp = *config;
 	if (map_parser(line, config) != 0)
 		return (ERR_MEMALLOC);
-	tmp->flat_map = convert_map(tmp->map);
-	if (!(tmp->flat_map))
-		return (ERR_MEMALLOC);
-	len_map = ft_lstsize(tmp->map);
-	if (map_validator(tmp->flat_map, len_map) != 0)
-		return (ERR_INVMAP);
+	printf("map_handler :: head->content = %s\n", (*config)->map->content);
+	// tmp->flat_map = convert_map(&tmp->map);
+	// if (!(tmp->flat_map))
+	// 	return (ERR_MEMALLOC);
+	// len_map = ft_lstsize(tmp->map);
+	// if (map_validator(tmp->flat_map, len_map) != 0)
+	// 	return (ERR_INVMAP);
+	return (0);
 }
 
 /*
@@ -106,8 +111,10 @@ char		**convert_map(t_list *head)
 	char 	**map;
 	int		max_len;
 	int		i;
+	// t_list	*head;
 
 	i = 0;
+	// head = *list_map;
 	max_len = max_len_line(head);
 	if (!(map = (char **)ft_calloc(ft_lstsize(head) + 1, sizeof(char *))))
 		return (NULL); // TODO: скорее всего изменить возвращаемое значение из за типа функции
