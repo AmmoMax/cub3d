@@ -6,13 +6,12 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 11:49:02 by amayor            #+#    #+#             */
-/*   Updated: 2020/10/29 23:12:43 by amayor           ###   ########.fr       */
+/*   Updated: 2020/10/31 14:50:22 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/general.h"
 
-#include <stdio.h>
 /*
 *
 * ФУНКЦИЯ ТЕСТОВАЯ, НЕ ИСПОЛЬЗОВАТЬ НА ПРОДЕ.
@@ -49,5 +48,6 @@ int				start_cub3d(char *path, char *save_flag)
 	if (map_validator(config->flat_map, len_map) != 0)
 		return (ERR_INVMAP);
 	print_map(config->flat_map);
+	draw_flat_map(config->flat_map);
 	return (0);
 }

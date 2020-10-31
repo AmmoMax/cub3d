@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 21:40:16 by amayor            #+#    #+#             */
-/*   Updated: 2020/10/29 23:07:22 by amayor           ###   ########.fr       */
+/*   Updated: 2020/10/30 20:49:55 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,10 @@ m_config	*read_config (char *path);
 void		cleanup_map(m_config *config);
 int			start_cub3d(char *path, char *save_flag);
 void		cleanup_flat_map(char **map);
+
+/* Graphics utils */
+
+void		my_mlx_pixel_put(t_data *data, int x, int y, int color);
+int			draw_flat_map(char **map);
 
 #endif

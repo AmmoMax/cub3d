@@ -48,7 +48,7 @@
 			"name": "Run CUB3d",
 			"type": "cppdbg",
 			"request": "launch",
-			"program": "${workspaceFolder}/a.out",
+			"program": "${workspaceFolder}/cub3D",
 			"args": ["maps/basic_map.cub"],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}",
