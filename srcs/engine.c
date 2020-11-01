@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 11:49:02 by amayor            #+#    #+#             */
-/*   Updated: 2020/10/31 14:50:22 by amayor           ###   ########.fr       */
+/*   Updated: 2020/10/31 21:32:13 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int				start_cub3d(char *path, char *save_flag)
 {
 	m_config	*config;
 	int			len_map;
-	// t_world		*world;
 
 	if (save_flag && ft_strncmp("--save", save_flag, ft_strlen(save_flag)) == 1)
 		return (1); // TODO: обработка ошибки - параметр не равен --save
@@ -48,6 +47,6 @@ int				start_cub3d(char *path, char *save_flag)
 	if (map_validator(config->flat_map, len_map) != 0)
 		return (ERR_INVMAP);
 	print_map(config->flat_map);
-	draw_flat_map(config->flat_map);
+	g_engine(config);
 	return (0);
 }

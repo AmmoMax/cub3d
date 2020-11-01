@@ -6,13 +6,13 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 23:24:26 by amayor            #+#    #+#             */
-/*   Updated: 2020/10/31 15:35:37 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/01 14:31:33 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/general.h"
 
-static void		draw_block(t_data *img, int side, int color)
+static void		draw_block(t_win *win, int side, int color)
 {
 	int		i;
 	int		j;
@@ -23,56 +23,55 @@ static void		draw_block(t_data *img, int side, int color)
 		j = 0;
 		while (j < side)
 		{
-			my_mlx_pixel_put(img, i, j, color);
+			my_mlx_pixel_put(win, i, j, color);
 			j++;
 		}
 		i++;
 	}
 }
 
-int	draw_flat_map(char **map)
+int	draw_flat_map(t_world **p_world)
 {
-	// void	*mlx;
-	t_data	img;
-	t_vars	vars;
 	int		i;
 	int		j;
 	int		x;
 	int		y;
+	char	**map;
+	t_world *world;
 	
 	i = 0;
-	j = 0;
 	x = 100;
 	y = 100;
-	vars.mlx = mlx_init();
-	vars.win = mlx_new_window(vars.mlx, 800, 600, "Cub3D");
-	img.img = mlx_new_image(vars.mlx, 800, 600);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+	world = *p_world;
+	map = world->map;
 	
 	while (map[i])
 	{
-		j = 0;
-		while(map[i][j])
+		j = -1;
+		while(map[i][++j])
 		{
 			if(map[i][j] == '1' || map[i][j] == '2')
 			{
-				draw_block(&img, 20, 0xFF1493);
-				mlx_put_image_to_window(vars.mlx, vars.win, img.img, x, y);
-				x += 20;
-				j++;
+				draw_block(world->win, SCALE, 0xFF1497);
+				mlx_put_image_to_window(world->win->mlx, 
+						world->win->win, world->win->img, x, y);
+				x += SCALE;
+			}
+			else if (map[i][j] == 'N' || map[i][j] == 'W' || map[i][j] == 'E' || map[i][j] == 'S')
+			{
+				world->plr->x = x;
+				world->plr->y = y;
+				draw_block(world->win, SCALE, 0x00FFFF);
+				mlx_put_image_to_window(world->win->mlx, 
+						world->win->win, world->win->img, x, y);
+				x += SCALE;
 			}
 			else
-			{
-				j++;
-				x += 20;
-			}
+				x += SCALE;
 		}
-		y += 20;
+		y += SCALE;
 		x = 100;
-		printf("print line map = %s\n", map[i]);
 		i++;
 	}
-	mlx_loop(vars.mlx);
 	return (0);
 }
-
