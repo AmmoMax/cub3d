@@ -68,17 +68,18 @@ int			render_next_frame(t_world *world)
 
 int			handle_keypress(int keycode, t_world *world)
 {
-	// printf("keycode = %d\n", keycode);
+	printf("keycode = %d\n", keycode);
 	if (keycode == 65362)
 	{
 		mlx_clear_window(world->vars->mlx, world->vars->win);
 		draw_square(world->img, 200, 0xDC143C);
 		mlx_put_image_to_window(world->vars->mlx, world->vars->win, world->img->img, world->x, world->y);
-		world->x += 10;
+		world->y -= 2;
 		// world->img->img = mlx_new_image(world->vars->mlx, 800, 600);
 		// mlx_destroy_image(world->vars->mlx, world->img->img);
 		// world->y += 10;
 	}
+	return (0);
 }
 
 int main(void)
@@ -104,4 +105,5 @@ int main(void)
 	// mlx_loop_hook(vars.mlx, render_next_frame, &world);
 	mlx_hook(world.vars->win, 2, 1L<<0, handle_keypress, &world);
 	mlx_loop(vars.mlx);
+	return (0);
 }
