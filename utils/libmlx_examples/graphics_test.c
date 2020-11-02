@@ -30,10 +30,11 @@ void		my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-int			key_hook(int keycode, t_vars *vars)
+int			key_hook(int keycode, t_data *data)
 {
 	printf("Hello from my key_hook!\n");
 	printf("keycode = %d\n", keycode);
+	draw_big_cube(data);
 }
 
 int			mouse_hook(int code, t_vars *vars)
@@ -62,6 +63,39 @@ int			mouse_hover(int keycode, t_vars *vars)
 	printf("Hi mouse!");
 }
 
+int			draw_block_5(t_data *data, int x, int y)
+{
+	int i = y;
+	int j; 
+	int color = 0xFF1493;
+	while (i < (y + 5))
+	{
+		j=x;
+		while (j < (x + 5))
+		{
+			my_mlx_pixel_put(data, i, j, color);
+			j++;
+		}
+		i++;
+	}
+}
+
+int			draw_big_cube(t_data *data)
+{
+	int i = 0; 
+	int	j;
+	while (i < 300)
+	{
+		j = 0;
+		while (j < 300)
+		{
+			draw_block_5(data, i, j);
+			j += 5;
+		}
+		i += 5;
+	}
+}
+
 int			main(void)
 {
 	void	*mlx;
@@ -79,7 +113,7 @@ int			main(void)
 	/*
 	* возвращает указатель на созданное окно с заданными параметрами
 	*/
-	img.img = mlx_new_image(vars.mlx, 200, 200);
+	img.img = mlx_new_image(vars.mlx, 800, 600);
 	/*
 	* создает объект изображения определенного размера, в который мы потом
 	* сможем поместить байты в нужном виде
@@ -91,25 +125,14 @@ int			main(void)
 	* в функцию mlx_get_data_ddr, которая их изменит (как то) и вернет адрес изображения
 	*/
 
-	int i = 0, j = 0;
-	color = 0xFF1493;
-	while (i < 50)
-	{
-		j=0;
-		while (j < 100)
-		{
-			my_mlx_pixel_put(&img, i, j, color);
-			j++;
-		}
-		i++;
-	}
+	draw_big_cube(&img);
 
 	mlx_put_image_to_window(vars.mlx, vars.win, img.img, 100, 100);
-	mlx_key_hook(vars.win, key_hook, &vars);
-	mlx_mouse_hook(vars.win, mouse_hook, &vars);
+	mlx_key_hook(vars.win, key_hook, &img);
+	// mlx_mouse_hook(vars.win, mouse_hook, &vars);
 	mlx_hook(vars.win, 2, 1L<<0, close_esc, &vars);
 	mlx_hook(vars.win, 17, 1L<<17, close_red_cross, &vars);
-	mlx_hook(vars.win, 6, 1L<<6, mouse_hover, &vars);	
+	// mlx_hook(vars.win, 6, 1L<<6, mouse_hover, &vars);	
 	mlx_loop(vars.mlx);
 
 	/*=========================================
