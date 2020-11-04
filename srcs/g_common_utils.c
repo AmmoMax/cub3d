@@ -6,11 +6,23 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 20:24:56 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/04 13:22:49 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/04 13:26:57 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/general.h"
+
+static void save_plr_dir(char plr, t_world **world)
+{
+	if (plr == 'N')
+		(*world)->plr->dir = M_PI_2;
+	if (plr == 'W')
+		(*world)->plr->dir = M_PI;
+	if (plr == 'S')
+		(*world)->plr->dir = (3 * M_PI) / 2;
+	if (plr == 'E')
+		(*world)->plr->dir = 2 * M_PI;
+}
 
 /*
 ** Помещает "пиксель на изображение", вычисляет адрес смещения
@@ -100,16 +112,4 @@ void		cast_rays(t_world *world)
 		}
 		ray.start += FOV / 70;
 	}
-}
-
-static void save_plr_dir(char plr, t_world **world)
-{
-	if (plr == 'N')
-		(*world)->plr->dir = M_PI_2;
-	if (plr == 'W')
-		(*world)->plr->dir = M_PI;
-	if (plr == 'S')
-		(*world)->plr->dir = (3 * M_PI) / 2;
-	if (plr == 'E')
-		(*world)->plr->dir = 2 * M_PI;
 }
