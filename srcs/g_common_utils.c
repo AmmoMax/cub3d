@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 20:24:56 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/04 13:26:57 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/04 14:47:19 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 static void save_plr_dir(char plr, t_world **world)
 {
-	if (plr == 'N')
+	if (plr == 'S')
 		(*world)->plr->dir = M_PI_2;
 	if (plr == 'W')
 		(*world)->plr->dir = M_PI;
-	if (plr == 'S')
+	if (plr == 'N')
 		(*world)->plr->dir = (3 * M_PI) / 2;
 	if (plr == 'E')
 		(*world)->plr->dir = 2 * M_PI;
@@ -79,37 +79,36 @@ void		check_location(t_world **p_world, float new_x, float new_y)
 }
 
 
-void		cast_ray(t_world *world)
-{
-	t_plr	ray;
+// void		cast_ray(t_world *world)
+// {
+// 	t_plr	ray;
 
-	ray = (*world->plr);
-	while(world->map[(int)((ray.y - START_Y) / SCALE)][(int)((ray.x - START_X) / SCALE)] != '1')
-	{
-		ray.x += cos(ray.dir);
-		ray.y += sin(ray.dir);
-		my_mlx_pixel_put(world->win, ray.x, ray.y, 0x990099);
-	}
-}
+// 	ray = (*world->plr);
+// 	while(world->map[(int)((ray.y - START_Y) / SCALE)][(int)((ray.x - START_X) / SCALE)] != '1')
+// 	{
+// 		ray.x += cos(ray.dir);
+// 		ray.y += sin(ray.dir);
+// 		my_mlx_pixel_put(world->win, ray.x, ray.y, 0x990099);
+// 	}
+// }
 
 void		cast_rays(t_world *world)
 {
 	t_plr	ray;
-	float	start;
-	float	end;
 
-	start = world->plr->dir - (FOV / 2);
-	end = world->plr->dir + (FOV / 2);
+	ray = *world->plr;
+	ray.start = world->plr->dir - (FOV / 2);
+	ray.end = world->plr->dir + (FOV / 2);
 	while(ray.start < ray.end)
 	{
 		ray.x = world->plr->x;
 		ray.y = world->plr->y;
 		while (world->map[(int)((ray.y - START_Y) / SCALE)][(int)((ray.x - START_X) / SCALE)] != '1')
 		{
-			ray.x += cos(ray.dir);
-			ray.y += sin(ray.dir);
+			ray.x = ray.x + cos(ray.start);
+			ray.y = ray.y + sin(ray.start);
 			my_mlx_pixel_put(world->win, ray.x, ray.y, 0x990099);
 		}
-		ray.start += FOV / 70;
+		ray.start += FOV / 1920;
 	}
 }

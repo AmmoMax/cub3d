@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 15:55:38 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/04 13:18:16 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/04 14:47:30 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #define CLR_BLK 0xFF1497
 #define CLR_PLR 0x00FF00
 #define SPEED 10
-#define FOV	70
+#define FOV	M_PI / 3
 #define _USE_MATH_DEFINES
 
 typedef struct 			s_win
@@ -60,7 +60,7 @@ int			move_f(int keycode, t_world **world);
 void		draw_block(t_win *win, int color, int x, int y);
 void		check_location(t_world **world, float new_x, float new_y);
 void		draw_player(t_win *win, int color, int x, int y);
-void		cast_ray(t_world *world);
+// void		cast_ray(t_world *world);
 void		cast_rays(t_world *world);
 
 

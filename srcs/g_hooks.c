@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 22:47:59 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/04 13:25:04 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/04 13:38:05 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ int			move_f(int keycode, t_world **world)
 	}
 	else if (keycode == 65361)
 	{
-		(*world)->plr->dir += 0.2;
+		(*world)->plr->dir -= M_PI / 90;
 		draw_flat_map(*world);
 	}
 	else if (keycode == 65363)
 	{
-		(*world)->plr->dir -= 0.2;
+		(*world)->plr->dir += M_PI / 90;
 		draw_flat_map(*world);
 	}
 	return (0);
