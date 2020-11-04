@@ -6,13 +6,13 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 23:24:26 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/02 11:52:49 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/03 21:53:04 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/general.h"
 
-static void		draw_block(t_win *win, int color, int x, int y)
+void		draw_block(t_win *win, int color, int x, int y)
 {
 	int			i;
 	int			j;
@@ -28,6 +28,11 @@ static void		draw_block(t_win *win, int color, int x, int y)
 		}
 		i ++;
 	}
+}
+
+void		draw_player(t_win *win, int color, int x, int y)
+{
+	my_mlx_pixel_put(win, x, y, color);
 }
 
 int			check_plr_pos(t_world *world, int x, int y)
@@ -63,17 +68,17 @@ void			draw_flat_map(t_world *world)
 				draw_block(world->win, CLR_BLK, x, y);
 				x += SCALE;
 			}
-			else if (check_plr_pos(world, x , y))
+			else
 			{
-				draw_block(world->win, CLR_PLR, x, y);
+				draw_block(world->win, 0x000000, x, y);
 				x += SCALE;
 			}
-			else
-				x += SCALE;
 		}
 		y += SCALE;
 		x = 100;
 		i++;
 	}
+	draw_player(world->win, CLR_PLR, world->plr->x, world->plr->y);
+	cast_rays(world);
 	mlx_put_image_to_window(world->win->mlx, world->win->win, world->win->img, START_X, START_Y);
 }

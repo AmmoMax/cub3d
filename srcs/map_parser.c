@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 13:48:41 by amayor            #+#    #+#             */
-/*   Updated: 2020/10/29 23:27:07 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/04 13:08:32 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,18 +60,10 @@ static int	max_len_line(t_list *head)
 int				map_handler(char *line, m_config **config)
 {
 	m_config	*tmp;
-	// int			len_map;
 
 	tmp = *config;
 	if (map_parser(line, config) != 0)
 		return (ERR_MEMALLOC);
-	printf("map_handler :: head->content = %s\n", (*config)->map->content);
-	// tmp->flat_map = convert_map(&tmp->map);
-	// if (!(tmp->flat_map))
-	// 	return (ERR_MEMALLOC);
-	// len_map = ft_lstsize(tmp->map);
-	// if (map_validator(tmp->flat_map, len_map) != 0)
-	// 	return (ERR_INVMAP);
 	return (0);
 }
 
@@ -111,10 +103,8 @@ char		**convert_map(t_list *head)
 	char 	**map;
 	int		max_len;
 	int		i;
-	// t_list	*head;
 
 	i = 0;
-	// head = *list_map;
 	max_len = max_len_line(head);
 	if (!(map = (char **)ft_calloc(ft_lstsize(head) + 1, sizeof(char *))))
 		return (NULL); // TODO: скорее всего изменить возвращаемое значение из за типа функции
