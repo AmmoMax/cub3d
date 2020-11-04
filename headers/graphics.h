@@ -6,13 +6,13 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 15:55:38 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/04 14:47:30 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/04 14:57:36 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GRAPHICS_H
 # define GRAPHICS_H
-#define SCALE 30
+#define SCALE 64
 #define START_X 100
 #define START_Y 100
 #define CLR_BLK 0xFF1497
