@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 20:24:56 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/04 14:47:19 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/05 13:01:44 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void		my_mlx_pixel_put(t_win *win, int x, int y, int color)
 	dst = win->addr + (y * win->line_length + x * (win->bbp / 8));
 	*(unsigned int *)dst = color;
 }
+
 
 void		save_plr_pos(t_world **world)
 {
@@ -78,23 +79,44 @@ void		check_location(t_world **p_world, float new_x, float new_y)
 		world->plr->x = new_x;
 }
 
+static int		get_dist(t_plr *ray, t_world *world)
+{
+	float		dist;
+	float		height;
+	float		plane;
+	t_plr		*plr;
 
-// void		cast_ray(t_world *world)
-// {
-// 	t_plr	ray;
+	plr = world->plr;
+	plane = (world->config->x / 2) / tan(FOV / 2);
+	dist = sqrt (pow(ray->x - plr->x, 2) + pow(ray->y - plr->y, 2));
+	height = (SCALE / dist) * plane;
+	// height = 1080 / dist * 10;
+	return ((int)height);
+}
 
-// 	ray = (*world->plr);
-// 	while(world->map[(int)((ray.y - START_Y) / SCALE)][(int)((ray.x - START_X) / SCALE)] != '1')
-// 	{
-// 		ray.x += cos(ray.dir);
-// 		ray.y += sin(ray.dir);
-// 		my_mlx_pixel_put(world->win, ray.x, ray.y, 0x990099);
-// 	}
-// }
+
+// TODO: скорее всего не нужна, может быть стоит убрать
+void		cast_ray(t_world *world)
+{
+	t_plr	ray;
+	float	height;
+
+	ray = (*world->plr);
+	while(world->map[(int)((ray.y - START_Y) / SCALE)][(int)((ray.x - START_X) / SCALE)] != '1')
+	{
+		ray.x += cos(ray.dir);
+		ray.y += sin(ray.dir);
+		// my_mlx_pixel_put(world->win, ray.x, ray.y, 0x990099);
+	}
+	height = get_dist(&ray, world);
+	// draw_column(world, height, 0xFFFFFF);
+}
 
 void		cast_rays(t_world *world)
 {
 	t_plr	ray;
+	float	height;
+	int		x = 0;
 
 	ray = *world->plr;
 	ray.start = world->plr->dir - (FOV / 2);
@@ -107,8 +129,11 @@ void		cast_rays(t_world *world)
 		{
 			ray.x = ray.x + cos(ray.start);
 			ray.y = ray.y + sin(ray.start);
-			my_mlx_pixel_put(world->win, ray.x, ray.y, 0x990099);
 		}
-		ray.start += FOV / 1920;
+		height = get_dist(&ray, world);
+		draw_column(world, x, height, 0xFFFFFF);
+		x++;
+		ray.start += FOV / world->config->x;
 	}
+	mlx_put_image_to_window(world->win->mlx, world->win->win, world->win->img, START_X, START_Y);
 }

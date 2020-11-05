@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 23:24:26 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/04 14:26:41 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/05 13:02:59 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,32 @@ void		draw_block(t_win *win, int color, int x, int y)
 		while (j < (x + SCALE))
 		{
 			my_mlx_pixel_put(win, j, i, color);
-			j ++;;
+			j++;;
 		}
-		i ++;
+		i++;
 	}
 }
 
 void		draw_player(t_win *win, int color, int x, int y)
 {
 	my_mlx_pixel_put(win, x, y, color);
+}
+
+void		draw_column(t_world *world, float x, float height, int color)
+{
+	float y_start;
+	float y;
+
+	if (height > world->config->y)
+		height = world->config->y;
+	y_start = world->config->y / 2 - height / 2;
+	y = y_start;
+	while (height > 0)
+	{
+		my_mlx_pixel_put(world->win, x, y, color);
+		y++;
+		height--;
+	}
 }
 
 int			check_plr_pos(t_world *world, int x, int y)
@@ -81,4 +98,10 @@ void			draw_flat_map(t_world *world)
 	draw_player(world->win, CLR_PLR, world->plr->x, world->plr->y);
 	cast_rays(world);
 	mlx_put_image_to_window(world->win->mlx, world->win->win, world->win->img, START_X, START_Y);
+}
+
+void	draw_3d_map(t_world *world)
+{
+	cast_rays(world);
+	// mlx_put_image_to_window(world->win->mlx, world->win->win, world->win->img, START_X, START_Y);
 }

@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 22:47:59 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/04 13:38:05 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/05 12:35:33 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,42 @@ int			move_f(int keycode, t_world **world)
 	{
 		(*world)->plr->dir += M_PI / 90;
 		draw_flat_map(*world);
+	}
+	return (0);
+}
+
+int			move_forward(int keycode, t_world **world)
+{
+	float	y;
+	float	x;
+
+	if (keycode == 65362)
+	{
+		mlx_clear_window((*world)->win->mlx, (*world)->win->win);
+		x = (*world)->plr->x + cos((*world)->plr->dir) * SPEED;
+		y = (*world)->plr->y + sin((*world)->plr->dir) * SPEED;
+		check_location(world, x, y);
+		draw_3d_map(*world);
+		mlx_put_image_to_window((*world)->win->mlx, (*world)->win->win, (*world)->win->img, START_X, START_Y);
+	}
+	else if (keycode == 65364)
+	{
+		mlx_clear_window((*world)->win->mlx, (*world)->win->win);
+		x = (*world)->plr->x - cos((*world)->plr->dir) * SPEED;
+		y = (*world)->plr->y - sin((*world)->plr->dir) * SPEED;
+		check_location(world, x, y);
+		draw_3d_map(*world);
+		mlx_put_image_to_window((*world)->win->mlx, (*world)->win->win, (*world)->win->img, START_X, START_Y);
+	}
+	else if (keycode == 65361)
+	{
+		(*world)->plr->dir -= M_PI / 90;
+		draw_3d_map(*world);
+	}
+	else if (keycode == 65363)
+	{
+		(*world)->plr->dir += M_PI / 90;
+		draw_3d_map(*world);
 	}
 	return (0);
 }

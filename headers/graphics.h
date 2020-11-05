@@ -6,19 +6,19 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 15:55:38 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/04 14:57:36 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/05 12:58:04 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GRAPHICS_H
 # define GRAPHICS_H
 #define SCALE 64
-#define START_X 100
-#define START_Y 100
+#define START_X 0
+#define START_Y 0
 #define CLR_BLK 0xFF1497
 #define CLR_PLR 0x00FF00
-#define SPEED 10
-#define FOV	M_PI / 3
+#define SPEED 16
+#define FOV	M_PI / 2
 #define _USE_MATH_DEFINES
 
 typedef struct 			s_win
@@ -46,6 +46,7 @@ typedef struct			s_world
 	t_plr				*plr;
 	t_win				*win;
 	char				**map;
+	m_config			*config;
 }						t_world;
 
 
@@ -60,8 +61,11 @@ int			move_f(int keycode, t_world **world);
 void		draw_block(t_win *win, int color, int x, int y);
 void		check_location(t_world **world, float new_x, float new_y);
 void		draw_player(t_win *win, int color, int x, int y);
-// void		cast_ray(t_world *world);
+void		cast_ray(t_world *world);
 void		cast_rays(t_world *world);
+void		draw_column(t_world *world, float x, float height, int color);
+void		draw_3d_map(t_world *world);
+int			move_forward(int keycode, t_world **world);
 
 
 #endif
