@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 20:24:56 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/05 13:01:44 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/05 19:59:25 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void		check_location(t_world **p_world, float new_x, float new_y)
 static int		get_dist(t_plr *ray, t_world *world)
 {
 	float		dist;
+	float		dist2;
 	float		height;
 	float		plane;
 	t_plr		*plr;
@@ -89,7 +90,8 @@ static int		get_dist(t_plr *ray, t_world *world)
 	plr = world->plr;
 	plane = (world->config->x / 2) / tan(FOV / 2);
 	dist = sqrt (pow(ray->x - plr->x, 2) + pow(ray->y - plr->y, 2));
-	height = (SCALE / dist) * plane;
+	dist2 = abs((int)(dist * cos(ray->start - ray->dir)));
+	height = (SCALE / dist2) * plane;
 	// height = 1080 / dist * 10;
 	return ((int)height);
 }

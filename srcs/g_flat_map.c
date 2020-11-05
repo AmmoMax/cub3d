@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 23:24:26 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/05 13:09:53 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/05 19:57:46 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,11 @@ void		draw_column(t_world *world, float x, float height, int color)
 		my_mlx_pixel_put(world->win, x, y, color);
 		y++;
 		height--;
+	}
+	while (y < world->config->y)
+	{
+		my_mlx_pixel_put(world->win, x, y, 0x808080);
+		y++;
 	}
 }
 
