@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 22:47:59 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/08 19:00:36 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/08 22:07:05 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ int			move_forward(int keycode, t_world **world)
 			(*world)->plr->dir -= 2 * M_PI;
 		else if ((*world)->plr->dir < 0)
 			(*world)->plr->dir += 2 * M_PI;
-		printf("DIR = %f degrees\n", ((*world)->plr->dir * 180) / M_PI);
 		draw_3d_map(*world);
 	}
 	else if (keycode == 65363)
@@ -92,7 +91,6 @@ int			move_forward(int keycode, t_world **world)
 			(*world)->plr->dir -= 2 * M_PI;
 		else if ((*world)->plr->dir < 0)
 			(*world)->plr->dir += 2 * M_PI;
-		printf("DIR = %f degrees\n", ((*world)->plr->dir * 180) / M_PI);
 		draw_3d_map(*world);
 	}
 	return (0);

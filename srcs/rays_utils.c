@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 15:18:12 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/08 20:35:52 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/08 22:07:09 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int		get_height(t_world *world, float dist)
 ** Проверяет горизонтальные пересечения для каждого луча.
 ** Возвращает расстояние для стены.
 */
-static float		hor_intersect(t_world *world, t_plr *ray)
+static float		hor_intersect(t_world *world, t_plr *ray, char *h_wall)
 {
 	float	step_y;
 	float	step_x;
@@ -51,19 +51,19 @@ static float		hor_intersect(t_world *world, t_plr *ray)
 
 	step_y = SCALE;
 	step_x = SCALE / tan(ray->start);
-	if ((ray->start < M_PI && ray->start > 0)) // луч идет вверх
+	if ((ray->start < M_PI && ray->start > 0) || ray->start > M_PI * 2) // луч идет вверх
 	{
-		p_y = (int)world->plr->y / SCALE * SCALE - 0.01;
+		*h_wall = 'S';
+		p_y = (int)world->plr->y / SCALE * SCALE - 0.001;
 		step_y = -step_y;
 	}
 	else
 	{
+		*h_wall = 'N';
 		p_y = (int)world->plr->y / SCALE * SCALE + SCALE; // луч идет вниз
 		step_x = -step_x;
 	}
 	p_x = world->plr->x + (world->plr->y - p_y) / tan(ray->start);
-	// p_x = world->plr->x + (p_y - world->plr->y) / tan(ray->start);
-	// printf("horizontal intersect: p_x = %f p_y = %f \n", p_x, p_y);
 	while ((res = find_wall(world, p_x ,p_y)) == 0)
 	{
 		p_x += step_x;
@@ -71,35 +71,34 @@ static float		hor_intersect(t_world *world, t_plr *ray)
 	}
 	if (res == -1)
 		return (1000000);
-	return (sqrt(pow(world->plr->x - p_x, 2) + pow(world->plr->y - p_y, 2)));
-	
+	return (sqrt(pow(world->plr->x - p_x, 2) + pow(world->plr->y - p_y, 2)));	
 }
 
-static float		vert_intersect(t_world *world, t_plr *ray)
+
+
+static float		vert_intersect(t_world *world, t_plr *ray, char *v_wall)
 {
 	float	step_y;
 	float	step_x;
 	float	p_x;
 	float	p_y;
 	int		res;
-	float	tmp_tan;
 
 	step_x = SCALE;
 	step_y = SCALE * tan(ray->start);
 	if (ray->start > M_PI_2 && ray->start < (3 * M_PI / 2)) // луч движется влево
 	{
-		p_x = (int)world->plr->x / SCALE * SCALE - 0.01;
+		*v_wall = 'E';
+		p_x = (int)world->plr->x / SCALE * SCALE - 0.001;
 		step_x = -step_x;
 	}
 	else
 	{
+		*v_wall = 'W';
 		p_x = (int)world->plr->x / SCALE * SCALE + SCALE; // луч движется вправо
 		step_y = -step_y; // из за перевернутой системы координат?
 	}
 	p_y = world->plr->y + (world->plr->x - p_x) * tan(ray->start);
-	// p_y = world->plr->y + (p_x - world->plr->x) * tan(ray->start);
-	// printf("vert intersect: p_x = %f p_y = %f \n", p_x, p_y);
-	tmp_tan = tan(ray->start);
 	while ((res = find_wall(world, p_x, p_y)) == 0)
 	{
 		p_x += step_x;
@@ -123,6 +122,8 @@ void		cast_rays_dda(t_world *world)
 	float	dist_vert;
 	int		x;
 	float	height;
+	char	v_wall;
+	char	h_wall;
 
 	ray = *world->plr;
 	x = 0;
@@ -133,17 +134,17 @@ void		cast_rays_dda(t_world *world)
 		ray.x = world->plr->x;
 		ray.y = world->plr->y;
 		
-		dist_hor = hor_intersect(world, &ray);
-		dist_vert = vert_intersect(world, &ray);
+		dist_hor = hor_intersect(world, &ray, &h_wall);
+		dist_vert = vert_intersect(world, &ray, &v_wall);
 		if (dist_hor < dist_vert)
 		{
 			height = get_height(world, dist_hor * cos(ray.start - world->plr->dir));
-			draw_column(world, x, height, 0xFF0000); // красный столбец
+			draw_column(world, x, height, h_wall); // красный столбец
 		}
 		else
 		{
 			height = get_height(world, dist_vert * cos(ray.start - world->plr->dir));
-			draw_column(world, x, height, 0x00FF00); // зеленый столбец
+			draw_column(world, x, height, v_wall); // зеленый столбец
 		}
 		x++;
 		ray.start -= FOV / world->config->x;

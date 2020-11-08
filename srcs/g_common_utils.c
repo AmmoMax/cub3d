@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 20:24:56 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/08 16:06:14 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/08 21:57:00 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,28 +144,28 @@ void		cast_rays_flat(t_world *world)
 	mlx_put_image_to_window(world->win->mlx, world->win->win, world->win->img, START_X, START_Y);
 }
 
-void		cast_rays(t_world *world)
-{
-	t_plr	ray;
-	float	height;
-	int		x = 0;
+// void		cast_rays(t_world *world)
+// {
+// 	t_plr	ray;
+// 	float	height;
+// 	int		x = 0;
 
-	ray = *world->plr;
-	ray.start = world->plr->dir - (FOV / 2);
-	ray.end = world->plr->dir + (FOV / 2);
-	while(ray.start < ray.end)
-	{
-		ray.x = world->plr->x;
-		ray.y = world->plr->y;
-		while (world->map[(int)((ray.y - START_Y) / SCALE)][(int)((ray.x - START_X) / SCALE)] != '1')
-		{
-			ray.x = ray.x + cos(ray.start);
-			ray.y = ray.y + sin(ray.start);
-		}
-		height = get_dist(&ray, world);
-		draw_column(world, x, height, 0xFFFFFF);
-		x++;
-		ray.start += FOV / world->config->x;
-	}
-	mlx_put_image_to_window(world->win->mlx, world->win->win, world->win->img, START_X, START_Y);
-}
+// 	ray = *world->plr;
+// 	ray.start = world->plr->dir - (FOV / 2);
+// 	ray.end = world->plr->dir + (FOV / 2);
+// 	while(ray.start < ray.end)
+// 	{
+// 		ray.x = world->plr->x;
+// 		ray.y = world->plr->y;
+// 		while (world->map[(int)((ray.y - START_Y) / SCALE)][(int)((ray.x - START_X) / SCALE)] != '1')
+// 		{
+// 			ray.x = ray.x + cos(ray.start);
+// 			ray.y = ray.y + sin(ray.start);
+// 		}
+// 		height = get_dist(&ray, world);
+// 		draw_column(world, x, height, 0xFFFFFF);
+// 		x++;
+// 		ray.start += FOV / world->config->x;
+// 	}
+// 	mlx_put_image_to_window(world->win->mlx, world->win->win, world->win->img, START_X, START_Y);
+// }

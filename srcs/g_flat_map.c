@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 23:24:26 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/07 22:47:54 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/08 22:02:09 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,20 @@ void		draw_player(t_win *win, int color, int x, int y)
 	my_mlx_pixel_put(win, x, y, color);
 }
 
-void		draw_column(t_world *world, float x, float height, int color)
+static int get_wall_c(char c_wall)
+{
+	if (c_wall == 'N')
+		return (0x00FFFF);
+	if (c_wall == 'S')
+		return (0xFFD700);
+	if (c_wall == 'E')
+		return (0xFF4500);
+	if (c_wall == 'W')
+		return (0x8A2BE2);
+	return (0);
+}
+
+void		draw_column(t_world *world, float x, float height, char c_wall)
 {
 	float y_start;
 	float y;
@@ -43,22 +56,21 @@ void		draw_column(t_world *world, float x, float height, int color)
 	if (height > world->config->y)
 		height = world->config->y;
 	y_start = world->config->y / 2 - height / 2;
-	// y = y_start;
 	y = 0;
 	while (y < y_start)
 	{
-		my_mlx_pixel_put(world->win, x, y, 0xFFD700);
+		my_mlx_pixel_put(world->win, x, y, 0xFFFFFF);
 		y++;
 	}
 	while (height > 0)
 	{
-		my_mlx_pixel_put(world->win, x, y, color);
+		my_mlx_pixel_put(world->win, x, y, get_wall_c(c_wall));
 		y++;
 		height--;
 	}
 	while (y < world->config->y)
 	{
-		my_mlx_pixel_put(world->win, x, y, 0x808080);
+		my_mlx_pixel_put(world->win, x, y, 0x000000);
 		y++;
 	}
 }
