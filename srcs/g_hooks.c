@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 22:47:59 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/07 17:51:20 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/08 19:00:36 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int			move_forward(int keycode, t_world **world)
 	{
 		mlx_clear_window((*world)->win->mlx, (*world)->win->win);
 		x = (*world)->plr->x + cos((*world)->plr->dir) * SPEED;
-		y = (*world)->plr->y + sin((*world)->plr->dir) * SPEED;
+		y = (*world)->plr->y - sin((*world)->plr->dir) * SPEED;
 		check_location(world, x, y);
 		draw_3d_map(*world);
 		mlx_put_image_to_window((*world)->win->mlx, (*world)->win->win, (*world)->win->img, START_X, START_Y);
@@ -68,19 +68,31 @@ int			move_forward(int keycode, t_world **world)
 	{
 		mlx_clear_window((*world)->win->mlx, (*world)->win->win);
 		x = (*world)->plr->x - cos((*world)->plr->dir) * SPEED;
-		y = (*world)->plr->y - sin((*world)->plr->dir) * SPEED;
+		y = (*world)->plr->y + sin((*world)->plr->dir) * SPEED;
 		check_location(world, x, y);
 		draw_3d_map(*world);
 		mlx_put_image_to_window((*world)->win->mlx, (*world)->win->win, (*world)->win->img, START_X, START_Y);
 	}
 	else if (keycode == 65361)
 	{
-		(*world)->plr->dir -= M_PI / 90;
+		(*world)->plr->dir += M_PI / 90;
+		// (*world)->plr->dir += 0.02;
+		if ((*world)->plr->dir > 2 * M_PI)
+			(*world)->plr->dir -= 2 * M_PI;
+		else if ((*world)->plr->dir < 0)
+			(*world)->plr->dir += 2 * M_PI;
+		printf("DIR = %f degrees\n", ((*world)->plr->dir * 180) / M_PI);
 		draw_3d_map(*world);
 	}
 	else if (keycode == 65363)
 	{
-		(*world)->plr->dir += M_PI / 90;
+		(*world)->plr->dir -= M_PI / 90;
+		// (*world)->plr->dir -= 0.02;
+		if ((*world)->plr->dir > 2 * M_PI)
+			(*world)->plr->dir -= 2 * M_PI;
+		else if ((*world)->plr->dir < 0)
+			(*world)->plr->dir += 2 * M_PI;
+		printf("DIR = %f degrees\n", ((*world)->plr->dir * 180) / M_PI);
 		draw_3d_map(*world);
 	}
 	return (0);

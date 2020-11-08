@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 20:24:56 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/08 15:06:32 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/08 16:06:14 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 static void save_plr_dir(char plr, t_world **world)
 {
-	if (plr == 'S')
+	if (plr == 'N')
 		(*world)->plr->dir = M_PI_2;
 	if (plr == 'W')
 		(*world)->plr->dir = M_PI;
-	if (plr == 'N')
+	if (plr == 'S')
 		(*world)->plr->dir = (3 * M_PI) / 2;
 	if (plr == 'E')
-		(*world)->plr->dir = 2 * M_PI;
+		(*world)->plr->dir = 0;
 }
 
 /*
