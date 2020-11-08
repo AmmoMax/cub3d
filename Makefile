@@ -6,7 +6,7 @@
 #    By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/21 23:12:54 by amayor            #+#    #+#              #
-#    Updated: 2020/11/01 16:10:18 by amayor           ###   ########.fr        #
+#    Updated: 2020/11/07 21:03:41 by amayor           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,8 @@ SRC_FILES = config_parser.c \
 			g_flat_map.c \
 			g_common_utils.c \
 			graphics_engine.c \
-			g_hooks.c
+			g_hooks.c \
+			rays_utils.c
 
 SRCS = $(addprefix $(SRC_DIR)/,$(SRC_FILES))
 OBJ_FILES = $(SRC_FILES:.c=.o)

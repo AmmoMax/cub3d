@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 11:49:02 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/03 12:57:08 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/08 13:57:10 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int				start_cub3d(char *path, char *save_flag)
 	ft_putstr_fd("Start reading map file...\n", 1);
 	if (!(config = read_config(path)))
 		return (1); // TODO: ошибка при чтении или парсинге карты(?)
-	config->flat_map = convert_map(config->map);
+	config->flat_map = convert_map(config->map, &config);
 	if (!(config->flat_map))
 		return (ERR_MEMALLOC);
 	len_map = ft_lstsize(config->map);

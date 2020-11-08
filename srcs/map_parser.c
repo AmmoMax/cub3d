@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 13:48:41 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/04 13:08:32 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/08 13:58:41 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ static int	max_len_line(t_list *head)
 	while (head->next)
 	{
 		len = ft_strlen(head->content);
-		printf("max_ln_line :: head->content = %s\n", head->content);
 		if (len > max_len)
 			max_len = len;
 		head = head->next;
@@ -94,11 +93,12 @@ static void	normalize_map(char **map, int max_len)
 }
 
 /*
-* Конвертирует карту из формата односвязного списка в двумерный массив.
-* Принимает указатель на первый элемент списка.
-* Возвращает указатель на двумерный массив.
+** Конвертирует карту из формата односвязного списка в двумерный массив.
+** Сохраняет в общий конфиг максимальный и минимальный x и y в двумерном массиве.
+** Принимает указатель на первый элемент списка.
+** Возвращает указатель на двумерный массив.
 */
-char		**convert_map(t_list *head)
+char		**convert_map(t_list *head, m_config **config)
 {
 	char 	**map;
 	int		max_len;
@@ -106,9 +106,11 @@ char		**convert_map(t_list *head)
 
 	i = 0;
 	max_len = max_len_line(head);
+	(*config)->max_y = ft_lstsize(head);
+	(*config)->max_x = max_len + 1;
 	if (!(map = (char **)ft_calloc(ft_lstsize(head) + 1, sizeof(char *))))
 		return (NULL); // TODO: скорее всего изменить возвращаемое значение из за типа функции
-	if (!(map[0] = (char *)ft_calloc((max_len + 1) * ft_lstsize(head),sizeof(char))))
+	if (!(map[0] = (char *)ft_calloc((max_len + 1) * ft_lstsize(head), sizeof(char))))
 		return (NULL);
 	while (++i < (ft_lstsize(head)))
 		map[i] = map[0] + i * (max_len + 1);

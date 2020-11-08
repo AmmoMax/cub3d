@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 21:40:16 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/04 13:12:57 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/08 13:55:47 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ typedef struct			maze_config
 	color				*ceiling;
 	t_list				*map;
 	char				**flat_map;
+	int					max_x;
+	int					max_y;
 }						m_config;
 
 int			res_handler(char *line, m_config **config);
@@ -42,11 +44,11 @@ int			texture_handler(char *line, m_config **config);
 int			sprite_handler(char *line, m_config **config);
 int			color_handler(char *line, m_config **config);
 int			map_handler(char *line, m_config **config);
-char		**convert_map(t_list *head);
 int			map_validator(char **map, int len_map);
 m_config	*read_config (char *path);
 void		cleanup_map(m_config *config);
 int			start_cub3d(char *path, char *save_flag);
 void		cleanup_flat_map(char **map);
+char		**convert_map(t_list *head, m_config **config);
 
 #endif
