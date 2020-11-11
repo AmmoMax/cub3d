@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 15:18:12 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/08 22:07:09 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/11 20:53:13 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ static float		hor_intersect(t_world *world, t_plr *ray, char *h_wall)
 		p_x += step_x;
 		p_y += step_y;
 	}
+	ray->x = p_x;
+	ray->y = p_y;
 	if (res == -1)
 		return (1000000);
 	return (sqrt(pow(world->plr->x - p_x, 2) + pow(world->plr->y - p_y, 2)));	
@@ -104,6 +106,8 @@ static float		vert_intersect(t_world *world, t_plr *ray, char *v_wall)
 		p_x += step_x;
 		p_y += step_y;
 	}
+	ray->x = p_x;
+	ray->y = p_y;
 	if (res == -1)
 		return (1000000);
 	return (sqrt(pow(world->plr->x - p_x, 2) + pow(world->plr->y - p_y, 2)));	
@@ -139,16 +143,18 @@ void		cast_rays_dda(t_world *world)
 		if (dist_hor < dist_vert)
 		{
 			height = get_height(world, dist_hor * cos(ray.start - world->plr->dir));
-			draw_column(world, x, height, h_wall); // красный столбец
+			// draw_column(world, x, height, h_wall);
+			draw_column_tex(world, x, height, h_wall, &ray);
 		}
 		else
 		{
 			height = get_height(world, dist_vert * cos(ray.start - world->plr->dir));
-			draw_column(world, x, height, v_wall); // зеленый столбец
+			// draw_column(world, x, height, v_wall);
+			draw_column_tex(world, x, height, v_wall, &ray);
 		}
 		x++;
 		ray.start -= FOV / world->config->x;
 	}
-	mlx_put_image_to_window(world->win->mlx, world->win->win, world->win->img, START_X, START_Y);
+	// mlx_put_image_to_window(world->win->mlx, world->win->win, world->win->img, START_X, START_Y);
 }
 

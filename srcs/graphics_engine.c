@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 21:25:15 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/07 21:00:09 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/11 19:59:17 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 int		g_engine(m_config *config)
 {
 	t_win	win;
-	t_world	world;
-	t_world	*p_world;
+	t_world	*world;
+	// t_world	*p_world;
 	t_plr	plr;
 	
 	win.mlx = mlx_init();
@@ -29,17 +29,18 @@ int		g_engine(m_config *config)
 	win.img = mlx_new_image(win.mlx, config->x, config->y);
 	win.addr = mlx_get_data_addr(win.img, &win.bbp, &win.line_length, &win.endian);
 
-	world.map = config->flat_map;
-	world.win = &win;
-	world.plr = &plr;
-	world.config = config;
-	p_world = &world;
-	save_plr_pos(&p_world);
+	world = (t_world *)malloc(sizeof(t_world));
+	world->map = config->flat_map;
+	world->win = &win;
+	world->plr = &plr;
+	world->config = config;
+	save_plr_pos(&world);
 	// draw_flat_map(p_world);
-	draw_3d_map(p_world);
+	load_textures(&world);
+	draw_3d_map(world);
 
 	// mlx_hook(world.win->win, 2, 1L<<0, &move_f, &p_world);
-	mlx_hook(world.win->win, 2, 1L<<0, move_forward, &p_world);
+	mlx_hook(world->win->win, 2, 1L<<0, move_forward, &world);
 	mlx_loop(win.mlx);
 	return (0);
 }
