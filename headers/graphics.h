@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 15:55:38 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/11 19:44:33 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/12 20:08:49 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct 			s_plr
 typedef struct			s_xpm
 {
 	void				*img;
+	char					*addr;
 	int					width;
 	int					height;
 	float				scale;
@@ -93,5 +94,6 @@ void		get_textures(t_world *world, t_xpm *texture, char *path);
 void		draw_3d_map(t_world *world);
 int			load_textures(t_world **world);
 void		draw_column_tex(t_world *world, float x, float height, char c_wall, t_plr *ray);
+int			my_mlx_get_color(t_xpm *tex, int x, int y);
 
 #endif

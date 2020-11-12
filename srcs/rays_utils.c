@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 15:18:12 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/11 20:53:13 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/11 21:12:13 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,8 @@ void		cast_rays_dda(t_world *world)
 			draw_column_tex(world, x, height, v_wall, &ray);
 		}
 		x++;
+		if (x == 500)
+			printf("111");
 		ray.start -= FOV / world->config->x;
 	}
 	// mlx_put_image_to_window(world->win->mlx, world->win->win, world->win->img, START_X, START_Y);

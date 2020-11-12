@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 23:24:26 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/11 21:09:37 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/12 19:56:39 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,27 +52,34 @@ static int	get_tex_pix(t_world *world, float x, float *y, float height, t_plr *r
 {
 	float	step;
 	float	x_tex;
+	float	y_tex;
 	int		color;
 	t_xpm *tex;
+	float pos;
 	
 	tex = world->t->e_tex;
+	pos = 0;	
 	if(c_wall == 'E' || c_wall == 'W') // вертикальная стенка
 		x_tex = (int)ray->y % SCALE;
 		// x_tex = (int)(*y) % SCALE;
 	else
 		x_tex = (int)ray->x % SCALE;
 		// x_tex = (int)x % SCALE;
-	x_tex = x_tex * tex->width;
 	step = (tex->height / height); // проверить не будет ли здесь ошибки при каких то условиях
+	y_tex = 0;
 	while(height > 0)
 	{
-		color = tex->tex_pix[(int)x_tex];
+		// y_tex = (int)x_tex + tex->width * (int)pos;
+		// y_tex = pos;
+		// color = tex->tex_pix[pos];
+		color = my_mlx_get_color(tex, (int)x_tex, (int)y_tex);
+		// color = *(tex->addr + ((int)y_tex * tex->line_length + (int)x_tex * (tex->bbp / 8)));
 		my_mlx_pixel_put(world->win, x, (*y), color);
 		(*y)++;
 		height--;
-		x_tex += step;
-		if (height == 5)
-			printf("111");
+		y_tex += step;
+		// if (height == 5)
+			// printf("1");
 	}
 	return (0);
 }

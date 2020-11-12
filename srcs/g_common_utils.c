@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 20:24:56 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/08 21:57:00 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/12 20:10:00 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,15 @@ void		my_mlx_pixel_put(t_win *win, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
+int			my_mlx_get_color(t_xpm *tex, int x, int y)
+{
+	char	*dst;
+	int		color;
+
+	dst = tex->addr + (y * tex->line_length + x * (tex->bbp / 8));
+	color = *(unsigned int *)dst;
+	return (color);
+}
 
 void		save_plr_pos(t_world **world)
 {
@@ -169,3 +178,4 @@ void		cast_rays_flat(t_world *world)
 // 	}
 // 	mlx_put_image_to_window(world->win->mlx, world->win->win, world->win->img, START_X, START_Y);
 // }
+
