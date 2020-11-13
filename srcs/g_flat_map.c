@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 23:24:26 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/12 19:56:39 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/13 23:58:24 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,41 +48,75 @@ static int get_wall_c(char c_wall)
 	return (0);
 }
 
-static int	get_tex_pix(t_world *world, float x, float *y, float height, t_plr *ray, char c_wall)
+// static int	get_tex_pix(t_world *world, float x, float *y, float height, t_plr *ray, char c_wall, float y_col)
+// {
+// 	float	step;
+// 	float	x_tex;
+// 	float	y_tex;
+// 	int		color;
+// 	t_xpm *tex;
+// 	// float pos;
+
+// 	// printf("ray->x: %f :: ray->y: %f\n", ray->x, ray->y);
+// 	tex = world->t->e_tex;
+// 	// pos = 0;
+// 	if(c_wall == 'E' || c_wall == 'W') // вертикальная стенка
+// 		x_tex = (int)ray->y % SCALE;
+// 	else
+// 		x_tex = (int)ray->x % SCALE;
+// 	y_tex = (int)y_col % SCALE;
+// 	step = ((tex->height - y_tex) / height); // проверить не будет ли здесь ошибки при каких то условиях
+// 	while(height > 0)
+// 	{
+// 		color = my_mlx_get_color(tex, (int)x_tex, (int)y_tex);
+// 		my_mlx_pixel_put(world->win, x, (*y), color);
+// 		(*y)++;
+// 		height--;
+// 		y_tex += step;
+// 	}
+// 	return (0);
+// }
+
+static int	get_tex_pix_v2(t_world *world, float x, float *y, float height, t_plr *ray, char c_wall, float y_tex)
 {
 	float	step;
 	float	x_tex;
-	float	y_tex;
+	float	y_t_end;
 	int		color;
 	t_xpm *tex;
-	float pos;
-	
+
 	tex = world->t->e_tex;
-	pos = 0;	
 	if(c_wall == 'E' || c_wall == 'W') // вертикальная стенка
 		x_tex = (int)ray->y % SCALE;
-		// x_tex = (int)(*y) % SCALE;
 	else
 		x_tex = (int)ray->x % SCALE;
-		// x_tex = (int)x % SCALE;
-	step = (tex->height / height); // проверить не будет ли здесь ошибки при каких то условиях
-	y_tex = 0;
-	while(height > 0)
+	if (height > world->config->y)
 	{
-		// y_tex = (int)x_tex + tex->width * (int)pos;
-		// y_tex = pos;
-		// color = tex->tex_pix[pos];
+		y_t_end = (int)(height - y_tex);
+		// step = (tex->height - (2 * ((y_tex * tex->height) / height))) / world->config->y;
+		// y_t_end = (int)y_t_end % tex->height;
+		y_t_end = (y_t_end * tex->height) / height;
+		y_tex = (y_tex * tex->height) / height;
+		step = (y_t_end - y_tex) / world->config->y;
+	}
+	else
+	{
+		y_t_end = tex->height;
+		step = tex->height / height;
+		y_tex = (y_tex * tex->height) / height;
+	}
+	// y_tex = (int)y_tex % tex->height;
+	// y_tex = (y_tex * tex->height) / height;
+	while(y_tex < y_t_end)
+	{
 		color = my_mlx_get_color(tex, (int)x_tex, (int)y_tex);
-		// color = *(tex->addr + ((int)y_tex * tex->line_length + (int)x_tex * (tex->bbp / 8)));
 		my_mlx_pixel_put(world->win, x, (*y), color);
 		(*y)++;
-		height--;
 		y_tex += step;
-		// if (height == 5)
-			// printf("1");
 	}
 	return (0);
 }
+
 
 void		draw_column(t_world *world, float x, float height, char c_wall)
 {
@@ -112,25 +146,39 @@ void		draw_column(t_world *world, float x, float height, char c_wall)
 	}
 }
 
-void		draw_column_tex(t_world *world, float x, float height, char c_wall, t_plr *ray)
+void		draw_column_tex(t_world *world, float x_screen, float height, char c_wall, t_plr *ray)
 {
 	float y_start;
-	float y;
+	float y_screen;
+	float y_tex;
+	float	tmp_height;
 
+	tmp_height = height;
 	if (height > world->config->y)
-		height = world->config->y;
-	y_start = world->config->y / 2 - height / 2;
-	y = 0;
-	while (y < y_start)
 	{
-		my_mlx_pixel_put(world->win, x, y, 0xFFFFFF);
-		y++;
+		y_start = 0;
+		y_tex = (height - world->config->y) / 2; //точка с которой начинаем отрисовку текстуры
+		// tmp_height = world->config->y;
 	}
-	get_tex_pix(world, x, &y, height, ray, c_wall);
-	while (y < world->config->y)
+	else
 	{
-		my_mlx_pixel_put(world->win, x, y, 0x9932CC);
-		y++;
+		// y_col = 0;
+		// tmp_height = height;
+		y_start = world->config->y / 2 - tmp_height / 2;
+		y_tex = 0;
+	}
+	y_screen = 0;
+	while (y_screen < y_start)
+	{
+		my_mlx_pixel_put(world->win, x_screen, y_screen, 0xFFFFFF);
+		y_screen++;
+	}
+	// get_tex_pix(world, x, &y, height, ray, c_wall);
+	get_tex_pix_v2(world, x_screen, &y_start, tmp_height, ray, c_wall, y_tex);
+	while (y_start < world->config->y)
+	{
+		my_mlx_pixel_put(world->win, x_screen, y_start, 0x9932CC);
+		y_start++;
 	}
 }
 
@@ -143,6 +191,7 @@ int			check_plr_pos(t_world *world, int x, int y)
 	else
 		return (0);
 }
+
 
 void			draw_flat_map(t_world *world)
 {

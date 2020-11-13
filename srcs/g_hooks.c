@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 22:47:59 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/08 22:07:05 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/13 23:40:22 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int			move_forward(int keycode, t_world **world)
 
 	if (keycode == 65362)
 	{
-		mlx_clear_window((*world)->win->mlx, (*world)->win->win);
+		// mlx_clear_window((*world)->win->mlx, (*world)->win->win);
 		x = (*world)->plr->x + cos((*world)->plr->dir) * SPEED;
 		y = (*world)->plr->y - sin((*world)->plr->dir) * SPEED;
 		check_location(world, x, y);
@@ -66,7 +66,7 @@ int			move_forward(int keycode, t_world **world)
 	}
 	else if (keycode == 65364)
 	{
-		mlx_clear_window((*world)->win->mlx, (*world)->win->win);
+		// mlx_clear_window((*world)->win->mlx, (*world)->win->win);
 		x = (*world)->plr->x - cos((*world)->plr->dir) * SPEED;
 		y = (*world)->plr->y + sin((*world)->plr->dir) * SPEED;
 		check_location(world, x, y);

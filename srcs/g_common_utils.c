@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 20:24:56 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/12 20:10:00 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/14 00:23:34 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ void		save_plr_pos(t_world **world)
 		{
 			if (map[i][j] == 'N' || map[i][j] == 'W' || map[i][j] == 'E' || map[i][j] == 'S')
 			{
-				(*world)->plr->x = j * SCALE + START_X;
-				(*world)->plr->y = i * SCALE + START_Y;
+				(*world)->plr->x = j * SCALE + START_X + (SCALE / 2);
+				(*world)->plr->y = i * SCALE + START_Y + (SCALE / 2);
 				save_plr_dir(map[i][j], world);
 				return ;
 			}
@@ -73,6 +73,7 @@ void		save_plr_pos(t_world **world)
 	}
 }
 
+
 void		check_location(t_world **p_world, float new_x, float new_y)
 {
 	int		i;
@@ -80,13 +81,14 @@ void		check_location(t_world **p_world, float new_x, float new_y)
 	t_world	*world;	
 
 	world = *p_world;
-	i = (int)(new_y - START_Y) / SCALE;
-	j = (int)(new_x - START_X) / SCALE;
-	if ((world->map[i][(int)(world->plr->x - START_X) / SCALE] != '1'))
+	i = (int)(new_y) / SCALE;
+	j = (int)(new_x) / SCALE;
+	if ((world->map[i][(int)world->plr->x / SCALE] != '1'))
 		world->plr->y = new_y;
-	if ((world->map[(int)(world->plr->y - START_Y) / SCALE][j] != '1'))
+	if ((world->map[(int)world->plr->y / SCALE][j] != '1'))
 		world->plr->x = new_x;
 }
+
 
 static int		get_dist(t_plr *ray, t_world *world)
 {
