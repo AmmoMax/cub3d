@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 23:24:26 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/14 15:35:44 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/14 18:05:34 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,14 @@ static int	get_tex_pix_v2(t_world *world, float x, float *y, float height, t_plr
 	int		color;
 	t_xpm *tex;
 
-	tex = world->t->e_tex;
+	if (c_wall == 'E')
+		tex = world->t->e_tex;
+	else if (c_wall == 'W')
+		tex = world->t->w_tex;
+	else if (c_wall == 'S')
+		tex = world->t->s_tex;
+	else
+		tex = world->t->n_tex;
 	if(c_wall == 'E' || c_wall == 'W') // вертикальная стенка
 		x_tex = (int)ray->y % SCALE;
 	else
@@ -137,7 +144,7 @@ void		draw_column(t_world *world, float x, float height, char c_wall)
 	}
 	while (y < world->config->y)
 	{
-		my_mlx_pixel_put(world->win, x, y, 11796480);
+		my_mlx_pixel_put(world->win, x, y, 0x560319);
 		y++;
 	}
 }
@@ -173,7 +180,7 @@ void		draw_column_tex(t_world *world, float x_screen, float height, char c_wall,
 	get_tex_pix_v2(world, x_screen, &y_start, tmp_height, ray, c_wall, y_tex);
 	while (y_start < world->config->y)
 	{
-		my_mlx_pixel_put(world->win, x_screen, y_start, 0x9932CC);
+		my_mlx_pixel_put(world->win, x_screen, y_start, 0x560319);
 		y_start++;
 	}
 }
