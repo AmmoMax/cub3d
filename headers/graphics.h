@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 15:55:38 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/14 00:24:33 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/14 15:00:44 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ typedef struct 			s_plr
 typedef struct			s_xpm
 {
 	void				*img;
-	char					*addr;
+	char				*addr;
 	int					width;
 	int					height;
 	float				scale;

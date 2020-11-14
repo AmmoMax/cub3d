@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 22:09:19 by amayor            #+#    #+#             */
-/*   Updated: 2020/10/29 19:51:18 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/14 14:37:55 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	tex_parser(char *line, char flag, m_config **config)
 	char	*str;
 
 	i = 0;
-	str = (char *)malloc(sizeof(char) * ft_strlen(line) + 1);
+	str = (char *)malloc(sizeof(char) * (ft_strlen(line) + 1));
 	if (!str)
 		return (ERR_MEMALLOC);
 	while (line[i] == ' ')

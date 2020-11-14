@@ -1,10 +1,11 @@
 
 R 1024 768
-NO ./path_to_the_north_texture
-SO ./path_to_the_south_texture
-WE ./path_to_the_west_texture
-EA ./textures/redbrick.xpm
-S ./path_to_the_sprite_texture
+
+EA ./textures/wood.xpm
+NO ./textures/sp_dude.xpm
+SO ./textures/ickdoor.xpm
+WE ./textures/redbrick.xpm
+S ./textures/sp_dude.xpm
 
 F 220,100,0
 C 225,30,0
