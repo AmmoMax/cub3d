@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 23:24:26 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/14 14:17:56 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/14 15:35:44 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,6 @@ static int	get_tex_pix_v2(t_world *world, float x, float *y, float height, t_plr
 	if (height > world->config->y)
 	{
 		y_t_end = (int)(height - y_tex);
-		// step = (tex->height - (2 * ((y_tex * tex->height) / height))) / world->config->y;
-		// y_t_end = (int)y_t_end % tex->height;
 		y_t_end = (y_t_end * tex->height) / height;
 		y_tex = (y_tex * tex->height) / height;
 		step = (y_t_end - y_tex) / world->config->y;
@@ -105,8 +103,6 @@ static int	get_tex_pix_v2(t_world *world, float x, float *y, float height, t_plr
 		step = tex->height / height;
 		y_tex = (y_tex * tex->height) / height;
 	}
-	// y_tex = (int)y_tex % tex->height;
-	// y_tex = (y_tex * tex->height) / height;
 	while(y_tex < y_t_end)
 	{
 		color = my_mlx_get_color(tex, (int)x_tex, (int)y_tex);
