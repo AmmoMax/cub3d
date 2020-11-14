@@ -1,11 +1,11 @@
 
 R 1920 1080
 
-NO ./path_to_the_north_texture
-SO ./path_to_the_south_texture
-WE ./path_to_the_west_texture
-EA ./textures/redbrick.xpm
-S ./path_to_the_sprite_texture
+NO ./textures/wood.xpm
+SO ./textures/ickdoor.xpm
+WE ./textures/sp_dude.xpm
+EA ./textures/colorstone.xpm
+S ./textures/redbrick.xpm
 
 
 F 220,100,0

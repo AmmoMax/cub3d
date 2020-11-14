@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 21:25:15 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/14 20:19:59 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/14 20:38:07 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ int		g_engine(m_config *config)
 	world->plr = &plr;
 	world->config = config;
 	save_plr_pos(&world);
-	save_sprites_pos(&world);
-	// draw_flat_map(p_world);
 	load_textures_v2(&world);
+	load_sprite(&world);
+	// draw_flat_map(p_world);
 	draw_3d_map(world);
 
 	// mlx_hook(world.win->win, 2, 1L<<0, &move_f, &p_world);

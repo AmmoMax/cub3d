@@ -6,13 +6,13 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 22:29:30 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/14 16:46:33 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/14 20:33:20 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/general.h"
 
-static int			*strcpy_int(int *dst, int *src)
+int			*strcpy_int(int *dst, int *src)
 {
 	size_t			i;
 

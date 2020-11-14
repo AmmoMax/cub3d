@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 15:55:38 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/14 20:26:31 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/14 20:37:10 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,5 +106,7 @@ void		draw_column_tex(t_world *world, float x, float height, char c_wall, t_plr 
 int			my_mlx_get_color(t_xpm *tex, int x, int y);
 int			save_sprites_pos(t_world **world);
 int			load_textures_v2(t_world **world);
+int			*strcpy_int(int *dst, int *src);
+int				load_sprite(t_world **world);
 
 #endif
