@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 23:24:26 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/14 12:05:57 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/14 18:33:05 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,9 @@ static int	get_tex_pix_v2(t_world *world, float x, float *y, float height, t_plr
 
 	tex = world->t->e_tex;
 	if(c_wall == 'E' || c_wall == 'W') // вертикальная стенка
-		x_tex = (int)ray->y % SCALE;
+		x_tex = (int)ray->y % tex->width;
 	else
-		x_tex = (int)ray->x % SCALE;
+		x_tex = (int)ray->x % tex->width;
 	if (height > world->config->y)
 	{
 		y_t_end = (int)(height - y_tex);

@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 15:55:38 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/14 13:00:56 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/14 20:02:02 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ typedef struct 			s_plr
 typedef struct			s_xpm
 {
 	void				*img;
-	char					*addr;
+	char				*addr;
 	int					width;
 	int					height;
 	float				scale;
@@ -60,6 +60,7 @@ typedef struct			s_textures
 	t_xpm				*s_tex;
 	t_xpm				*e_tex;
 	t_xpm				*w_tex;
+	t_xpm				*sprite_tex;
 }						t_tex;
 
 typedef struct			s_sprite
