@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 15:55:38 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/14 00:24:33 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/14 13:00:56 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,12 @@ typedef struct			s_textures
 	t_xpm				*w_tex;
 }						t_tex;
 
-
+typedef struct			s_sprite
+{
+	float				x;
+	float				y;
+	struct s_sprite		*next;
+}						t_sprite;
 
 typedef struct			s_world
 {
@@ -71,7 +76,10 @@ typedef struct			s_world
 	char				**map;
 	m_config			*config;
 	t_tex				*t;
+	t_sprite			*sprites;
 }						t_world;
+
+
 
 /* Graphics utils */
 
@@ -95,5 +103,6 @@ void		draw_3d_map(t_world *world);
 int			load_textures(t_world **world);
 void		draw_column_tex(t_world *world, float x, float height, char c_wall, t_plr *ray);
 int			my_mlx_get_color(t_xpm *tex, int x, int y);
+int			save_sprites_pos(t_world **world);
 
 #endif

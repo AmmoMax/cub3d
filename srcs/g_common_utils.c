@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 20:24:56 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/14 00:23:34 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/14 12:06:23 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ static int		get_dist(t_plr *ray, t_world *world)
 	dist = sqrt (pow(ray->x - plr->x, 2) + pow(ray->y - plr->y, 2));
 	dist2 = abs((int)(dist * cos(ray->start - ray->dir)));
 	height = (SCALE / dist2) * plane;
-	// height = 1080 / dist * 10;
 	return ((int)height);
 }
 
