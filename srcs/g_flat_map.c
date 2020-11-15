@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 23:24:26 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/14 20:20:56 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/14 21:49:23 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,5 +237,6 @@ void			draw_flat_map(t_world *world)
 void	draw_3d_map(t_world *world)
 {
 	cast_rays_dda(world);
+	draw_sprites(world, world->sprites);
 	mlx_put_image_to_window(world->win->mlx, world->win->win, world->win->img, START_X, START_Y);
 }
