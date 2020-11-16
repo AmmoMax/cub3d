@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 15:55:38 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/14 21:47:38 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/16 22:39:32 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ typedef struct			s_world
 	m_config			*config;
 	t_tex				*t;
 	t_sprite			*sprites;
+	float				*dist_wall;
 }						t_world;
 
 

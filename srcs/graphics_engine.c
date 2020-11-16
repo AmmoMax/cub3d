@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 21:25:15 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/14 20:38:07 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/16 22:51:28 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int		g_engine(m_config *config)
 	win.addr = mlx_get_data_addr(win.img, &win.bbp, &win.line_length, &win.endian);
 
 	if (!(world = (t_world *)malloc(sizeof(t_world))))
+		return (ERR_MEMALLOC);
+	if (!(world->dist_wall = (float *)malloc(sizeof(float) * config->x)))
 		return (ERR_MEMALLOC);
 	world->map = config->flat_map;
 	world->win = &win;

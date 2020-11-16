@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 15:18:12 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/12 22:51:02 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/16 22:45:22 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,12 +143,14 @@ void		cast_rays_dda(t_world *world)
 		if (dist_hor < dist_vert)
 		{
 			height = get_height(world, dist_hor * cos(ray.start - world->plr->dir));
+			world->dist_wall[x] = dist_hor;
 			// draw_column(world, x, height, h_wall);
 			draw_column_tex(world, x, height, h_wall, &ray);
 		}
 		else
 		{
 			height = get_height(world, dist_vert * cos(ray.start - world->plr->dir));
+			world->dist_wall[x] = dist_vert;
 			// draw_column(world, x, height, v_wall);
 			draw_column_tex(world, x, height, v_wall, &ray);
 		}

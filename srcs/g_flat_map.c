@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 23:24:26 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/14 21:49:23 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/16 22:52:06 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,4 +239,10 @@ void	draw_3d_map(t_world *world)
 	cast_rays_dda(world);
 	draw_sprites(world, world->sprites);
 	mlx_put_image_to_window(world->win->mlx, world->win->win, world->win->img, START_X, START_Y);
+	int i =0;
+	while(world->dist_wall[i])
+	{
+		printf("i = %d :: dist_wall[%d] = %f\n",i, i, world->dist_wall[i]);
+		i++;
+	}
 }
