@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 22:47:59 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/15 21:40:50 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/16 20:55:09 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,17 +96,17 @@ int			move_forward(int keycode, t_world **world)
 	}
 	else if (keycode == 97)
 	{
-		x = (*world)->plr->x + SPEED;
-		y = (*world)->plr->y;
-		check_location(world, x + 0.5, y);
+		x = (*world)->plr->x - sin((*world)->plr->dir) * SPEED;
+		y = (*world)->plr->y - cos((*world)->plr->dir) * SPEED;
+		check_location(world, x, y);
 		draw_3d_map(*world);
 		mlx_put_image_to_window((*world)->win->mlx, (*world)->win->win, (*world)->win->img, START_X, START_Y);
 	}
 	else if (keycode == 100)
 	{
-		x = (*world)->plr->x - SPEED;
-		y = (*world)->plr->y;
-		check_location(world, x - 0.5, y);
+		x = (*world)->plr->x + sin((*world)->plr->dir) * SPEED;
+		y = (*world)->plr->y + cos((*world)->plr->dir) * SPEED;
+		check_location(world, x, y);
 		draw_3d_map(*world);
 		mlx_put_image_to_window((*world)->win->mlx, (*world)->win->win, (*world)->win->img, START_X, START_Y);
 	}
