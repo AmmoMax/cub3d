@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 15:55:38 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/16 22:39:32 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/17 00:20:55 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ typedef struct			s_sprite
 {
 	float				x;
 	float				y;
+	float				dist;
+	float				dir;
 	struct s_sprite		*next;
 }						t_sprite;
 
@@ -110,5 +112,6 @@ int			load_textures_v2(t_world **world);
 int			*strcpy_int(int *dst, int *src);
 int			load_sprite(t_world **world);
 void		draw_sprites(t_world *world, t_sprite *sprite);
+void		sprite_finder(t_world *world);
 
 #endif
