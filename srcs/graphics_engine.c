@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 21:25:15 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/16 22:51:28 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/18 00:24:16 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** Принимает указатель на общий конфиг с настройками.
 ** Создает внутри себя структуры для графики и запускает нужные функции отрисовки.
 */
-int		g_engine(m_config *config)
+int		g_engine(m_config *config, int save_flag)
 {
 	t_win	win;
 	t_world	*world;
@@ -41,7 +41,7 @@ int		g_engine(m_config *config)
 	load_textures_v2(&world);
 	load_sprite(&world);
 	// draw_flat_map(p_world);
-	draw_3d_map(world);
+	draw_3d_map(world, save_flag);
 
 	// mlx_hook(world.win->win, 2, 1L<<0, &move_f, &p_world);
 	mlx_hook(world->win->win, 2, 1L<<0, move_forward, &world);

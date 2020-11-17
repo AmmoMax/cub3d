@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 11:49:02 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/08 13:57:10 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/18 00:35:38 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,17 @@ void	print_map(char **map)
 	printf("*** End print_map ***\n");
 }
 
-int				start_cub3d(char *path, char *save_flag)
+int				start_cub3d(char *path, char *save_f)
 {
 	m_config	*config;
 	int			len_map;
+	int 		save_flag;
 
-	if (save_flag && ft_strncmp("--save", save_flag, ft_strlen(save_flag)) == 1)
+	if (save_f && ft_strncmp("--save", save_f, ft_strlen(save_f)) == 1)
 		return (1); // TODO: обработка ошибки - параметр не равен --save
+	save_flag = 0;
+	if (save_f)
+		save_flag = 1;
 	ft_putstr_fd("Start reading map file...\n", 1);
 	if (!(config = read_config(path)))
 		return (1); // TODO: ошибка при чтении или парсинге карты(?)
@@ -47,6 +51,6 @@ int				start_cub3d(char *path, char *save_flag)
 	if (map_validator(config->flat_map, len_map) != 0)
 		return (ERR_INVMAP);
 	print_map(config->flat_map);
-	g_engine(config);
+	g_engine(config, save_flag);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 15:55:38 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/17 00:20:55 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/18 00:25:35 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ typedef struct			s_world
 
 /* Graphics utils */
 
-int			g_engine(m_config *config);
+int			g_engine(m_config *config, int save_flag);
 void		my_mlx_pixel_put(t_win *win, int x, int y, int color);
 void		draw_flat_map(t_world *world);
 void		save_plr_pos(t_world **world);
@@ -103,7 +103,7 @@ int			move_forward(int keycode, t_world **world);
 void		cast_rays_flat(t_world *world);
 void		cast_rays_dda(t_world *world);
 void		get_textures(t_world *world, t_xpm *texture, char *path);
-void		draw_3d_map(t_world *world);
+void		draw_3d_map(t_world *world, int save_flag);
 int			load_textures(t_world **world);
 void		draw_column_tex(t_world *world, float x, float height, char c_wall, t_plr *ray);
 int			my_mlx_get_color(t_xpm *tex, int x, int y);
@@ -113,5 +113,6 @@ int			*strcpy_int(int *dst, int *src);
 int			load_sprite(t_world **world);
 void		draw_sprites(t_world *world, t_sprite *sprite);
 void		sprite_finder(t_world *world);
+int			make_screen(t_world *all);
 
 #endif
