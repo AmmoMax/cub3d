@@ -1,11 +1,11 @@
 
-R 1920 1280
+R 50 50
 
-NO ./textures/wood.xpm
-SO ./textures/ickdoor.xpm
+NO ./textures/marbface.xpm
+SO ./textures/crackle4.xpm
 WE ./textures/sp_dude.xpm
-EA ./textures/colorstone.xpm
-S ./textures/barrel.xpm
+EA ./textures/flat-ligth.xpm
+S ./textures/cacodemon.xpm
 
 
 F 220,100,0
@@ -13,9 +13,9 @@ C 225,30,0
 
 
 11111111111
-10010010001
-10000S00001
-10000000001
+10010012001
+10200000001
+100000S0001
 10000000001
 10200000201
 11111111111
