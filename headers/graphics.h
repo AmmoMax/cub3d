@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 15:55:38 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/18 21:37:06 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/18 22:42:51 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,14 +92,14 @@ void		my_mlx_pixel_put(t_win *win, int x, int y, int color);
 void		draw_flat_map(t_world *world);
 void		save_plr_pos(t_world **world);
 void		print_maps_block(t_world *world, int x, int y);
-int			move_f(int keycode, t_world **world);
+// int			move_f(int keycode, t_world **world);
 void		draw_block(t_win *win, int color, int x, int y);
 void		check_location(t_world **world, float new_x, float new_y);
 void		draw_player(t_win *win, int color, int x, int y);
 void		cast_ray(t_world *world);
 void		cast_rays(t_world *world);
 void		draw_column(t_world *world, float x, float height, char c_wall);
-int			move_handler(int keycode, t_world **world);
+int			key_handler(int keycode, t_world **world);
 void		cast_rays_flat(t_world *world);
 void		cast_rays_dda(t_world *world);
 void		get_textures(t_world *world, t_xpm *texture, char *path);
@@ -114,5 +114,7 @@ int			load_sprite(t_world **world);
 void		draw_sprites(t_world *world, t_sprite *sprite);
 void		sprite_finder(t_world *world);
 int			make_screen(t_world *all);
+int			close_red_cross(t_world *world);
+int			close_esc(t_world *world);
 
 #endif

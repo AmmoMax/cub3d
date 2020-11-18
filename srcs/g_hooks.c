@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 22:47:59 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/18 21:58:11 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/18 22:43:25 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static void	move_left_right(t_world **world, int keycode)
 	mlx_put_image_to_window((*world)->win->mlx, (*world)->win->win, (*world)->win->img, START_X, START_Y);
 }
 
-int			move_handler(int keycode, t_world **world)
+int			key_handler(int keycode, t_world **world)
 {
 	if (keycode == 119 || keycode == 115)
 		move_forward_back(world, keycode);
@@ -83,5 +83,7 @@ int			move_handler(int keycode, t_world **world)
 		turn_left_right(world, keycode);
 	else if (keycode == 97 || keycode == 100)
 		move_left_right(world, keycode);
+	else if (keycode == 65307)
+		close_esc(*world);
 	return (0);
 }
