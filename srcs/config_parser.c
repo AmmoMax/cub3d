@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 22:39:43 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/08 22:06:47 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/18 23:14:30 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int			line_handler(char *line, m_config **config)
 	else if (ft_strnstr(line, "NO", len) || ft_strnstr(line, "SO", len) ||
 			 ft_strnstr(line, "WE", len) || ft_strnstr(line, "EA", len))
 		return (texture_handler(line, config));
-	else if (ft_strchr(line, 's'))
+	else if (ft_strchr(line, 's')) // TODO: исправить условие поиска строки со спрайтом чтобы не путать с направлением на S
 		return (sprite_handler(line, config));
 	else if (ft_strchr(line, 'F')|| ft_strchr(line, 'C'))
 		return(color_handler(line, config));

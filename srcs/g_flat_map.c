@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 23:24:26 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/18 21:12:08 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/19 00:34:08 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,6 +213,19 @@ void			draw_flat_map(t_world *world)
 	draw_player(world->win, CLR_PLR, world->plr->x, world->plr->y);
 	cast_rays_flat(world);
 	mlx_put_image_to_window(world->win->mlx, world->win->win, world->win->img, START_X, START_Y);
+}
+
+void			check_resolution(void*mlx, m_config **config)
+{
+	int sizex;
+	int sizey;
+
+	mlx_get_screen_size(mlx, &sizex, &sizey);
+	if ((*config)->x > sizex || (*config)->x < 0 || (*config)->y > sizey || (*config)->y < 0)
+	{
+		(*config)->x = sizex;
+		(*config)->y = sizey;
+	}
 }
 
 void	draw_3d_map(t_world *world, int save_flag)

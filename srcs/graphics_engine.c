@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 21:25:15 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/18 22:41:44 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/18 23:59:06 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int		g_engine(m_config *config, int save_flag)
 	t_plr	plr;
 	
 	win.mlx = mlx_init();
+	check_resolution(win.mlx, &config);
 	win.win = mlx_new_window(win.mlx, config->x, config->y, "Cub3D");
 	win.img = mlx_new_image(win.mlx, config->x, config->y);
 	win.addr = mlx_get_data_addr(win.img, &win.bbp, &win.line_length, &win.endian);
@@ -44,6 +45,7 @@ int		g_engine(m_config *config, int save_flag)
 	draw_3d_map(world, save_flag);
 
 	// mlx_hook(world.win->win, 2, 1L<<0, &move_f, &p_world);
+	
 	mlx_hook(world->win->win, 2, 1L<<0, key_handler, &world);
 	mlx_hook(world->win->win, 17, 1L<<17, close_red_cross, &world);
 	mlx_loop(win.mlx);
