@@ -1,5 +1,5 @@
 
-R 100 100
+R 1024 768
 
 NO ./textures/marbface.xpm
 SO ./textures/crackle4.xpm
@@ -8,14 +8,14 @@ EA ./textures/flat-ligth.xpm
 S ./textures/cacodemon.xpm
 
 
-F 220,100,0
-C 225,30,0
+F 128, 0, 0
+C 105, 105, 105
 
 
 11111111111
 10010012001
 10200000001
+100000S0001
 10000000001
-10N00000001
 10200000201
 11111111111

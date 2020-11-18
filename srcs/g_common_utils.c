@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 20:24:56 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/14 12:06:23 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/18 21:06:03 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,18 @@ void		cast_rays_flat(t_world *world)
 	}
 	mlx_put_image_to_window(world->win->mlx, world->win->win, world->win->img, START_X, START_Y);
 }
+
+// int	get_floor_color(m_config *config)
+// {
+// 	// Цвет = R + G * 256 + B * 65535
+// 	return(config->floor->red + config->floor->green * 256 + config->floor->blue * 65535);
+// }
+
+// int	get_ceiling_color(m_config *config)
+// {
+// 	// Цвет = R + G * 256 + B * 65535
+// 	return(config->ceiling->red + config->ceiling->green * 256 + config->ceiling->blue * 65535);
+// }
 
 // void		cast_rays(t_world *world)
 // {
