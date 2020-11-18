@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 15:55:38 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/18 00:25:35 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/18 21:37:06 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void		draw_player(t_win *win, int color, int x, int y);
 void		cast_ray(t_world *world);
 void		cast_rays(t_world *world);
 void		draw_column(t_world *world, float x, float height, char c_wall);
-int			move_forward(int keycode, t_world **world);
+int			move_handler(int keycode, t_world **world);
 void		cast_rays_flat(t_world *world);
 void		cast_rays_dda(t_world *world);
 void		get_textures(t_world *world, t_xpm *texture, char *path);

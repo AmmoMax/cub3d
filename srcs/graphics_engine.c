@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 21:25:15 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/18 00:24:16 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/18 21:37:37 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int		g_engine(m_config *config, int save_flag)
 	draw_3d_map(world, save_flag);
 
 	// mlx_hook(world.win->win, 2, 1L<<0, &move_f, &p_world);
-	mlx_hook(world->win->win, 2, 1L<<0, move_forward, &world);
+	mlx_hook(world->win->win, 2, 1L<<0, move_handler, &world);
 	mlx_loop(win.mlx);
 	return (0);
 }
