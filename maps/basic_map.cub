@@ -1,5 +1,5 @@
 
-R 1024 768
+R 100 100
 
 NO ./textures/marbface.xpm
 SO ./textures/crackle4.xpm
