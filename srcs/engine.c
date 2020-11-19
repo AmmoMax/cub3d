@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 11:49:02 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/18 00:35:38 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/19 23:47:21 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,11 @@ int				start_cub3d(char *path, char *save_f)
 		return (1); // TODO: ошибка при чтении или парсинге карты(?)
 	config->flat_map = convert_map(config->map, &config);
 	if (!(config->flat_map))
-		return (ERR_MEMALLOC);
+	{
+		cleanup_map(&config->map);
+		clean_config_no_map(&config);
+		return (ERR_MEMALLOC); // TODO: печать ошибки выделения памяти
+	}
 	len_map = ft_lstsize(config->map);
 	if (map_validator(config->flat_map, len_map) != 0)
 		return (ERR_INVMAP);

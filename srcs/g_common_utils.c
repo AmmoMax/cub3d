@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 20:24:56 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/18 22:44:23 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/19 23:26:47 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,7 @@ int			close_esc(t_world *world)
 {
 	t_world	*tmp;
 	tmp = world;
+
 
 	// mlx_destroy_window(vars->mlx, vars->win);
 	exit(0);

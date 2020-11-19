@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 13:48:41 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/08 13:58:41 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/19 23:34:37 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	map_parser(char *line, m_config **config)
 	map_string = ft_lstnew(ft_strcpy(line_map, line));
 	if (!map_string)
 	{
-		cleanup_map(*config);
+		cleanup_map(map);
 		return (ERR_MEMALLOC);
 	}
 	return(ft_lstadd_back(map, map_string));
@@ -109,7 +109,7 @@ char		**convert_map(t_list *head, m_config **config)
 	(*config)->max_y = ft_lstsize(head);
 	(*config)->max_x = max_len + 1;
 	if (!(map = (char **)ft_calloc(ft_lstsize(head) + 1, sizeof(char *))))
-		return (NULL); // TODO: скорее всего изменить возвращаемое значение из за типа функции
+		return (NULL);
 	if (!(map[0] = (char *)ft_calloc((max_len + 1) * ft_lstsize(head), sizeof(char))))
 		return (NULL);
 	while (++i < (ft_lstsize(head)))

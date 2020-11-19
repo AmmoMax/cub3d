@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 21:40:16 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/19 00:00:57 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/19 23:43:34 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,11 @@ int			color_handler(char *line, m_config **config);
 int			map_handler(char *line, m_config **config);
 int			map_validator(char **map, int len_map);
 m_config	*read_config (char *path);
-void		cleanup_map(m_config *config);
+void		cleanup_map(t_list **map_head);
 int			start_cub3d(char *path, char *save_flag);
 void		cleanup_flat_map(char **map);
 char		**convert_map(t_list *head, m_config **config);
+void		clean_config_all(m_config **p_config);
+void		clean_config_no_map(m_config **p_config);
 
 #endif

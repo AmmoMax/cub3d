@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 22:39:43 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/18 23:14:30 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/19 23:28:27 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,8 @@ m_config			*read_config (char *path)
 	if (!(config_p = (m_config *)ft_calloc(1, sizeof(m_config))) ||
 			(fd = open(path, O_RDONLY)) < 0)
 			return (NULL);
-	while (get_next_line(fd, &line)) // malloc line
+	while (get_next_line(fd, &line))
 	{
-		// printf("line from gnl = %s\n", line);
 		res_line_handler = line_handler(line, &config_p);
 		if (res_line_handler != 0)
 			return (NULL); // TODO: добавить печать ошибки перед возвратом
