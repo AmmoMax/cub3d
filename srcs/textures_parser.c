@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 22:09:19 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/14 14:37:55 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/20 15:20:51 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,9 @@ static int	tex_validator(char *line, m_config **config)
 int	texture_handler(char *line, m_config **config)
 {
 	if (tex_validator(line, config) == 1)
+	{
+		clean_config_no_map(config);
 		return (1);
+	}
 	return (0);
 }

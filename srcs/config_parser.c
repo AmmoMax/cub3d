@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 22:39:43 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/19 23:28:27 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/20 15:19:22 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,18 @@ m_config			*read_config (char *path)
 	{
 		res_line_handler = line_handler(line, &config_p);
 		if (res_line_handler != 0)
+		{
+			free(line);
 			return (NULL); // TODO: добавить печать ошибки перед возвратом
+		}
 		free(line);
 	}
 	res_line_handler = line_handler(line, &config_p);
 	if (res_line_handler != 0)
+	{
+		free(line);
 		return (NULL); // TODO: добавить печать ошибки перед возвратом
+	}
 	free(line);
 	return (config_p);
 }
