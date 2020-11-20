@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 21:25:15 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/20 17:09:25 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/20 22:05:33 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int			g_engine(m_config *config, int save_flag)
 	t_win	*win;
 	t_world	*world;
 	t_plr	plr;
+	int		res;
 	
 	if (!(win = (t_win *)ft_calloc(1, sizeof(t_win))))
 	{
@@ -42,9 +43,9 @@ int			g_engine(m_config *config, int save_flag)
 	}
 	if (!(world->dist_wall = (float *)malloc(sizeof(float) * config->x)))
 	{
-		free(world);
 		cleanup_win(&win);
 		clean_config_all(&config);
+		free(world);
 		return (ERR_MEMALLOC);
 	}
 	world->map = config->flat_map;
@@ -52,7 +53,8 @@ int			g_engine(m_config *config, int save_flag)
 	world->plr = &plr;
 	world->config = config;
 	save_plr_pos(&world);
-	load_textures_v2(&world);
+	if ((res = load_textures_v2(&world)) != 0)
+		return (res);
 	load_sprite(&world);
 	draw_3d_map(world, save_flag);
 	mlx_hook(world->win->win, 17, 1L<<17, close_red_cross, &world);

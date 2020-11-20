@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 22:29:30 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/14 20:33:20 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/20 22:05:15 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,13 @@ int			load_textures_v2(t_world **world)
 	t_tex	*all_t;
 
 	if (!(all_t = (t_tex *)malloc(sizeof(t_tex))))
+	{
+		clean_config_all(&(*world)->config);
+		cleanup_win(&(*world)->win);
+		free((*world)->dist_wall);
+		free(*world);
 		return (ERR_MEMALLOC);
+	}
 	(*world)->t = all_t;
 	(*world)->t->e_tex = load_one_tex(*world, (*world)->config->ea_texture); // возвращает указатель на загруженную текстуру
 	(*world)->t->s_tex = load_one_tex(*world, (*world)->config->so_texture); // возвращает указатель на загруженную текстуру
@@ -83,5 +89,3 @@ int			load_textures_v2(t_world **world)
 	(*world)->t->w_tex = load_one_tex(*world, (*world)->config->we_texture); // возвращает указатель на загруженную текстуру
 	return (0);
 }
-
-

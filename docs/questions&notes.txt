@@ -159,3 +159,17 @@ load_one_tex()		tex->tex_pix - указатель на интовый масси
 load_sprite()		tex - указатель на структуру спрайта
 load_sprite()		tex->tex_pix - указатель на интовый массив цветов из текстуры
 new_sprite()		new - указатель на структуру спрайта как элемента односвязного списка
+
+
+
+=================
+Список ошибок:
+	ERR_OK = 0,
+	ERR_PARSE = -1,	
+	ERR_MEMALLOC = -2	ошибка выделения памяти
+	ERR_INVMAP = -3, 
+	ERR_GET_SPRITES = -4,
+	ERR_PARSE_TEX = -5,
+	ERR_PARSE_SPRITE = -6,
+	ERR_INVSPRITE = -7, 
+	ERR_INVCOLOR = -8
