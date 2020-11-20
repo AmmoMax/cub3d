@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 15:55:38 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/20 12:04:36 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/20 14:17:31 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int			load_sprite(t_world **world);
 void		draw_sprites(t_world *world, t_sprite *sprite);
 void		sprite_finder(t_world *world);
 int			make_screen(t_world *all);
-int			close_red_cross(t_world *world);
+int			close_red_cross(int keycode, t_world *world);
 int			close_esc(t_world *world);
 void		check_resolution(void*mlx, m_config **config);
 // void		cleanup_xpm(t_xpm **p_tex);
