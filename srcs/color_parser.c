@@ -6,12 +6,11 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/08 22:18:55 by amayor            #+#    #+#             */
-/*   Updated: 2020/10/08 22:26:01 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/20 16:04:03 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/libft.h"
-#include "../headers/utils.h"
+#include "../headers/general.h"
 
 /*
 * Валидирует строку с кодом цвета в RGB
@@ -78,14 +77,15 @@ static void		color_writer(char *line, color **color)
 * адрес этой структуры записывает в общую структуру config
 * C 100,255,255
 */
-static void		color_parser(char *line, m_config **config)
+static int		color_parser(char *line, m_config **config)
 {
 	color		*floor_p;
 	color		*ceiling_p;
 
 	if (ft_strchr(line, 'C'))
 	{
-		ceiling_p  = (color *)(malloc(sizeof(color)));
+		if(!(ceiling_p  = (color *)(malloc(sizeof(color)))))
+			return (ERR_MEMALLOC);
 		ceiling_p->red = -1;
 		ceiling_p->green = -1;
 		ceiling_p->blue = -1;
@@ -94,22 +94,28 @@ static void		color_parser(char *line, m_config **config)
 	}
 	if (ft_strchr(line, 'F'))
 	{
-		floor_p  = (color *)(malloc(sizeof(color)));
+		if (!(floor_p  = (color *)(malloc(sizeof(color)))))
+			return (ERR_MEMALLOC);
 		floor_p->red = -1;
 		floor_p->green = -1;
 		floor_p->blue = -1;
 		color_writer(line, &floor_p);
 		(*config)->floor = floor_p;
 	}
+	return (0);
 }
 
 int				color_handler(char *line, m_config **config)
 {
 	if (color_validator(line) == 0)
 	{
-		color_parser(line, config);
-		return (0);
+		if (color_parser(line, config) != 0)
+		{
+			clean_config_no_map(config);
+			return (ERR_MEMALLOC);
+		}
 	}
 	else
-		return (1);
+		return (ERR_INVCOLOR);
+	return (0);
 }
