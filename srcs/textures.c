@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 22:29:30 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/20 22:05:15 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/20 23:37:23 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,22 +70,32 @@ static t_xpm	*load_one_tex(t_world *world, char *path)
 	return (tex);
 }
 
-int			load_textures_v2(t_world **world)
+int			load_textures_v2(t_world **w)
 {
 	t_tex	*all_t;
 
 	if (!(all_t = (t_tex *)malloc(sizeof(t_tex))))
 	{
-		clean_config_all(&(*world)->config);
-		cleanup_win(&(*world)->win);
-		free((*world)->dist_wall);
-		free(*world);
+		clean_config_all(&(*w)->config);
+		cleanup_win(&(*w)->win);
+		free((*w)->dist_wall);
+		free(*w);
 		return (ERR_MEMALLOC);
 	}
-	(*world)->t = all_t;
-	(*world)->t->e_tex = load_one_tex(*world, (*world)->config->ea_texture); // возвращает указатель на загруженную текстуру
-	(*world)->t->s_tex = load_one_tex(*world, (*world)->config->so_texture); // возвращает указатель на загруженную текстуру
-	(*world)->t->n_tex = load_one_tex(*world, (*world)->config->no_texture); // возвращает указатель на загруженную текстуру
-	(*world)->t->w_tex = load_one_tex(*world, (*world)->config->we_texture); // возвращает указатель на загруженную текстуру
+	(*w)->t = all_t;
+	(*w)->t->e_tex = load_one_tex(*w, (*w)->config->ea_texture);
+	(*w)->t->s_tex = load_one_tex(*w, (*w)->config->so_texture);
+	(*w)->t->n_tex = load_one_tex(*w, (*w)->config->no_texture);
+	(*w)->t->w_tex = load_one_tex(*w, (*w)->config->we_texture);
+	if(!(*w)->t->e_tex || !(*w)->t->s_tex || !(*w)->t->n_tex 
+					  || !(*w)->t->w_tex)
+	{
+		cleanup_all_tex(&(*w)->t, *w);
+		clean_config_all(&(*w)->config);
+		cleanup_win(&(*w)->win);
+		free((*w)->dist_wall);
+		free(*w);
+		return (ERR_MEMALLOC);
+	}
 	return (0);
 }
