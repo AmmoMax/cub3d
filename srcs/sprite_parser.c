@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 22:22:19 by amayor            #+#    #+#             */
-/*   Updated: 2020/10/29 19:50:51 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/20 15:43:57 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	sprite_validator(char *line)
 		}
 		else
 			i++;
-	return ((flag_s == 1 && flag_path == 1) ? 0 : 1);
+	return ((flag_s == 1 && flag_path == 1) ? 0 : ERR_INVMAP);
 }
 
 /*
@@ -55,7 +55,7 @@ static int	sprite_parser(char *line, m_config **config)
 
 	str = (char *)malloc(sizeof(char) * ft_strlen(line) + 1);
 	if (!str)
-		return (ERR_MEMALLOC); // TODO: возможно надо очищение памяти
+		return (ERR_MEMALLOC);
 	i = 0;
 	while(line[i] == ' ' || line[i] == 'S')
 		i++;
@@ -66,6 +66,10 @@ static int	sprite_parser(char *line, m_config **config)
 int			sprite_handler(char *line, m_config **config)
 {
 	if (sprite_validator(line) == 0)
-		return (sprite_parser(line, config));
-	return (1);
+		if (sprite_parser(line, config) != 0)
+		{
+			clean_config_no_map(config);
+			return (ERR_MEMALLOC);
+		}
+	return (0);
 }

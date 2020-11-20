@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 22:09:19 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/20 15:20:51 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/20 15:25:21 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int	tex_validator(char *line, m_config **config)
 	else if((res = ft_strnstr(line, "EA", ft_strlen(line))))
 		return (tex_parser(res + 2, 'E', config));
 	else
-		return (1);
+		return (ERR_PARSE_TEX);
 }
 
 int	texture_handler(char *line, m_config **config)
@@ -61,7 +61,7 @@ int	texture_handler(char *line, m_config **config)
 	if (tex_validator(line, config) == 1)
 	{
 		clean_config_no_map(config);
-		return (1);
+		return (ERR_MEMALLOC);
 	}
 	return (0);
 }
