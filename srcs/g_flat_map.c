@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 23:24:26 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/19 10:52:35 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/20 11:22:44 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,5 +234,6 @@ void	draw_3d_map(t_world *world, int save_flag)
 	sprite_finder(world);
 	if (save_flag)
 		make_screen(world);
+	mlx_do_sync(world->win->mlx);
 	mlx_put_image_to_window(world->win->mlx, world->win->win, world->win->img, START_X, START_Y);
 }

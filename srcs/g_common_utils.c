@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 20:24:56 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/19 23:26:47 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/20 12:49:56 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,7 @@ void		cast_rays_flat(t_world *world)
 		x++;
 		ray.start += FOV / world->config->x;
 	}
+	mlx_do_sync(world->win->mlx);
 	mlx_put_image_to_window(world->win->mlx, world->win->win, world->win->img, START_X, START_Y);
 }
 
@@ -159,18 +160,14 @@ int			close_red_cross(t_world *world)
 {
 	t_world	*tmp;
 	tmp = world;
-
+	// cleanup_all_world(&world);
 	exit(0);
 }
 
 // TODO: Добавить очистку всего и тут тоже
 int			close_esc(t_world *world)
 {
-	t_world	*tmp;
-	tmp = world;
-
-
-	// mlx_destroy_window(vars->mlx, vars->win);
+	cleanup_all_world(&world);
 	exit(0);
 }
 
