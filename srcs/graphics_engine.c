@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 21:25:15 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/20 14:16:44 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/20 17:09:25 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,17 @@
 ** Принимает указатель на общий конфиг с настройками.
 ** Создает внутри себя структуры для графики и запускает нужные функции отрисовки.
 */
-int		g_engine(m_config *config, int save_flag)
+int			g_engine(m_config *config, int save_flag)
 {
 	t_win	*win;
 	t_world	*world;
 	t_plr	plr;
 	
 	if (!(win = (t_win *)ft_calloc(1, sizeof(t_win))))
+	{
+		clean_config_all(&config);
 		return (ERR_MEMALLOC);
+	}
 	win->mlx = mlx_init();
 	check_resolution(win->mlx, &config);
 	win->win = mlx_new_window(win->mlx, config->x, config->y, "Cub3D");
@@ -32,9 +35,18 @@ int		g_engine(m_config *config, int save_flag)
 	win->addr = mlx_get_data_addr(win->img, &win->bbp, &win->line_length, &win->endian);
 
 	if (!(world = (t_world *)ft_calloc(1, sizeof(t_world))))
+	{
+		cleanup_win(&win);
+		clean_config_all(&config);
 		return (ERR_MEMALLOC);
+	}
 	if (!(world->dist_wall = (float *)malloc(sizeof(float) * config->x)))
+	{
+		free(world);
+		cleanup_win(&win);
+		clean_config_all(&config);
 		return (ERR_MEMALLOC);
+	}
 	world->map = config->flat_map;
 	world->win = win;
 	world->plr = &plr;

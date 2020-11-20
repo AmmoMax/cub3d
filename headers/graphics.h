@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 15:55:38 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/20 14:17:31 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/20 16:43:36 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,5 +121,6 @@ void		check_resolution(void*mlx, m_config **config);
 void		cleanup_all_tex(t_tex **p_textures, t_world *world);
 void			cleanup_sprites(t_sprite **sprites_head);
 void		cleanup_all_world(t_world **p_world);
+void		cleanup_win(t_win **win);
 
 #endif
