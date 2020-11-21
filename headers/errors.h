@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 17:28:03 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/21 18:38:20 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/21 21:56:47 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@ typedef enum	e_errors
 	ERR_INVLINE_CONF = -10,
 	ERR_DOUBLE_RES = -11,
 	ERR_INVRES = -12,
+	ERR_MEMALLOC_TEXPARSER = -13,
+	ERR_INVLINE_TEX = -14, 
+	ERR_DOUBLE_TEX = -15
 }				t_error;
 
 #endif

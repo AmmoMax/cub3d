@@ -1,11 +1,12 @@
-
 R    800 600
 
-NO ./textures/marbface.xpm
-SO ./textures/crackle4.xpm
-WE ./textures/sp_dude.xpm
-EA ./textures/flat-ligth.xpm
-S ./textures/cacodemon.xpm
+          NO ./textures/marbface.xpm
+
+
+   SO ./textures/crackle4.xpm
+    WE ./textures/sp_dude.xpm
+ EA ./textures/flat-ligth.xpm
+    S ./textures/cacodemon.xpm
 
 
 F 128, 0, 0
