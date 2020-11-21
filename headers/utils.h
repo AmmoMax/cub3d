@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 21:40:16 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/21 14:33:33 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/21 14:59:22 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,16 @@ typedef struct			maze_config
 	char				**flat_map;
 	int					max_x;
 	int					max_y;
+	int					count_res;
+	int					count_ntex;
+	int					count_stex;
+	int					count_wtex;
+	int					count_etex;
+	int					count_sprtex;
+	int					count_clrf;
+	int					count_clrc;
 }						m_config;
+
 
 int			res_handler(char *line, m_config **config);
 int			texture_handler(char *line, m_config **config);

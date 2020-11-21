@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 22:39:43 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/21 14:50:19 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/21 18:30:24 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,23 @@ int			line_handler(char *line, m_config **config)
 	}
 }
 
+static m_config	*init_config(void)
+{
+	m_config	*config;
+
+	if(!(config = (m_config *)ft_calloc(1, sizeof(m_config))))
+		return (NULL);
+	config->count_wtex = 0;
+	config->count_etex = 0;
+	config->count_stex = 0;
+	config->count_ntex = 0;
+	config->count_res = 0;
+	config->count_sprtex = 0;
+	config->count_clrc = 0;
+	config->count_clrf = 0;
+	return (config);
+}
+
 m_config			*read_config (char *path)
 {
 	int				fd;
@@ -49,7 +66,7 @@ m_config			*read_config (char *path)
 	int				res_line_handler;
 
 	line = NULL;
-	if (!(config_p = (m_config *)ft_calloc(1, sizeof(m_config))) || (fd = open(path, O_RDONLY)) < 0)
+	if (!(config_p = init_config()) || (fd = open(path, O_RDONLY)) < 0)
 	{
 		print_err(ERR_OFILE);
 		return (NULL);

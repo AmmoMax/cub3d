@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/12 22:28:35 by amayor            #+#    #+#             */
-/*   Updated: 2020/10/08 22:19:47 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/21 18:15:49 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static int res_validator(char *line)
 		}
 		else return (1);
 	}
-	return ((nbr_count != 2 || flag_r != 1)? 1 : 0);
+	return ((nbr_count != 2 || flag_r != 1) ? 1 : 0);
 }
 
 /*
