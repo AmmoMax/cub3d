@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 22:39:43 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/20 15:19:22 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/21 14:50:19 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,10 @@ int			line_handler(char *line, m_config **config)
 	else if (line[0] == '\n' || line[0] == 0)
 		return (0);
 	else
+	{
+		print_err(ERR_INVLINE_CONF);
 		return (1);
+	}
 }
 
 m_config			*read_config (char *path)
@@ -46,16 +49,19 @@ m_config			*read_config (char *path)
 	int				res_line_handler;
 
 	line = NULL;
-	if (!(config_p = (m_config *)ft_calloc(1, sizeof(m_config))) ||
-			(fd = open(path, O_RDONLY)) < 0)
-			return (NULL);
+	if (!(config_p = (m_config *)ft_calloc(1, sizeof(m_config))) || (fd = open(path, O_RDONLY)) < 0)
+	{
+		print_err(ERR_OFILE);
+		return (NULL);
+	}
 	while (get_next_line(fd, &line))
 	{
 		res_line_handler = line_handler(line, &config_p);
 		if (res_line_handler != 0)
 		{
 			free(line);
-			return (NULL); // TODO: добавить печать ошибки перед возвратом
+			print_err(ERR_PARSE_CFILE);
+			return (NULL);
 		}
 		free(line);
 	}
@@ -63,7 +69,8 @@ m_config			*read_config (char *path)
 	if (res_line_handler != 0)
 	{
 		free(line);
-		return (NULL); // TODO: добавить печать ошибки перед возвратом
+		print_err(ERR_PARSE_CFILE);
+		return (NULL);
 	}
 	free(line);
 	return (config_p);

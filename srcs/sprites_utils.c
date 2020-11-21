@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/14 12:22:56 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/21 14:21:57 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/21 14:23:08 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int					save_sprites_pos(t_world **world)
 				if(!(sprite = new_sprite(j * SCALE + (SCALE / 2), i * SCALE + (SCALE / 2))))
 				{
 					cleanup_save_sprite_pos(world);
-					return (ERR_GET_SPRITES);
+					return (ERR_MEMALLOC);
 				}
 				lst_add_back(&(*world)->sprites, sprite);
 			}

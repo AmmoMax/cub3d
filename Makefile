@@ -6,7 +6,7 @@
 #    By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/21 23:12:54 by amayor            #+#    #+#              #
-#    Updated: 2020/11/20 14:10:46 by amayor           ###   ########.fr        #
+#    Updated: 2020/11/21 14:34:21 by amayor           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,8 @@ SRC_FILES = config_parser.c \
 			sprites_utils.c \
 			sprites.c \
 			save_bmp.c \
-			g_clean.c
+			g_clean.c \
+			error_handler.c
 			
 
 SRCS = $(addprefix $(SRC_DIR)/,$(SRC_FILES))
