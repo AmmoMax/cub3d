@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 17:28:03 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/21 23:22:19 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/22 00:02:35 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,10 @@ typedef enum	e_errors
 	ERR_INVLINE_COLOR = -19,
 	ERR_MEMALLOC_COLORPARSER = -20,
 	ERR_DOUBLE_C_COLOR = -21,
-	ERR_DOUBLE_F_COLOR = -22
+	ERR_DOUBLE_F_COLOR = -22,
+	ERR_NOMAP = -23,
+	ERR_TO_MANY_ARGS = -24,
+	ERR_INV_FLAG = -25
 }				t_error;
 
 #endif

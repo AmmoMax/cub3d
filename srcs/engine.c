@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 11:49:02 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/19 23:47:21 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/22 00:06:29 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,11 @@ int				start_cub3d(char *path, char *save_f)
 	int			len_map;
 	int 		save_flag;
 
-	if (save_f && ft_strncmp("--save", save_f, ft_strlen(save_f)) == 1)
+	if (save_f && ft_strncmp("--save", save_f, ft_strlen(save_f)) != 0)
+	{
+		print_err(ERR_INV_FLAG);
 		return (1); // TODO: обработка ошибки - параметр не равен --save
+	}
 	save_flag = 0;
 	if (save_f)
 		save_flag = 1;
