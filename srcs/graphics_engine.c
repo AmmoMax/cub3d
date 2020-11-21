@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 21:25:15 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/20 22:05:33 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/21 13:47:00 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ int			g_engine(m_config *config, int save_flag)
 	save_plr_pos(&world);
 	if ((res = load_textures_v2(&world)) != 0)
 		return (res);
-	load_sprite(&world);
+	if ((res = load_sprite(&world)) != 0)
+		return (res);
 	draw_3d_map(world, save_flag);
 	mlx_hook(world->win->win, 17, 1L<<17, close_red_cross, &world);
 	mlx_hook(world->win->win, 2, 1L<<0, key_handler, &world);

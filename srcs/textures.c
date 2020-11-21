@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 22:29:30 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/20 23:37:23 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/21 13:45:23 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int			load_textures_v2(t_world **w)
 {
 	t_tex	*all_t;
 
-	if (!(all_t = (t_tex *)malloc(sizeof(t_tex))))
+	if (!(all_t = (t_tex *)ft_calloc(1, sizeof(t_tex))))
 	{
 		clean_config_all(&(*w)->config);
 		cleanup_win(&(*w)->win);

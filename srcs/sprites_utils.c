@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/14 12:22:56 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/16 21:52:36 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/21 14:03:38 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,28 @@ int				load_sprite(t_world **world)
 	t_xpm		*tex;
 
 	if (!(tex = (t_xpm*)malloc(sizeof(t_xpm))))
+	{
+		cleanup_all_tex(&(*world)->t, *world);
+		cleanup_win(&(*world)->win);
+		clean_config_all(&(*world)->config);
+		free((*world)->dist_wall);
+		free(*world);
 		return (ERR_MEMALLOC); 
+	}
 	tex->img = mlx_xpm_file_to_image((*world)->win->mlx, (*world)->config->s_texture, &tex->width, &tex->height);
 	tex->addr = mlx_get_data_addr(tex->img, &tex->bbp, &tex->line_length, &tex->endian);
-	tex->tex_pix = (int *)malloc(sizeof(int) * (tex->height * tex->width + 1));
+	tex->tex_pix = (int *)ft_calloc(1, sizeof(int) * (tex->height * tex->width + 1));
 	if(!tex->tex_pix)
+	{
+		mlx_destroy_image((*world)->win->mlx, tex->img);
+		free(tex);
+		cleanup_all_tex(&(*world)->t, *world);
+		cleanup_win(&(*world)->win);
+		clean_config_all(&(*world)->config);
+		free((*world)->dist_wall);
+		free(*world);
 		return (ERR_MEMALLOC);
+	}
 	strcpy_int(tex->tex_pix, (int *)tex->addr);
 	(*world)->t->sprite_tex = tex;
 	return (save_sprites_pos(world));
