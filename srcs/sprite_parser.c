@@ -6,16 +6,16 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 22:22:19 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/20 15:43:57 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/21 22:54:07 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/general.h"
 
 /*
-* Валидирует и записывает в конфиг строку со спрайтом.
-* Валидная строка: S ./path_to_the_sprite_texture
-* Невалидная строка: X  S ./path_to_the_sprite_texture
+** Валидирует и записывает в конфиг строку со спрайтом.
+** Валидная строка: S ./path_to_the_sprite_texture
+** Невалидная строка: X  S ./path_to_the_sprite_texture
 */
 static int	sprite_validator(char *line)
 {
@@ -42,7 +42,7 @@ static int	sprite_validator(char *line)
 		}
 		else
 			i++;
-	return ((flag_s == 1 && flag_path == 1) ? 0 : ERR_INVMAP);
+	return ((flag_s == 1 && flag_path == 1) ? 0 : ERR_INVLINE_SPRITE);
 }
 
 /*
@@ -60,16 +60,35 @@ static int	sprite_parser(char *line, m_config **config)
 	while(line[i] == ' ' || line[i] == 'S')
 		i++;
 	(*config)->s_texture = ft_strcpy(str, line + i);
+	(*config)->count_sprtex = 1;
 	return (0);
 }
 
 int			sprite_handler(char *line, m_config **config)
 {
-	if (sprite_validator(line) == 0)
-		if (sprite_parser(line, config) != 0)
+	int		res;
+	if ((res = sprite_validator(line)) == 0)
+	{
+		if ((*config)->count_sprtex == 0)
 		{
-			clean_config_no_map(config);
-			return (ERR_MEMALLOC);
+			if (sprite_parser(line, config) == ERR_MEMALLOC)
+			{
+				clean_config_no_map(config);
+				print_err(ERR_MEMALLOC_SPRTPARSER);
+				return (ERR_MEMALLOC);
+			}
 		}
+		else
+		{
+			print_err(ERR_DOUBLE_SPRITE);
+			return (ERR_DOUBLE_SPRITE);
+		}
+		
+	}
+	else
+	{
+		print_err(res);
+		return (res);
+	}
 	return (0);
 }
