@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/08 22:18:55 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/20 16:04:03 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/21 23:17:44 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,13 @@ static int		color_validator(char *line)
 		else if (ft_isdigit(line[i]) && !(ft_isdigit(line[i - 1])))
 		{
 			if (ft_atoi(tmp + i) > 255 || ft_atoi(tmp + i) < 0 || flag_color != 1)
-				return (1);
+				return (ERR_INVLINE_COLOR);
 			num_cnt++;
 		}
 		else
-			return (1);
+			return (ERR_INVLINE_COLOR);
 	}
-	return (num_cnt == 3 ? 0 : 1);
+	return (num_cnt == 3 ? 0 : ERR_INVLINE_COLOR);
 }
 
 static void		color_writer(char *line, color **color)
@@ -84,6 +84,11 @@ static int		color_parser(char *line, m_config **config)
 
 	if (ft_strchr(line, 'C'))
 	{
+		if ((*config)->count_clrc != 0)
+		{
+			print_err(ERR_DOUBLE_C_COLOR);
+			return (ERR_DOUBLE_C_COLOR);
+		}
 		if(!(ceiling_p  = (color *)(malloc(sizeof(color)))))
 			return (ERR_MEMALLOC);
 		ceiling_p->red = -1;
@@ -91,9 +96,15 @@ static int		color_parser(char *line, m_config **config)
 		ceiling_p->blue = -1;
 		color_writer(line, &ceiling_p);
 		(*config)->ceiling = ceiling_p;
+		(*config)->count_clrc = 1;
 	}
 	if (ft_strchr(line, 'F'))
 	{
+		if ((*config)->count_clrf != 0)
+		{
+			print_err(ERR_DOUBLE_F_COLOR);
+			return (ERR_DOUBLE_F_COLOR);
+		}
 		if (!(floor_p  = (color *)(malloc(sizeof(color)))))
 			return (ERR_MEMALLOC);
 		floor_p->red = -1;
@@ -101,21 +112,29 @@ static int		color_parser(char *line, m_config **config)
 		floor_p->blue = -1;
 		color_writer(line, &floor_p);
 		(*config)->floor = floor_p;
+		(*config)->count_clrf = 1;
 	}
 	return (0);
 }
 
 int				color_handler(char *line, m_config **config)
 {
-	if (color_validator(line) == 0)
+	int			res;
+	if ((res = color_validator(line)) == 0)
 	{
-		if (color_parser(line, config) != 0)
+		if ((res = color_parser(line, config)) == ERR_MEMALLOC_COLORPARSER)
 		{
 			clean_config_no_map(config);
-			return (ERR_MEMALLOC);
+			print_err(res);
+			return (res);
 		}
+		else
+			return(res);
 	}
 	else
-		return (ERR_INVCOLOR);
+	{
+		print_err(res);
+		return (res);
+	}
 	return (0);
 }
