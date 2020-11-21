@@ -6,12 +6,11 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/12 22:28:35 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/21 18:15:49 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/21 18:38:41 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/libft.h"
-#include "../headers/utils.h"
+#include "../headers/general.h"
 
 /*
 * Парсинг строки с разрешением экрана из файла конфига.
@@ -27,6 +26,7 @@ static void	res_parser(char *line,  m_config **config)
 	i = 1;
 	flag_x = 0;
 	tmp = line;
+	(*config)->count_res++;
 	while (line[i])
 	{
 		if (line[i] == ' ' || (ft_isdigit(line[i]) && ft_isdigit(line[i - 1])))
@@ -91,9 +91,20 @@ int		res_handler(char *line, m_config **config)
 {
 	if (res_validator(line) == 0)
 	{
-		res_parser(line, config);
-		return (0);
+		if ((*config)->count_res == 0)
+		{
+			res_parser(line, config);
+			return (0);
+		}
+		else
+		{
+			print_err(ERR_DOUBLE_RES);
+			return (1);
+		}
 	}
 	else
+	{
+		print_err(ERR_INVRES);
 		return (1);
+	}
 }

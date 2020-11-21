@@ -177,8 +177,8 @@ new_sprite()		new - указатель на структуру спрайта к
 
 write(2, "Error : Couldn't open file (FD)\n", 32) 				(done)
 write(2, "Error : Couldn't parse file (GNL)\n", 34) 			(done)
-write(2, "Error : Resolution specified twice\n", 35) 			
-write(2, "Error : Invalid resolution\n", 27) 
+write(2, "Error : Resolution specified twice\n", 35) 			(done)
+write(2, "Error : Invalid resolution\n", 27) 					(done)
 write(2, "Error : Floor/ceiling specified twice\n", 38) 
 write(2, "Error : Invalid floor/ceiling line\n", 35) 
  write(2, "Error : Texture path specified twice\n", 37) 
