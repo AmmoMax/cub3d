@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 21:25:15 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/21 13:47:00 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/22 22:03:19 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ int			g_engine(m_config *config, int save_flag)
 	}
 	win->mlx = mlx_init();
 	check_resolution(win->mlx, &config);
-	win->win = mlx_new_window(win->mlx, config->x, config->y, "Cub3D");
+	if (!save_flag)
+		win->win = mlx_new_window(win->mlx, config->x, config->y, "Cub3D");
 	win->img = mlx_new_image(win->mlx, config->x, config->y);
 	win->addr = mlx_get_data_addr(win->img, &win->bbp, &win->line_length, &win->endian);
 
