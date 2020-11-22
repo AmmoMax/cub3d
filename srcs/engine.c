@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 11:49:02 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/22 13:47:49 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/22 15:36:59 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,41 @@ void	print_map(char **map)
 	printf("*** End print_map ***\n");
 }
 
+int	check_config(m_config *config)
+{
+	if (config->count_res == 0)
+		return(ERR_NO_RES);
+	else if (config->count_ntex == 0)
+		return(ERR_NO_NTEX);
+	else if (config->count_stex == 0)
+		return(ERR_NO_STEX);
+	else if (config->count_wtex == 0)
+		return(ERR_NO_WTEX);
+	else if (config->count_etex == 0)
+		return(ERR_NO_ETEX);
+	else if (config->count_sprtex == 0)
+		return(ERR_NO_SPRTEX);
+	else if (config->count_clrf == 0)
+		return(ERR_NO_CLRF);
+	else if (config->count_clrc == 0)
+		return(ERR_NO_CLRC);
+	else
+		return (0);
+}
+
+static int	print_check_config(m_config *config)
+{
+	int		res;
+
+	if ((res = check_config(config)) != 0)
+	{
+		print_err(res);
+		return (res);
+	}
+	else
+		return (0);
+}
+
 int				start_cub3d(char *path, char *save_f)
 {
 	m_config	*config;
@@ -47,12 +82,14 @@ int				start_cub3d(char *path, char *save_f)
 	ft_putstr_fd("Start reading map file...\n", 1);
 	if (!(config = read_config(path)))
 		return (1); // TODO: ошибка при чтении или парсинге карты(?)
+	if (print_check_config(config) != 0)
+		return (1);	
 	config->flat_map = convert_map(config->map, &config);
 	if (!(config->flat_map))
 	{
 		cleanup_map(&config->map);
 		clean_config_no_map(&config);
-		print_err(ERR_MEMALLOC_CONVERTMAP);
+		return(ERR_MEMALLOC_CONVERTMAP);
 		return (ERR_MEMALLOC);
 	}
 	len_map = ft_lstsize(config->map);
@@ -62,3 +99,4 @@ int				start_cub3d(char *path, char *save_f)
 	g_engine(config, save_flag);
 	return (0);
 }
+

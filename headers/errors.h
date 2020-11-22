@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 17:28:03 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/22 14:34:53 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/22 15:24:24 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,15 @@ typedef enum	e_errors
 	ERR_MEMALLOC_MAP = -27,
 	ERR_MAP_NOGMR_POS = -28,
 	ERR_MAP_SURWALLS = -29,
-	ERR_DOUBLE_PLR = -30
+	ERR_DOUBLE_PLR = -30,
+	ERR_NO_RES = -31,
+	ERR_NO_NTEX = -32,
+	ERR_NO_STEX = -33,
+	ERR_NO_WTEX = -34,
+	ERR_NO_ETEX = -35,
+	ERR_NO_SPRTEX = -36,
+	ERR_NO_CLRF = -37,
+	ERR_NO_CLRC = -38
 }				t_error;
 
 #endif
