@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 11:49:02 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/22 15:36:59 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/22 18:34:29 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ int				start_cub3d(char *path, char *save_f)
 	len_map = ft_lstsize(config->map);
 	if (map_validator(config->flat_map, len_map) != 0)
 		return (ERR_INVMAP);
+	if (check_path_tex(config) != 0)
+		return (1);
 	print_map(config->flat_map);
 	g_engine(config, save_flag);
 	return (0);

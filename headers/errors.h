@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 17:28:03 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/22 15:24:24 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/22 20:13:27 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,9 @@ typedef enum	e_errors
 	ERR_NO_ETEX = -35,
 	ERR_NO_SPRTEX = -36,
 	ERR_NO_CLRF = -37,
-	ERR_NO_CLRC = -38
+	ERR_NO_CLRC = -38,
+	ERR_INCPATH_TEX = -39,
+	ERR_INCPATH_SPR = -40
 }				t_error;
 
 #endif

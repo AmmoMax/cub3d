@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 22:22:19 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/21 22:54:07 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/22 20:26:43 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,19 @@ static int	sprite_parser(char *line, m_config **config)
 	return (0);
 }
 
+static int	check_path_sprite(m_config *config)
+{
+	int		fd;
+
+	if ((fd = open(config->s_texture, O_RDONLY)) < 0)
+	{
+		print_err(ERR_INCPATH_SPR);
+		return (ERR_INCPATH_SPR);
+	}
+	else
+		return (0);
+}
+
 int			sprite_handler(char *line, m_config **config)
 {
 	int		res;
@@ -77,6 +90,8 @@ int			sprite_handler(char *line, m_config **config)
 				print_err(ERR_MEMALLOC_SPRTPARSER);
 				return (ERR_MEMALLOC);
 			}
+			else if (check_path_sprite(*config) != 0)
+				return (ERR_INCPATH_SPR);
 		}
 		else
 		{

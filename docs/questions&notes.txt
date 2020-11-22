@@ -131,8 +131,8 @@
 5. Обработка закрытия по нажатию Esc (done)
 6. Обработка закрытия по крестику (done)
 7. Если разрешение в конфиге больше чем разрешение экрана - задаем размер по текущему разрешению экрана (done)
-8. В случае ошибок парсинга карты нужен вывод ошибок
-9. Утечки
+8. В случае ошибок парсинга карты нужен вывод ошибок (done)
+9. Утечки (done)
 11. TODO просмотреть
 12. Норминетт
 13. Makefile и сборка проекта
@@ -183,14 +183,13 @@ write(2, "Error : Floor/ceiling specified twice\n", 38) 		(done)
 write(2, "Error : Invalid floor/ceiling line\n", 35) 			(done)
  write(2, "Error : Texture path specified twice\n", 37) 		(done)
 write(2, "Error : Malloc fail (texture path)\n", 35) 			(done)
- write(2, "Error : Invalid texture image\n", 30) 
+ write(2, "Error : Invalid texture image\n", 30) 				(done)
  write(2, "Error : Invalid line in file\n", 29) 				(done)
 write(2, "Error : Malloc fail (map table)\n", 32) 				(done)
- write(2, "Error : Invalid map\n", 20) 
- write(2, "Error : Map isn't a rectangle\n", 30) 
-write(2, "Error : No resolution specified\n", 32) 
-write(2, "Error : Missing texture\n", 24) 
-write(2, "Error : Missing floor/ceiling color\n", 26) 
+ write(2, "Error : Invalid map\n", 20) 							(done)
+write(2, "Error : No resolution specified\n", 32) 				(done)
+write(2, "Error : Missing texture\n", 24) 						(done)
+write(2, "Error : Missing floor/ceiling color\n", 26) 			(done)
  write(2, "Error : No starting position\n", 29) 				(done)
 write(2, "Error : Multiple starting positions\n", 36) 			(done)
  write(2, "Error : Map isn't surrounded by walls\n", 38)		(done)

@@ -6,11 +6,39 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 22:09:19 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/21 22:34:21 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/22 20:11:01 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/general.h"
+
+int	check_path_tex(m_config *config)
+{
+	int		fd;
+
+	if ((fd = open(config->no_texture, O_RDONLY)) < 0)
+	{
+		print_err(ERR_INCPATH_TEX);
+		return (ERR_INCPATH_TEX);
+	}
+	else if ((fd = open(config->so_texture, O_RDONLY)) < 0)
+	{
+		print_err(ERR_INCPATH_TEX);
+		return (ERR_INCPATH_TEX);
+	}
+	else if ((fd = open(config->ea_texture, O_RDONLY)) < 0)
+	{
+		print_err(ERR_INCPATH_TEX);
+		return (ERR_INCPATH_TEX);
+	}
+	else if ((fd = open(config->we_texture, O_RDONLY)) < 0)
+	{
+		print_err(ERR_INCPATH_TEX);
+		return (ERR_INCPATH_TEX);
+	}
+	else
+		return (0);
+}
 
 /*
 ** Парсит строку с путем к текстуре из файла и сохраняет ее в структуру конфига.
@@ -119,6 +147,8 @@ int		texture_handler(char *line, m_config **config)
 		print_err(ERR_MEMALLOC_TEXPARSER);
 		return (ERR_MEMALLOC);
 	}
+	// else if ((res = check_path_tex(*config)) != 0)
+	// 	return (res);
 	else
 		return (res);
 }
