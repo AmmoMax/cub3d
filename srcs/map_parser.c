@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 13:48:41 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/19 23:34:37 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/22 14:02:59 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ static int	map_parser(char *line, m_config **config)
 	map = &((*config)->map);
 	line_map = (char *)malloc(sizeof(char) * ft_strlen(line) + 1);
 	if (!line_map)
-		return (ERR_MEMALLOC);
+		return (ERR_MEMALLOC_MAP);
 	map_string = ft_lstnew(ft_strcpy(line_map, line));
 	if (!map_string)
 	{
 		cleanup_map(map);
-		return (ERR_MEMALLOC);
+		return (ERR_MEMALLOC_MAP);
 	}
 	return(ft_lstadd_back(map, map_string));
 }
@@ -59,10 +59,14 @@ static int	max_len_line(t_list *head)
 int				map_handler(char *line, m_config **config)
 {
 	m_config	*tmp;
+	int			res;
 
 	tmp = *config;
-	if (map_parser(line, config) != 0)
-		return (ERR_MEMALLOC);
+	if ((res = map_parser(line, config)) != 0)
+	{
+		print_err(res);
+		return (res);
+	}
 	return (0);
 }
 
@@ -109,9 +113,15 @@ char		**convert_map(t_list *head, m_config **config)
 	(*config)->max_y = ft_lstsize(head);
 	(*config)->max_x = max_len + 1;
 	if (!(map = (char **)ft_calloc(ft_lstsize(head) + 1, sizeof(char *))))
+	{
+		print_err(ERR_MEMALLOC_CONVERTMAP);
 		return (NULL);
+	}
 	if (!(map[0] = (char *)ft_calloc((max_len + 1) * ft_lstsize(head), sizeof(char))))
+	{
+		print_err(ERR_MEMALLOC_CONVERTMAP);
 		return (NULL);
+	}
 	while (++i < (ft_lstsize(head)))
 		map[i] = map[0] + i * (max_len + 1);
 	i = 0;

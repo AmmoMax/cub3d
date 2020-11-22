@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 11:24:53 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/21 23:54:20 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/22 13:34:49 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@ int	main(int argc, char **argv)
 	else if (argc == 1)
 	{
 		print_err(ERR_NOMAP);
-		return (1); // TODO: добавить обработку ошибки отсутствия карты
+		return (1);
 	}
 	else
 	{
 		print_err(ERR_TO_MANY_ARGS);
-		return (1); // TODO: добавить ошибку - слишком много аргументов
+		return (1);
 	}
 }

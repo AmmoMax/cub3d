@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 21:40:16 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/21 14:59:22 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/22 14:40:38 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,6 @@ char		**convert_map(t_list *head, m_config **config);
 void		clean_config_all(m_config **p_config);
 void		clean_config_no_map(m_config **p_config);
 void		print_err(int err_type);
+int			check_player(int flag);
 
 #endif

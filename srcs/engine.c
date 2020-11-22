@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 11:49:02 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/22 00:06:29 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/22 13:47:49 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int				start_cub3d(char *path, char *save_f)
 	if (save_f && ft_strncmp("--save", save_f, ft_strlen(save_f)) != 0)
 	{
 		print_err(ERR_INV_FLAG);
-		return (1); // TODO: обработка ошибки - параметр не равен --save
+		return (1);
 	}
 	save_flag = 0;
 	if (save_f)
@@ -52,7 +52,8 @@ int				start_cub3d(char *path, char *save_f)
 	{
 		cleanup_map(&config->map);
 		clean_config_no_map(&config);
-		return (ERR_MEMALLOC); // TODO: печать ошибки выделения памяти
+		print_err(ERR_MEMALLOC_CONVERTMAP);
+		return (ERR_MEMALLOC);
 	}
 	len_map = ft_lstsize(config->map);
 	if (map_validator(config->flat_map, len_map) != 0)
