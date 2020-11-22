@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 15:09:13 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/22 14:40:14 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/22 21:27:27 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,12 @@ static int	validator_last_str(char *str)
 	return (0);
 }
 
+static int	print_error(int err)
+{
+	print_err(err);
+	return (err);
+}
+
 /*
 * Проверяет клетку с пустым пространством в карте, т.е. с 0.
 * Проверяет чтобы клетка с нулем была закрытой - т.е. не соседствовала
@@ -68,24 +74,25 @@ static int	validator_last_str(char *str)
 static int	check_zero_symbol(char *str, int len)
 {
 	if (*(str - len) == ' ')
-		return (ERR_MAP_SURWALLS);
+		return (print_error(ERR_MAP_SURWALLS));
 	else if (*(str - (len + 1)) == ' ')
-		return (ERR_MAP_SURWALLS);
+		return (print_error(ERR_MAP_SURWALLS));
 	else if (*(str - (len + 2)) == ' ')
-		return (ERR_MAP_SURWALLS);
+		return (print_error(ERR_MAP_SURWALLS));
 	else if (*(str - 1) == ' ')
-		return (ERR_MAP_SURWALLS);
+		return (print_error(ERR_MAP_SURWALLS));
 	else if ((*(str + 1) == ' ') || (*(str + 1) == '\0'))
-		return (ERR_MAP_SURWALLS);
+		return (print_error(ERR_MAP_SURWALLS));
 	else if (*(str + len) == ' ')
-		return (ERR_MAP_SURWALLS);
+		return (print_error(ERR_MAP_SURWALLS));
 	else if (*(str + (len + 1)) == 32)
-		return (ERR_MAP_SURWALLS);
+		return (print_error(ERR_MAP_SURWALLS));
 	else if (*(str + (len + 2)) == ' ')
-		return (ERR_MAP_SURWALLS);
+		return (print_error(ERR_MAP_SURWALLS));
 	else
 		return (0);
 }
+
 
 /*
 * Валирует обычную строку карты относительно других строк.
@@ -98,7 +105,6 @@ static int	validator_common_str(char *str, int len, int *flag_gamer)
 	i = 0;
 	if (str[0] == ' ' || str[0] == '1')
 		while (str[++i])
-		{
 			if ((str[i] == ' ' || str[i] == '1' || str[i] == '2') ||
 					(str[i] == '0' && check_zero_symbol(str + i, len) == 0))
 				;
@@ -107,16 +113,9 @@ static int	validator_common_str(char *str, int len, int *flag_gamer)
 					 check_zero_symbol(str + i, len) == 0)
 					(*flag_gamer)++;
 			else
-			{
-				print_err(ERR_MAP_SURWALLS);
-				return (ERR_INVMAP);
-			}
-		}
+				return(print_error(ERR_INVMAP));
 	else
-	{
-		print_err(ERR_MAP_SURWALLS);
-		return (ERR_MAP_SURWALLS);
-	}
+		return (print_error(ERR_MAP_SURWALLS));
 	return (0);
 }
 
