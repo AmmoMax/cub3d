@@ -6,31 +6,13 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 11:49:02 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/22 18:34:29 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/23 21:28:28 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/general.h"
 
-/*
-*
-* ФУНКЦИЯ ТЕСТОВАЯ, НЕ ИСПОЛЬЗОВАТЬ НА ПРОДЕ.
-*/
-void	print_map(char **map)
-{
-	size_t	i;
-
-	printf("*** Start print_map ***\n");
-	i = 0;
-	while (map[i])
-	{
-		printf("%ld :: *%s*\n", i, map[i]);
-		i++;
-	}
-	printf("*** End print_map ***\n");
-}
-
-int	check_config(m_config *config)
+int				check_config(m_config *config)
 {
 	if (config->count_res == 0)
 		return(ERR_NO_RES);
@@ -52,9 +34,9 @@ int	check_config(m_config *config)
 		return (0);
 }
 
-static int	print_check_config(m_config *config)
+static int		print_check_config(m_config *config)
 {
-	int		res;
+	int			res;
 
 	if ((res = check_config(config)) != 0)
 	{
@@ -65,6 +47,19 @@ static int	print_check_config(m_config *config)
 		return (0);
 }
 
+static int		clean_flat_map(m_config *config)
+{
+	cleanup_map(&config->map);
+	clean_config_no_map(&config);
+	return(ERR_MEMALLOC_CONVERTMAP);
+}
+
+static int		local_print_error(int err)
+{
+	print_err(err);
+	return (err);
+}
+
 int				start_cub3d(char *path, char *save_f)
 {
 	m_config	*config;
@@ -72,33 +67,23 @@ int				start_cub3d(char *path, char *save_f)
 	int 		save_flag;
 
 	if (save_f && ft_strncmp("--save", save_f, ft_strlen(save_f)) != 0)
-	{
-		print_err(ERR_INV_FLAG);
-		return (1);
-	}
+		return(local_print_error(ERR_INV_FLAG));
 	save_flag = 0;
 	if (save_f)
 		save_flag = 1;
 	ft_putstr_fd("Start reading map file...\n", 1);
 	if (!(config = read_config(path)))
-		return (1); // TODO: ошибка при чтении или парсинге карты(?)
+		return (1);
 	if (print_check_config(config) != 0)
-		return (1);	
+		return (1);
 	config->flat_map = convert_map(config->map, &config);
 	if (!(config->flat_map))
-	{
-		cleanup_map(&config->map);
-		clean_config_no_map(&config);
-		return(ERR_MEMALLOC_CONVERTMAP);
-		return (ERR_MEMALLOC);
-	}
+		return(clean_flat_map(config));
 	len_map = ft_lstsize(config->map);
 	if (map_validator(config->flat_map, len_map) != 0)
 		return (ERR_INVMAP);
 	if (check_path_tex(config) != 0)
 		return (1);
-	print_map(config->flat_map);
 	g_engine(config, save_flag);
 	return (0);
 }
-
