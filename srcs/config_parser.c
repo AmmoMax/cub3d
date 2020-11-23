@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 22:39:43 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/22 13:48:35 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/23 21:46:03 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 ** Получает строку из файла и отправляет в нужный обработчик.
 ** Возвращает код, который вернул обработчик.
 */
-int			line_handler(char *line, m_config **config)
+int					line_handler(char *line, m_config **config)
 {
-	size_t	len;
+	size_t			len;
 
 	len = ft_strlen(line);
 	if (ft_strchr(line, 'R'))
@@ -30,7 +30,7 @@ int			line_handler(char *line, m_config **config)
 		return (sprite_handler(line, config));
 	else if (ft_strchr(line, 'F')|| ft_strchr(line, 'C'))
 		return(color_handler(line, config));
-	else if (ft_strchr(line, '1')) // TODO: более точное условие строки с картой
+	else if (ft_strchr(line, '1'))
 		return (map_handler(line, config));
 	else if (line[0] == '\n' || line[0] == 0)
 		return (0);
@@ -41,11 +41,11 @@ int			line_handler(char *line, m_config **config)
 	}
 }
 
-static m_config	*init_config(void)
+static m_config		*init_config(void)
 {
-	m_config	*config;
+	m_config		*config;
 
-	if(!(config = (m_config *)ft_calloc(1, sizeof(m_config))))
+	if (!(config = (m_config *)ft_calloc(1, sizeof(m_config))))
 		return (NULL);
 	config->count_wtex = 0;
 	config->count_etex = 0;
@@ -56,6 +56,14 @@ static m_config	*init_config(void)
 	config->count_clrc = 0;
 	config->count_clrf = 0;
 	return (config);
+}
+
+static void			*local_clean(m_config **config, char **line, int err)
+{
+	free(*config);
+	free(*line);
+	print_err(err);
+	return (NULL);
 }
 
 m_config			*read_config (char *path)
@@ -75,20 +83,12 @@ m_config			*read_config (char *path)
 	{
 		res_line_handler = line_handler(line, &config_p);
 		if (res_line_handler != 0)
-		{
-			free(line);
-			print_err(ERR_PARSE_CFILE);
-			return (NULL);
-		}
+			return (local_clean(&config_p, &line, ERR_PARSE_CFILE));
 		free(line);
 	}
 	res_line_handler = line_handler(line, &config_p);
 	if (res_line_handler != 0)
-	{
-		free(line);
-		print_err(ERR_PARSE_CFILE);
-		return (NULL);
-	}
+		return (local_clean(&config_p, &line, ERR_PARSE_CFILE));
 	free(line);
 	return (config_p);
 }
