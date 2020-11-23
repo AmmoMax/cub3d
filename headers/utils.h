@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 21:40:16 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/23 23:15:40 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/23 23:49:23 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,6 @@ int			check_player(int flag);
 int			check_path_tex(m_config *config);
 void		set_texture(m_config **config, char *str,
 					char *line, char flag, size_t i);
+int			color_validator(char *line);
 
 #endif

@@ -6,49 +6,11 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/08 22:18:55 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/21 23:17:44 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/23 23:54:25 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/general.h"
-
-/*
-* Валидирует строку с кодом цвета в RGB
-* Пример валидной строки: "F 220,100,0";
-* Валидная строка:
-*	Содержит любое количество пробелов между элементами
-*	Начинается с буквы F или C
-*	Содержит ровно 3 числа от 0 до 255
-* TODO: Добавить обработку переполнения atoi
-*/
-static int		color_validator(char *line)
-{
-	size_t		i;
-	size_t		num_cnt;
-	char 		*tmp;
-	size_t		flag_color;
-
-	i = -1;
-	num_cnt = 0;
-	tmp = line;
-	while(line[++i])
-	{
-		if ((line[i] == 'C' || line[i] == 'F') && line[i + 1] == ' ')
-				flag_color = 1;
-		else if (line[i] == ' ' || line[i] == ',' ||
-				(ft_isdigit(line[i]) && ft_isdigit(line[i - 1])))
-				;
-		else if (ft_isdigit(line[i]) && !(ft_isdigit(line[i - 1])))
-		{
-			if (ft_atoi(tmp + i) > 255 || ft_atoi(tmp + i) < 0 || flag_color != 1)
-				return (ERR_INVLINE_COLOR);
-			num_cnt++;
-		}
-		else
-			return (ERR_INVLINE_COLOR);
-	}
-	return (num_cnt == 3 ? 0 : ERR_INVLINE_COLOR);
-}
 
 static void		color_writer(char *line, color **color)
 {
@@ -72,46 +34,64 @@ static void		color_writer(char *line, color **color)
 	}
 }
 
-/*
-* Парсит валидную строку, сохраняет данные в структуру и 
-* адрес этой структуры записывает в общую структуру config
-* C 100,255,255
-*/
-static int		color_parser(char *line, m_config **config)
+static color	*set_color_tex(char tex, char *line)
 {
-	color		*floor_p;
 	color		*ceiling_p;
+	color		*floor_p;
 
-	if (ft_strchr(line, 'C'))
+	if (tex == 'C')
 	{
-		if ((*config)->count_clrc != 0)
-		{
-			print_err(ERR_DOUBLE_C_COLOR);
-			return (ERR_DOUBLE_C_COLOR);
-		}
 		if(!(ceiling_p  = (color *)(malloc(sizeof(color)))))
-			return (ERR_MEMALLOC);
+			return (NULL);
 		ceiling_p->red = -1;
 		ceiling_p->green = -1;
 		ceiling_p->blue = -1;
 		color_writer(line, &ceiling_p);
-		(*config)->ceiling = ceiling_p;
+		return (ceiling_p);
+	}
+	else
+	{
+		if (!(floor_p  = (color *)(malloc(sizeof(color)))))
+			return (NULL);
+		floor_p->red = -1;
+		floor_p->green = -1;
+		floor_p->blue = -1;
+		color_writer(line, &floor_p);
+		return (floor_p);
+	}
+}
+
+static int		local_print_error(int err)
+{
+	print_err(err);
+	return (err);
+}
+
+/*
+** Парсит валидную строку, сохраняет данные в структуру и
+** адрес этой структуры записывает в общую структуру config
+** C 100,255,255
+*/
+static int		color_parser(char *line, m_config **config)
+{
+	color		*color_p;
+
+	if (ft_strchr(line, 'C'))
+	{
+		if ((*config)->count_clrc != 0)
+			return (local_print_error(ERR_DOUBLE_C_COLOR));
+		if(!(color_p = set_color_tex('C', line)))
+			return (ERR_MEMALLOC);
+		(*config)->ceiling = color_p;
 		(*config)->count_clrc = 1;
 	}
 	if (ft_strchr(line, 'F'))
 	{
 		if ((*config)->count_clrf != 0)
-		{
-			print_err(ERR_DOUBLE_F_COLOR);
-			return (ERR_DOUBLE_F_COLOR);
-		}
-		if (!(floor_p  = (color *)(malloc(sizeof(color)))))
+			return (local_print_error(ERR_DOUBLE_F_COLOR));
+		if(!(color_p = set_color_tex('F', line)))
 			return (ERR_MEMALLOC);
-		floor_p->red = -1;
-		floor_p->green = -1;
-		floor_p->blue = -1;
-		color_writer(line, &floor_p);
-		(*config)->floor = floor_p;
+		(*config)->floor = color_p;
 		(*config)->count_clrf = 1;
 	}
 	return (0);
