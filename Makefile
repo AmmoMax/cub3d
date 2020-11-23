@@ -6,7 +6,7 @@
 #    By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/21 23:12:54 by amayor            #+#    #+#              #
-#    Updated: 2020/11/21 14:34:21 by amayor           ###   ########.fr        #
+#    Updated: 2020/11/23 22:01:19 by amayor           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,8 +41,9 @@ SRC_FILES = config_parser.c \
 			sprites.c \
 			save_bmp.c \
 			g_clean.c \
-			error_handler.c
-			
+			error_handler.c \
+			parser_utils.c
+
 
 SRCS = $(addprefix $(SRC_DIR)/,$(SRC_FILES))
 OBJ_FILES = $(SRC_FILES:.c=.o)
@@ -58,7 +59,7 @@ $(NAME): $(OBJ_FILES)
 $(OBJ_FILES): $(SRCS)
 	$(COMPILER) $(FLAGS) -I $(HEADER_FILES_DIR) -c $(SRCS)
 # %.o: %.c
-	# @echo "1111" 
+	# @echo "1111"
 # 	$(COMPILER) $(FLAGS) -I $(HEADER_FILES_DIR) -O3 -c $< -o $@
 
 # $(NAME): $(OBJ_ALL)
@@ -68,4 +69,4 @@ $(OBJ_FILES): $(SRCS)
 # 	$(COMPILER) -L$(EXT_LIBS) -lft -lmlx_Linux -I$(HEADER_FILES_DIR) -L/usr/lib -lXext -lX11 -lm -lz -c $(addprefix srcs/, $(SRC_FILES) )
 
 # %.o: %.c
-# 	@echo "1111" 
+# 	@echo "1111"
