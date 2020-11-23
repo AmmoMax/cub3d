@@ -46,6 +46,7 @@ int			close_esc(int keycode, t_vars *vars)
 {
 	if (keycode == 65307)
 	{
+		printf("Close the window by Esc!\n");
 		mlx_destroy_window(vars->mlx, vars->win);
 		exit(0);
 	}
@@ -128,10 +129,10 @@ int			main(void)
 	draw_big_cube(&img);
 
 	mlx_put_image_to_window(vars.mlx, vars.win, img.img, 100, 100);
-	mlx_key_hook(vars.win, key_hook, &img);
+	// mlx_key_hook(vars.win, key_hook, &img);
 	// mlx_mouse_hook(vars.win, mouse_hook, &vars);
-	mlx_hook(vars.win, 2, 1L<<0, close_esc, &vars);
 	mlx_hook(vars.win, 17, 1L<<17, close_red_cross, &vars);
+	mlx_hook(vars.win, 2, 1L<<0, close_esc, &vars);
 	// mlx_hook(vars.win, 6, 1L<<6, mouse_hover, &vars);	
 	mlx_loop(vars.mlx);
 

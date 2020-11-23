@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 22:47:59 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/20 11:26:05 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/23 20:33:48 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,6 @@ int			key_handler(int keycode, t_world **world)
 	else if (keycode == 97 || keycode == 100)
 		move_left_right(world, keycode);
 	else if (keycode == 65307)
-		close_esc(*world);
+		close_esc(world);
 	return (0);
 }

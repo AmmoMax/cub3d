@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 20:24:56 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/20 14:18:08 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/23 20:38:38 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,21 +156,22 @@ void		cast_rays_flat(t_world *world)
 }
 
 // TODO: Добавить очистку всего перед закрытием
-int			close_red_cross(int keycode, t_world *world)
+int			close_red_cross(t_world **world)
 {
-	t_world	*tmp;
-	printf("%d Close the window!\n", keycode);
-	tmp = world;
-	cleanup_all_world(&world);
-	free(world);
-	world = NULL;
+	printf("Close the window by red cross!\n");
+	cleanup_all_world(world);
+	free(*world);
+	*world = NULL;
 	exit(0);
 }
 
 // TODO: Добавить очистку всего и тут тоже
-int			close_esc(t_world *world)
+int			close_esc(t_world **world)
 {
-	cleanup_all_world(&world);
+	printf("Close the window by Esc!\n");
+	cleanup_all_world(world);
+	free(*world);
+	*world = NULL;
 	exit(0);
 }
 
