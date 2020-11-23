@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 22:22:19 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/23 23:28:07 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/24 00:34:58 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,6 @@ static int	check_path_sprite(m_config *config)
 	}
 	else
 		return (0);
-}
-
-static int	local_print_error(int err)
-{
-	print_err(err);
-	return (err);
 }
 
 int			sprite_handler(char *line, m_config **config)

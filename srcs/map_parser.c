@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 13:48:41 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/24 00:13:55 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/24 00:31:46 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static void		normalize_map(char **map, int max_len)
 	}
 }
 
-static void		*local_print_error(int err)
+static void		*с_local_print_error(int err)
 {
 	print_err(err);
 	return (NULL);
@@ -103,10 +103,10 @@ char			**convert_map(t_list *head, m_config **config)
 	(*config)->max_y = ft_lstsize(head);
 	(*config)->max_x = max_len + 1;
 	if (!(map = (char **)ft_calloc(ft_lstsize(head) + 1, sizeof(char *))))
-		return (local_print_error(ERR_MEMALLOC_CONVERTMAP));
+		return (с_local_print_error(ERR_MEMALLOC_CONVERTMAP));
 	if (!(map[0] = (char *)ft_calloc((max_len + 1) * ft_lstsize(head),
 								sizeof(char))))
-		return (local_print_error(ERR_MEMALLOC_CONVERTMAP));
+		return (с_local_print_error(ERR_MEMALLOC_CONVERTMAP));
 	while (++i < (ft_lstsize(head)))
 		map[i] = map[0] + i * (max_len + 1);
 	i = 0;

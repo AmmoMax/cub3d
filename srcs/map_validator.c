@@ -6,17 +6,14 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 15:09:13 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/22 21:27:27 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/24 00:23:17 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/general.h"
 
 /*
-* Валидирует первую строку карты.
-* Первая строка может состоять из любого количество 1 и пробелов
-* Принимает указатель на строку.
-* Возвращает 0 если строка валидна и 1 если нет.
+** Валидирует первую строку карты.
 */
 static int	validator_1_str(char *str)
 {
@@ -37,9 +34,7 @@ static int	validator_1_str(char *str)
 }
 
 /*
-* Валидирует последнюю строку карты.
-* Последняя строка как и первая может состоять только из пробелов и 1, т.к.
-* если предыдущая строка валидна то все дырки закрыты единицами.
+** Валидирует последнюю строку карты.
 */
 static int	validator_last_str(char *str)
 {
@@ -59,44 +54,35 @@ static int	validator_last_str(char *str)
 	return (0);
 }
 
-static int	print_error(int err)
-{
-	print_err(err);
-	return (err);
-}
-
 /*
-* Проверяет клетку с пустым пространством в карте, т.е. с 0.
-* Проверяет чтобы клетка с нулем была закрытой - т.е. не соседствовала
-* с пробелом ни по одному из 8 направлений
-* Если клетка валидна - возвращает 0, если нет то 1.
+** Проверяет клетку с пустым пространством в карте, т.е. с 0.
+** Проверяет чтобы клетка с нулем была закрытой - т.е. не соседствовала
+** с пробелом ни по одному из 8 направлений
 */
 static int	check_zero_symbol(char *str, int len)
 {
 	if (*(str - len) == ' ')
-		return (print_error(ERR_MAP_SURWALLS));
+		return (local_print_error(ERR_MAP_SURWALLS));
 	else if (*(str - (len + 1)) == ' ')
-		return (print_error(ERR_MAP_SURWALLS));
+		return (local_print_error(ERR_MAP_SURWALLS));
 	else if (*(str - (len + 2)) == ' ')
-		return (print_error(ERR_MAP_SURWALLS));
+		return (local_print_error(ERR_MAP_SURWALLS));
 	else if (*(str - 1) == ' ')
-		return (print_error(ERR_MAP_SURWALLS));
+		return (local_print_error(ERR_MAP_SURWALLS));
 	else if ((*(str + 1) == ' ') || (*(str + 1) == '\0'))
-		return (print_error(ERR_MAP_SURWALLS));
+		return (local_print_error(ERR_MAP_SURWALLS));
 	else if (*(str + len) == ' ')
-		return (print_error(ERR_MAP_SURWALLS));
+		return (local_print_error(ERR_MAP_SURWALLS));
 	else if (*(str + (len + 1)) == 32)
-		return (print_error(ERR_MAP_SURWALLS));
+		return (local_print_error(ERR_MAP_SURWALLS));
 	else if (*(str + (len + 2)) == ' ')
-		return (print_error(ERR_MAP_SURWALLS));
+		return (local_print_error(ERR_MAP_SURWALLS));
 	else
 		return (0);
 }
 
-
 /*
-* Валирует обычную строку карты относительно других строк.
-* Принимает указатель на текущую строку карты и длину этой строки
+** Валирует обычную строку карты относительно других строк.
 */
 static int	validator_common_str(char *str, int len, int *flag_gamer)
 {
@@ -108,23 +94,21 @@ static int	validator_common_str(char *str, int len, int *flag_gamer)
 			if ((str[i] == ' ' || str[i] == '1' || str[i] == '2') ||
 					(str[i] == '0' && check_zero_symbol(str + i, len) == 0))
 				;
-			else if ((str[i] == 'N' || str[i] == 'S' || 
-					 str[i] == 'W' || str[i] == 'E') && 
+			else if ((str[i] == 'N' || str[i] == 'S' ||
+					 str[i] == 'W' || str[i] == 'E') &&
 					 check_zero_symbol(str + i, len) == 0)
 					(*flag_gamer)++;
 			else
-				return(print_error(ERR_INVMAP));
+				return(local_print_error(ERR_INVMAP));
 	else
-		return (print_error(ERR_MAP_SURWALLS));
+		return (local_print_error(ERR_MAP_SURWALLS));
 	return (0);
 }
 
 /*
 * Валидирует карту из двумерного массива.
-* Вызывает три отдельных валидатора - для первой строки, для последней
-* и всех остальных.
-* Принимает указатель на карту и длину карты.
-* Возвращает ERR_INVMAP если карта не валидна и 0 если валидна
+** Вызывает три отдельных валидатора - для первой строки,
+** для последней и всех остальных.
 */
 int			map_validator(char **map, int len_map)
 {
@@ -150,21 +134,4 @@ int			map_validator(char **map, int len_map)
 					return (ERR_INVMAP);
 		}
 	return (check_player(flag_gamer));
-	// return (flag_gamer == 1 ? 0 : ERR_MAP_NOGMR_POS);
-}
-
-int	check_player(int flag)
-{
-	if (flag > 1)
-	{
-		print_err(ERR_DOUBLE_PLR);
-		return (1);
-	}
-	else if (flag < 1)
-	{
-		print_err(ERR_MAP_NOGMR_POS);
-		return (1);
-	}
-	else
-		return (0);
 }

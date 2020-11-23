@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/08 22:18:55 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/23 23:54:25 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/24 00:34:41 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,6 @@ static color	*set_color_tex(char tex, char *line)
 		color_writer(line, &floor_p);
 		return (floor_p);
 	}
-}
-
-static int		local_print_error(int err)
-{
-	print_err(err);
-	return (err);
 }
 
 /*

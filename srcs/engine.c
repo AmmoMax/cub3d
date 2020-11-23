@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 11:49:02 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/23 21:28:28 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/24 00:34:28 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,6 @@ static int		clean_flat_map(m_config *config)
 	cleanup_map(&config->map);
 	clean_config_no_map(&config);
 	return(ERR_MEMALLOC_CONVERTMAP);
-}
-
-static int		local_print_error(int err)
-{
-	print_err(err);
-	return (err);
 }
 
 int				start_cub3d(char *path, char *save_f)

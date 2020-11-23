@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 21:40:16 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/24 00:10:28 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/24 00:23:05 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,6 @@ void		set_texture(m_config **config, char *str,
 					char *line, char flag, size_t i);
 int			color_validator(char *line);
 int			max_len_line(t_list *head);
+int			local_print_error(int err);
 
 #endif
