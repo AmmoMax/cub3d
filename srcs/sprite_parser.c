@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 22:22:19 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/22 20:26:43 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/23 23:28:07 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int	sprite_validator(char *line)
 }
 
 /*
-*Принимает уже валидную строку, парсит и сохраняет ее в структуру конфига.
+** Принимает уже валидную строку, парсит и сохраняет ее в структуру конфига.
 */
 static int	sprite_parser(char *line, m_config **config)
 {
@@ -77,6 +77,12 @@ static int	check_path_sprite(m_config *config)
 		return (0);
 }
 
+static int	local_print_error(int err)
+{
+	print_err(err);
+	return (err);
+}
+
 int			sprite_handler(char *line, m_config **config)
 {
 	int		res;
@@ -94,16 +100,9 @@ int			sprite_handler(char *line, m_config **config)
 				return (ERR_INCPATH_SPR);
 		}
 		else
-		{
-			print_err(ERR_DOUBLE_SPRITE);
-			return (ERR_DOUBLE_SPRITE);
-		}
-		
+			return (local_print_error(ERR_DOUBLE_SPRITE));
 	}
 	else
-	{
-		print_err(res);
-		return (res);
-	}
+		return (local_print_error(res));
 	return (0);
 }
