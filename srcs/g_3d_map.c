@@ -6,13 +6,13 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 14:53:16 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/24 23:39:05 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/24 23:50:28 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/general.h"
 
-void	draw_3d_map(t_world *world, int save_flag)
+void		draw_3d_map(t_world *world, int save_flag)
 {
 	cast_rays_dda(world);
 	sprite_finder(world);
@@ -22,12 +22,12 @@ void	draw_3d_map(t_world *world, int save_flag)
 	mlx_put_image_to_window(world->win->mlx, world->win->win, world->win->img, START_X, START_Y);
 }
 
-int		get_tex_pix_v2(t_world *world, float x, float *y, t_xpm *tex)
+int			get_tex_pix_v2(t_world *world, float x, float *y, t_xpm *tex)
 {
-	float		x_tex;
-	int			color;
-	float		y_t_end;
-	float		y_tex;
+	float	x_tex;
+	int		color;
+	float	y_t_end;
+	float	y_tex;
 
 	y_tex = tex->y_tex;
 	y_t_end = tex->y_t_end;
@@ -42,7 +42,7 @@ int		get_tex_pix_v2(t_world *world, float x, float *y, t_xpm *tex)
 	return (0);
 }
 
-void	set_y_start(t_world *world, t_plr **ray)
+void		set_y_start(t_world *world, t_plr **ray)
 {
 	float	tmp_height;
 
@@ -58,9 +58,10 @@ void	set_y_start(t_world *world, t_plr **ray)
 		(*ray)->y_tex = 0;
 	}
 }
-t_xpm	*set_textures(t_world *world, char c_wall)
+
+t_xpm		*set_textures(t_world *world, char c_wall)
 {
-	t_xpm *tex;
+	t_xpm	*tex;
 
 	if (c_wall == 'E')
 		tex = world->t->e_tex;
