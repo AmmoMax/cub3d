@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 22:00:47 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/24 00:20:43 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/24 23:55:23 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int			check_path_tex(m_config *config)
 		return (0);
 }
 
-void	set_texture(m_config **config, char *str,
+void		set_texture(m_config **config, char *str,
 						char *line, char flag, size_t i)
 {
 	if(flag == 'N')
@@ -69,12 +69,12 @@ void	set_texture(m_config **config, char *str,
 ** Валидирует строку с кодом цвета в RGB
 ** Пример валидной строки: "F 220,100,0";
 */
-int		color_validator(char *line)
+int			color_validator(char *line)
 {
-	size_t		i;
-	size_t		num_cnt;
-	char 		*tmp;
-	size_t		flag_color;
+	size_t	i;
+	size_t	num_cnt;
+	char 	*tmp;
+	size_t	flag_color;
 
 	i = -1;
 	num_cnt = 0;
@@ -98,10 +98,10 @@ int		color_validator(char *line)
 	return (num_cnt == 3 ? 0 : ERR_INVLINE_COLOR);
 }
 
-int		max_len_line(t_list *head)
+int			max_len_line(t_list *head)
 {
-	size_t		max_len;
-	size_t		len;
+	size_t	max_len;
+	size_t	len;
 
 	max_len = 0;
 	len = 0;
@@ -115,7 +115,7 @@ int		max_len_line(t_list *head)
 	return (max_len);
 }
 
-int	check_player(int flag)
+int			check_player(int flag)
 {
 	if (flag > 1)
 	{
