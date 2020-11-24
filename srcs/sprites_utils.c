@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/14 12:22:56 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/22 20:24:00 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/24 14:04:46 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static t_sprite		*new_sprite(float x, float y)
 {
 	t_sprite		*new;
 
-	if(!(new = (t_sprite *)malloc(sizeof(t_sprite))))
+	if (!(new = (t_sprite *)malloc(sizeof(t_sprite))))
 		return (NULL);
 	new->next = NULL;
 	new->x = x;
@@ -40,6 +40,15 @@ static void			lst_add_back(t_sprite **head, t_sprite *new)
 		*head = new;
 }
 
+static void		local_clean(t_world **w)
+{
+	cleanup_all_tex(&(*w)->t, *w);
+	cleanup_win(&(*w)->win);
+	clean_config_all(&(*w)->config);
+	free((*w)->dist_wall);
+	free(*w);
+}
+
 int					save_sprites_pos(t_world **world)
 {
 	char			**map;
@@ -48,8 +57,8 @@ int					save_sprites_pos(t_world **world)
 	size_t			j;
 
 	map = (*world)->map;
-	i = 0;
-	while (map[i])
+	i = -1;
+	while (map[++i])
 	{
 		j = 0;
 		while (map[i][j])
@@ -65,7 +74,6 @@ int					save_sprites_pos(t_world **world)
 			}
 			j++;
 		}
-		i++;
 	}
 	return (0);
 }
@@ -79,12 +87,8 @@ int				load_sprite(t_world **world)
 
 	if (!(tex = (t_xpm*)malloc(sizeof(t_xpm))))
 	{
-		cleanup_all_tex(&(*world)->t, *world);
-		cleanup_win(&(*world)->win);
-		clean_config_all(&(*world)->config);
-		free((*world)->dist_wall);
-		free(*world);
-		return (ERR_MEMALLOC); 
+		local_clean(world);
+		return (ERR_MEMALLOC);
 	}
 	tex->img = mlx_xpm_file_to_image((*world)->win->mlx, (*world)->config->s_texture, &tex->width, &tex->height);
 	tex->addr = mlx_get_data_addr(tex->img, &tex->bbp, &tex->line_length, &tex->endian);
@@ -93,11 +97,7 @@ int				load_sprite(t_world **world)
 	{
 		mlx_destroy_image((*world)->win->mlx, tex->img);
 		free(tex);
-		cleanup_all_tex(&(*world)->t, *world);
-		cleanup_win(&(*world)->win);
-		clean_config_all(&(*world)->config);
-		free((*world)->dist_wall);
-		free(*world);
+		local_clean(world);
 		return (ERR_MEMALLOC);
 	}
 	strcpy_int(tex->tex_pix, (int *)tex->addr);
