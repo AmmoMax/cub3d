@@ -6,13 +6,13 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 15:27:15 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/20 15:59:48 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/24 23:41:55 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/general.h"
 
-void		cleanup_map(t_list **map_head)
+void			cleanup_map(t_list **map_head)
 {
 	t_list	*addr_next;
 	t_list	*counter;
