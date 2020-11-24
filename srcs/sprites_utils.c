@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/14 12:22:56 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/24 14:04:46 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/25 00:05:14 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void			lst_add_back(t_sprite **head, t_sprite *new)
 		*head = new;
 }
 
-static void		local_clean(t_world **w)
+static void			local_clean(t_world **w)
 {
 	cleanup_all_tex(&(*w)->t, *w);
 	cleanup_win(&(*w)->win);
