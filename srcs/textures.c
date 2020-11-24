@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 22:29:30 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/24 13:29:24 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/24 13:43:08 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,31 +32,6 @@ void			get_textures(t_world *world, t_xpm *texture, char *path)
 	texture->tex_pix = (int *)mlx_get_data_addr(texture->img, &texture->bbp, &texture->line_length, &texture->endian);
 }
 
-/*
-** Загружает текстуры в общую структуру мира
-*/
-int				load_textures(t_world **world)
-{
-	size_t		i;
-	t_xpm		*tex;
-	t_tex		*all_t;
-	char *path;
-
-	i = 0;
-	if (!(tex = (t_xpm*)malloc(sizeof(t_xpm))))
-		return (ERR_MEMALLOC);
-	if (!(all_t = (t_tex *)malloc(sizeof(t_tex))))
-		return (ERR_MEMALLOC);
-	path = (*world)->config->ea_texture;
-	tex->img = mlx_xpm_file_to_image((*world)->win->mlx, path, &tex->width, &tex->height);
-	tex->addr = mlx_get_data_addr(tex->img, &tex->bbp, &tex->line_length, &tex->endian);
-	tex->tex_pix = (int *)malloc(sizeof(int) * (tex->height * tex->width + 1));
-	strcpy_int(tex->tex_pix, (int *)tex->addr);
-	(*world)->t = all_t;
-	(*world)->t->e_tex = tex;
-	return (0);
-}
-
 static t_xpm	*load_one_tex(t_world *world, char *path)
 {
 	t_xpm		*tex;
@@ -70,16 +45,21 @@ static t_xpm	*load_one_tex(t_world *world, char *path)
 	return (tex);
 }
 
+static void		local_clean(t_world **w)
+{
+	clean_config_all(&(*w)->config);
+	cleanup_win(&(*w)->win);
+	free((*w)->dist_wall);
+	free(*w);
+}
+
 int				load_textures_v2(t_world **w)
 {
 	t_tex		*all_t;
 
 	if (!(all_t = (t_tex *)ft_calloc(1, sizeof(t_tex))))
 	{
-		clean_config_all(&(*w)->config);
-		cleanup_win(&(*w)->win);
-		free((*w)->dist_wall);
-		free(*w);
+		local_clean(w);
 		return (ERR_MEMALLOC);
 	}
 	(*w)->t = all_t;
@@ -91,10 +71,7 @@ int				load_textures_v2(t_world **w)
 					  || !(*w)->t->w_tex)
 	{
 		cleanup_all_tex(&(*w)->t, *w);
-		clean_config_all(&(*w)->config);
-		cleanup_win(&(*w)->win);
-		free((*w)->dist_wall);
-		free(*w);
+		local_clean(w);
 		return (ERR_MEMALLOC);
 	}
 	return (0);

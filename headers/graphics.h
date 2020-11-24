@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 15:55:38 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/24 13:23:16 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/24 13:36:56 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,6 @@ int			key_handler(int keycode, t_world **world);
 void		cast_rays_dda(t_world *world);
 void		get_textures(t_world *world, t_xpm *texture, char *path);
 void		draw_3d_map(t_world *world, int save_flag);
-int			load_textures(t_world **world);
 void		draw_column_tex(t_world *world, float x, float height, char c_wall, t_plr *ray);
 int			my_mlx_get_color(t_xpm *tex, int x, int y);
 int			save_sprites_pos(t_world **world);
