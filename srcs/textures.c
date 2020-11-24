@@ -6,15 +6,15 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 22:29:30 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/21 13:45:23 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/24 13:29:24 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/general.h"
 
-int			*strcpy_int(int *dst, int *src)
+int				*strcpy_int(int *dst, int *src)
 {
-	size_t			i;
+	size_t		i;
 
 	i = 0;
 	while (src[i])
@@ -26,7 +26,7 @@ int			*strcpy_int(int *dst, int *src)
 	return (dst);
 }
 
-void	get_textures(t_world *world, t_xpm *texture, char *path)
+void			get_textures(t_world *world, t_xpm *texture, char *path)
 {
 	texture->img = mlx_xpm_file_to_image(world->win->mlx, path, &texture->width, &texture->height);
 	texture->tex_pix = (int *)mlx_get_data_addr(texture->img, &texture->bbp, &texture->line_length, &texture->endian);
@@ -35,11 +35,11 @@ void	get_textures(t_world *world, t_xpm *texture, char *path)
 /*
 ** Загружает текстуры в общую структуру мира
 */
-int			load_textures(t_world **world)
+int				load_textures(t_world **world)
 {
-	size_t	i;
-	t_xpm	*tex;
-	t_tex	*all_t;
+	size_t		i;
+	t_xpm		*tex;
+	t_tex		*all_t;
 	char *path;
 
 	i = 0;
@@ -59,7 +59,7 @@ int			load_textures(t_world **world)
 
 static t_xpm	*load_one_tex(t_world *world, char *path)
 {
-	t_xpm	*tex;
+	t_xpm		*tex;
 
 	if (!(tex = (t_xpm*)malloc(sizeof(t_xpm))))
 		return (NULL);
@@ -70,9 +70,9 @@ static t_xpm	*load_one_tex(t_world *world, char *path)
 	return (tex);
 }
 
-int			load_textures_v2(t_world **w)
+int				load_textures_v2(t_world **w)
 {
-	t_tex	*all_t;
+	t_tex		*all_t;
 
 	if (!(all_t = (t_tex *)ft_calloc(1, sizeof(t_tex))))
 	{
@@ -87,7 +87,7 @@ int			load_textures_v2(t_world **w)
 	(*w)->t->s_tex = load_one_tex(*w, (*w)->config->so_texture);
 	(*w)->t->n_tex = load_one_tex(*w, (*w)->config->no_texture);
 	(*w)->t->w_tex = load_one_tex(*w, (*w)->config->we_texture);
-	if(!(*w)->t->e_tex || !(*w)->t->s_tex || !(*w)->t->n_tex 
+	if(!(*w)->t->e_tex || !(*w)->t->s_tex || !(*w)->t->n_tex
 					  || !(*w)->t->w_tex)
 	{
 		cleanup_all_tex(&(*w)->t, *w);

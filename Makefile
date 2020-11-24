@@ -6,7 +6,7 @@
 #    By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/21 23:12:54 by amayor            #+#    #+#              #
-#    Updated: 2020/11/24 00:23:35 by amayor           ###   ########.fr        #
+#    Updated: 2020/11/24 13:26:20 by amayor           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ SRC_FILES = config_parser.c \
 			error_handler.c \
 			parser_utils.c \
 			parser_utils_p2.c \
+			g_common_utils_p2.c
 
 
 SRCS = $(addprefix $(SRC_DIR)/,$(SRC_FILES))

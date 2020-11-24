@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 23:24:26 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/20 11:22:44 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/24 13:23:27 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,45 +174,6 @@ int			check_plr_pos(t_world *world, int x, int y)
 		return (1);
 	else
 		return (0);
-}
-
-
-void			draw_flat_map(t_world *world)
-{
-	int		i;
-	int		j;
-	int		x;
-	int		y;
-	char	**map;
-	
-	i = 0;
-	x = START_X;
-	y = START_Y;
-	map = world->map;
-	
-	while (map[i])
-	{
-		j = -1;
-		while (map[i][++j])
-		{
-			if (map[i][j] == '1' || map[i][j] == '2')
-			{
-				draw_block(world->win, CLR_BLK, x, y);
-				x += SCALE;
-			}
-			else
-			{
-				draw_block(world->win, 0x000000, x, y);
-				x += SCALE;
-			}
-		}
-		y += SCALE;
-		x = 100;
-		i++;
-	}
-	draw_player(world->win, CLR_PLR, world->plr->x, world->plr->y);
-	cast_rays_flat(world);
-	mlx_put_image_to_window(world->win->mlx, world->win->win, world->win->img, START_X, START_Y);
 }
 
 void			check_resolution(void*mlx, m_config **config)
