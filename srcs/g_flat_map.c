@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 23:24:26 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/24 23:15:21 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/24 23:40:09 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,6 @@ static int		get_floor_color(m_config *config)
 static int		get_ceiling_color(m_config *config)
 {
 	return ((config->ceiling->red << 16) + (config->ceiling->green << 8) +  config->ceiling->blue);
-}
-
-static t_xpm	*set_textures(t_world *world, char c_wall)
-{
-	t_xpm *tex;
-
-	if (c_wall == 'E')
-		tex = world->t->e_tex;
-	else if (c_wall == 'W')
-		tex = world->t->w_tex;
-	else if (c_wall == 'S')
-		tex = world->t->s_tex;
-	else
-		tex = world->t->n_tex;
-	return (tex);
 }
 
 static float	set_x(t_xpm *tex, t_plr *ray, char c_wall)
@@ -52,8 +37,6 @@ static t_xpm	*set_tex_coor(t_world *world, char c_wall, float y_tex, t_plr *ray)
 {
 	t_xpm *tex;
 	float	y_t_end;
-	// float	step;
-	// float	x_tex;
 
 	tex = set_textures(world, c_wall);
 	tex->x_tex = set_x(tex, ray, c_wall);
@@ -73,45 +56,16 @@ static t_xpm	*set_tex_coor(t_world *world, char c_wall, float y_tex, t_plr *ray)
 	return (tex);
 }
 
-static int		get_tex_pix_v2(t_world *world, float x, float *y, t_xpm *tex)
-{
-	float		x_tex;
-	int			color;
-	float		y_t_end;
-	float		y_tex;
-
-	y_tex = tex->y_tex;
-	y_t_end = tex->y_t_end;
-	x_tex = tex->x_tex;
-	while(y_tex < y_t_end)
-	{
-		color = my_mlx_get_color(tex, (int)x_tex, (int)y_tex);
-		my_mlx_pixel_put(world->win, x, (*y), color);
-		(*y)++;
-		y_tex += tex->step;
-	}
-	return (0);
-}
-
 void		draw_column_tex(t_world *world, float x_screen, char c_wall, t_plr *ray)
 {
 	float y_start;
 	float y_screen;
 	float y_tex;
-	float	tmp_height;
 	t_xpm	*tex;
 
-	tmp_height = ray->height;
-	if (ray->height > world->config->y)
-	{
-		y_start = 0;
-		y_tex = (ray->height - world->config->y) / 2;
-	}
-	else
-	{
-		y_start = world->config->y / 2 - tmp_height / 2;
-		y_tex = 0;
-	}
+	set_y_start(world, &ray);
+	y_tex = ray->y_tex;
+	y_start = ray->y_start;
 	y_screen = 0;
 	while (y_screen < y_start)
 	{

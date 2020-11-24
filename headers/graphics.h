@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 15:55:38 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/24 22:46:07 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/24 23:38:57 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ typedef struct 			s_plr
 	float				dist_hor;
 	float				dist_vert;
 	float				height;
+	float				y_start;
+	float				y_tex;
 }						t_plr;
 
 typedef struct			s_xpm
@@ -122,5 +124,8 @@ void		cleanup_sprites(t_sprite **sprites_head);
 void		cleanup_all_world(t_world **p_world);
 void		cleanup_win(t_win **win);
 void		cleanup_save_sprite_pos(t_world **world);
+int		get_tex_pix_v2(t_world *world, float x, float *y, t_xpm *tex);
+void	set_y_start(t_world *world, t_plr **ray);
+t_xpm	*set_textures(t_world *world, char c_wall);
 
 #endif
