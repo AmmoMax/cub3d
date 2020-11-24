@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 15:27:15 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/24 23:41:55 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/24 23:51:46 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,14 @@ void			cleanup_flat_map(char **map)
 	free(map);
 	map = NULL;
 	return ;
+}
+
+void			cleanup_save_sprite_pos(t_world **world)
+{
+	cleanup_sprites(&(*world)->sprites);
+	cleanup_all_tex(&(*world)->t, *world);
+	cleanup_win(&(*world)->win);
+	clean_config_all(&(*world)->config);
+	free((*world)->dist_wall);
+	free(*world);
 }
