@@ -6,13 +6,13 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 22:16:10 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/17 22:49:39 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/25 00:03:48 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/general.h"
 
-static int	get_sr_color(t_world *all, int x, int y)
+static int			get_sr_color(t_world *all, int x, int y)
 {
 	char		*dst;
 
@@ -20,7 +20,7 @@ static int	get_sr_color(t_world *all, int x, int y)
 	return (*(unsigned int*)dst);
 }
 
-static void    header(unsigned char *header_arr, int size,
+static void			header(unsigned char *header_arr, int size,
 		t_world *all, int temp)
 {
 	header_arr[0] = (unsigned char)'B';
@@ -43,28 +43,28 @@ static void    header(unsigned char *header_arr, int size,
 	header_arr[28] = (unsigned char)24;
 }
 
-static void    screen(t_world *all, int fd, int res)
+static void			screen(t_world *all, int fd, int res)
 {
- int     color;
- int     x;
- int     y;
- int     size_x;
+	int				color;
+	int				x;
+	int				y;
+	int				size_x;
 
- color = 0;
- x = 0;
- y = all->config->y - 1;
- size_x = res;
- while (y >= 0)
- {
-  while (x < size_x)
-  {
-   color = get_sr_color(all, x, y);
-   write(fd, &color, 3);
-   x++;
-  }
-  y--;
-  x = 0;
- }
+	color = 0;
+	x = 0;
+	y = all->config->y - 1;
+	size_x = res;
+	while (y >= 0)
+	{
+		while (x < size_x)
+		{
+			color = get_sr_color(all, x, y);
+			write(fd, &color, 3);
+			x++;
+		}
+			y--;
+			x = 0;
+	}
 }
 
 int					make_screen(t_world *all)
@@ -73,7 +73,7 @@ int					make_screen(t_world *all)
 	unsigned char	header_arr[54];
 	int				count;
 	int				size;
-	int				temp_res;	
+	int				temp_res;
 	temp_res = all->config->y;
 	if (all->config->y % 4)
 	 temp_res = all->config->y - (all->config->y % 4);

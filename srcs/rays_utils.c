@@ -6,14 +6,14 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 15:18:12 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/24 21:02:19 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/24 23:59:25 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/general.h"
 
 
-static int			find_wall(t_world *world, float x, float y)
+static int		find_wall(t_world *world, float x, float y)
 {
 	x = (int)x / SCALE;
 	y = (int)y / SCALE;
@@ -41,17 +41,17 @@ static int		get_height(t_world *world, float dist)
 ** Проверяет горизонтальные пересечения для каждого луча.
 ** Возвращает расстояние для стены.
 */
-static float		hor_intersect(t_world *world, t_plr *ray, char *h_wall)
+static float	hor_intersect(t_world *world, t_plr *ray, char *h_wall)
 {
-	float	step_y;
-	float	step_x;
-	float	p_x;
-	float	p_y;
-	int		res;
+	float		step_y;
+	float		step_x;
+	float		p_x;
+	float		p_y;
+	int			res;
 
 	step_y = SCALE;
 	step_x = SCALE / tan(ray->start);
-	if ((ray->start < M_PI && ray->start > 0) || ray->start > M_PI * 2) // луч идет вверх
+	if ((ray->start < M_PI && ray->start > 0) || ray->start > M_PI * 2)
 	{
 		*h_wall = 'S';
 		p_y = (int)world->plr->y / SCALE * SCALE - 0.001;
@@ -60,7 +60,7 @@ static float		hor_intersect(t_world *world, t_plr *ray, char *h_wall)
 	else
 	{
 		*h_wall = 'N';
-		p_y = (int)world->plr->y / SCALE * SCALE + SCALE; // луч идет вниз
+		p_y = (int)world->plr->y / SCALE * SCALE + SCALE;
 		step_x = -step_x;
 	}
 	p_x = world->plr->x + (world->plr->y - p_y) / tan(ray->start);
@@ -70,21 +70,18 @@ static float		hor_intersect(t_world *world, t_plr *ray, char *h_wall)
 		p_y += step_y;
 	}
 	ray->x = p_x;
-	// ray->y = p_y;
 	if (res == -1)
 		return (1000000);
 	return (sqrt(pow(world->plr->x - p_x, 2) + pow(world->plr->y - p_y, 2)));
 }
 
-
-
-static float		vert_intersect(t_world *world, t_plr *ray, char *v_wall)
+static float	vert_intersect(t_world *world, t_plr *ray, char *v_wall)
 {
-	float	step_y;
-	float	step_x;
-	float	p_x;
-	float	p_y;
-	int		res;
+	float		step_y;
+	float		step_x;
+	float		p_x;
+	float		p_y;
+	int			res;
 
 	step_x = SCALE;
 	step_y = SCALE * tan(ray->start);
@@ -119,13 +116,10 @@ static float		vert_intersect(t_world *world, t_plr *ray, char *v_wall)
 ** Для каждого луча рисует вертикальный столбец нужной высоты.
 **
 */
-void		cast_rays_dda(t_world *world)
+void			cast_rays_dda(t_world *world)
 {
-	t_plr	ray;
-	// float	dist_hor;
-	// float	dist_vert;
+	t_plr		ray;
 	int		x;
-	// float	height;
 	char	v_wall;
 	char	h_wall;
 
@@ -156,4 +150,3 @@ void		cast_rays_dda(t_world *world)
 		ray.start -= FOV / world->config->x;
 	}
 }
-
