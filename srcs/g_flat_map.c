@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 23:24:26 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/24 17:13:33 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/24 23:15:21 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,35 +48,47 @@ static float	set_x(t_xpm *tex, t_plr *ray, char c_wall)
 	return (x_tex);
 }
 
-static int		get_tex_pix_v2(t_world *world, float x, float *y, t_plr *ray, char c_wall, float y_tex)
+static t_xpm	*set_tex_coor(t_world *world, char c_wall, float y_tex, t_plr *ray)
 {
-	float	step;
-	float	x_tex;
-	float	y_t_end;
-	int		color;
 	t_xpm *tex;
+	float	y_t_end;
+	// float	step;
+	// float	x_tex;
 
 	tex = set_textures(world, c_wall);
-	x_tex = set_x(tex, ray, c_wall);
+	tex->x_tex = set_x(tex, ray, c_wall);
 	if (ray->height > world->config->y)
 	{
 		y_t_end = (int)(ray->height - y_tex);
-		y_t_end = (y_t_end * tex->height) / ray->height;
-		y_tex = (y_tex * tex->height) / ray->height;
-		step = (y_t_end - y_tex) / world->config->y;
+		tex->y_t_end = (y_t_end * tex->height) / ray->height;
+		tex->y_tex = (y_tex * tex->height) / ray->height;
+		tex->step = (tex->y_t_end - tex->y_tex) / world->config->y;
 	}
 	else
 	{
-		y_t_end = tex->height;
-		step = tex->height / ray->height;
-		y_tex = (y_tex * tex->height) / ray->height;
+		tex->y_t_end = tex->height;
+		tex->step = tex->height / ray->height;
+		tex->y_tex = (y_tex * tex->height) / ray->height;
 	}
+	return (tex);
+}
+
+static int		get_tex_pix_v2(t_world *world, float x, float *y, t_xpm *tex)
+{
+	float		x_tex;
+	int			color;
+	float		y_t_end;
+	float		y_tex;
+
+	y_tex = tex->y_tex;
+	y_t_end = tex->y_t_end;
+	x_tex = tex->x_tex;
 	while(y_tex < y_t_end)
 	{
 		color = my_mlx_get_color(tex, (int)x_tex, (int)y_tex);
 		my_mlx_pixel_put(world->win, x, (*y), color);
 		(*y)++;
-		y_tex += step;
+		y_tex += tex->step;
 	}
 	return (0);
 }
@@ -87,12 +99,13 @@ void		draw_column_tex(t_world *world, float x_screen, char c_wall, t_plr *ray)
 	float y_screen;
 	float y_tex;
 	float	tmp_height;
+	t_xpm	*tex;
 
 	tmp_height = ray->height;
 	if (ray->height > world->config->y)
 	{
 		y_start = 0;
-		y_tex = (ray->height - world->config->y) / 2; //точка с которой начинаем отрисовку текстуры
+		y_tex = (ray->height - world->config->y) / 2;
 	}
 	else
 	{
@@ -105,7 +118,8 @@ void		draw_column_tex(t_world *world, float x_screen, char c_wall, t_plr *ray)
 		my_mlx_pixel_put(world->win, x_screen, y_screen, get_ceiling_color(world->config));
 		y_screen++;
 	}
-	get_tex_pix_v2(world, x_screen, &y_start, ray, c_wall, y_tex);
+	tex = set_tex_coor(world, c_wall, y_tex, ray);
+	get_tex_pix_v2(world, x_screen, &y_start, tex);
 	while (y_start < world->config->y)
 	{
 		my_mlx_pixel_put(world->win, x_screen, y_start, get_floor_color(world->config));

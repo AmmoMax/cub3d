@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 15:55:38 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/24 17:08:37 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/24 22:46:07 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,10 @@ typedef struct			s_xpm
 	int					line_length;
 	int					endian;
 	int					*tex_pix;
+	float				y_t_end;
+	float				y_tex;
+	float				step;
+	float				x_tex;
 }						t_xpm;
 
 typedef struct			s_textures
@@ -86,8 +90,6 @@ typedef struct			s_world
 	float				*dist_wall;
 }						t_world;
 
-
-
 /* Graphics utils */
 
 int			g_engine(m_config *config, int save_flag);
@@ -116,7 +118,7 @@ int			close_esc(t_world **world);
 void		check_resolution(void*mlx, m_config **config);
 // void		cleanup_xpm(t_xpm **p_tex);
 void		cleanup_all_tex(t_tex **p_textures, t_world *world);
-void			cleanup_sprites(t_sprite **sprites_head);
+void		cleanup_sprites(t_sprite **sprites_head);
 void		cleanup_all_world(t_world **p_world);
 void		cleanup_win(t_win **win);
 void		cleanup_save_sprite_pos(t_world **world);
