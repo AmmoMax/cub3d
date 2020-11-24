@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 15:18:12 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/22 20:01:09 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/24 17:07:04 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static float		hor_intersect(t_world *world, t_plr *ray, char *h_wall)
 	// ray->y = p_y;
 	if (res == -1)
 		return (1000000);
-	return (sqrt(pow(world->plr->x - p_x, 2) + pow(world->plr->y - p_y, 2)));	
+	return (sqrt(pow(world->plr->x - p_x, 2) + pow(world->plr->y - p_y, 2)));
 }
 
 
@@ -110,7 +110,7 @@ static float		vert_intersect(t_world *world, t_plr *ray, char *v_wall)
 	ray->y = p_y;
 	if (res == -1)
 		return (1000000);
-	return (sqrt(pow(world->plr->x - p_x, 2) + pow(world->plr->y - p_y, 2)));	
+	return (sqrt(pow(world->plr->x - p_x, 2) + pow(world->plr->y - p_y, 2)));
 }
 
 
@@ -122,10 +122,10 @@ static float		vert_intersect(t_world *world, t_plr *ray, char *v_wall)
 void		cast_rays_dda(t_world *world)
 {
 	t_plr	ray;
-	float	dist_hor;
-	float	dist_vert;
+	// float	dist_hor;
+	// float	dist_vert;
 	int		x;
-	float	height;
+	// float	height;
 	char	v_wall;
 	char	h_wall;
 
@@ -137,26 +137,23 @@ void		cast_rays_dda(t_world *world)
 	{
 		ray.x = world->plr->x;
 		ray.y = world->plr->y;
-		
-		dist_hor = hor_intersect(world, &ray, &h_wall);
-		dist_vert = vert_intersect(world, &ray, &v_wall);
-		if (dist_hor < dist_vert)
+
+		ray.dist_hor = hor_intersect(world, &ray, &h_wall);
+		ray.dist_vert = vert_intersect(world, &ray, &v_wall);
+		if (ray.dist_hor < ray.dist_vert)
 		{
-			height = get_height(world, dist_hor * cos(ray.start - world->plr->dir));
-			world->dist_wall[x] = dist_hor;
-			// draw_column(world, x, height, h_wall);
-			draw_column_tex(world, x, height, h_wall, &ray);
+			ray.height = get_height(world, ray.dist_hor * cos(ray.start - world->plr->dir));
+			world->dist_wall[x] = ray.dist_hor;
+			draw_column_tex(world, x, h_wall, &ray);
 		}
 		else
 		{
-			height = get_height(world, dist_vert * cos(ray.start - world->plr->dir));
-			world->dist_wall[x] = dist_vert;
-			// draw_column(world, x, height, v_wall);
-			draw_column_tex(world, x, height, v_wall, &ray);
+			ray.height = get_height(world, ray.dist_vert * cos(ray.start - world->plr->dir));
+			world->dist_wall[x] = ray.dist_vert;
+			draw_column_tex(world, x, v_wall, &ray);
 		}
 		x++;
 		ray.start -= FOV / world->config->x;
 	}
-	// mlx_put_image_to_window(world->win->mlx, world->win->win, world->win->img, START_X, START_Y);
 }
 

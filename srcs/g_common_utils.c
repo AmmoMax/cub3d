@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 20:24:56 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/24 13:27:54 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/24 16:47:54 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,27 @@ void		check_location(t_world **p_world, float new_x, float new_y)
 		world->plr->y = new_y;
 	if ((world->map[(int)world->plr->y / SCALE][j] != '1'))
 		world->plr->x = new_x;
+}
+
+int			check_plr_pos(t_world *world, int x, int y)
+{
+	if ((x == (int)world->plr->x) && y == (int)world->plr->y)
+		return (1);
+	else if (((int)world->plr->y > y) && ((int)world->plr->y < (y + SCALE)) && (int)world->plr->x == x)
+		return (1);
+	else
+		return (0);
+}
+
+void			check_resolution(void*mlx, m_config **config)
+{
+	int sizex;
+	int sizey;
+
+	mlx_get_screen_size(mlx, &sizex, &sizey);
+	if ((*config)->x > sizex || (*config)->x < 0 || (*config)->y > sizey || (*config)->y < 0)
+	{
+		(*config)->x = sizex;
+		(*config)->y = sizey;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 15:55:38 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/24 13:36:56 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/24 17:08:37 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@ typedef struct 			s_plr
 	float				dir;
 	float				start;
 	float				end;
+	float				dist_hor;
+	float				dist_vert;
+	float				height;
 }						t_plr;
 
 typedef struct			s_xpm
@@ -92,16 +95,14 @@ void		my_mlx_pixel_put(t_win *win, int x, int y, int color);
 void		save_plr_pos(t_world **world);
 void		print_maps_block(t_world *world, int x, int y);
 // int			move_f(int keycode, t_world **world);
-void		draw_block(t_win *win, int color, int x, int y);
 void		check_location(t_world **world, float new_x, float new_y);
-void		draw_player(t_win *win, int color, int x, int y);
 void		cast_rays(t_world *world);
 void		draw_column(t_world *world, float x, float height, char c_wall);
 int			key_handler(int keycode, t_world **world);
 void		cast_rays_dda(t_world *world);
 void		get_textures(t_world *world, t_xpm *texture, char *path);
 void		draw_3d_map(t_world *world, int save_flag);
-void		draw_column_tex(t_world *world, float x, float height, char c_wall, t_plr *ray);
+void		draw_column_tex(t_world *world, float x_screen, char c_wall, t_plr *ray);
 int			my_mlx_get_color(t_xpm *tex, int x, int y);
 int			save_sprites_pos(t_world **world);
 int			load_textures_v2(t_world **world);

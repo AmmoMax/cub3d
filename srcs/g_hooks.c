@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 22:47:59 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/23 20:33:48 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/24 15:40:35 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	move_forward_back(t_world **world, int keycode)
 		x = (*world)->plr->x - cos((*world)->plr->dir) * SPEED;
 		y = (*world)->plr->y + sin((*world)->plr->dir) * SPEED;
 	}
-	
+
 	check_location(world, x, y);
 	draw_3d_map(*world , 0);
 	mlx_do_sync((*world)->win->mlx);
@@ -72,6 +72,7 @@ static void	move_left_right(t_world **world, int keycode)
 		x = (*world)->plr->x + sin((*world)->plr->dir) * SPEED;
 		y = (*world)->plr->y + cos((*world)->plr->dir) * SPEED;
 	}
+	printf("x = %f :: y = %f\n", x ,y);
 	check_location(world, x, y);
 	draw_3d_map(*world, 0);
 	mlx_do_sync((*world)->win->mlx);
