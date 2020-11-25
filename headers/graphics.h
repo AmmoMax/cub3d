@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 15:55:38 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/24 23:38:57 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/25 00:07:21 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ int			g_engine(m_config *config, int save_flag);
 void		my_mlx_pixel_put(t_win *win, int x, int y, int color);
 void		save_plr_pos(t_world **world);
 void		print_maps_block(t_world *world, int x, int y);
-// int			move_f(int keycode, t_world **world);
 void		check_location(t_world **world, float new_x, float new_y);
 void		cast_rays(t_world *world);
 void		draw_column(t_world *world, float x, float height, char c_wall);
@@ -112,13 +111,11 @@ int			save_sprites_pos(t_world **world);
 int			load_textures_v2(t_world **world);
 int			*strcpy_int(int *dst, int *src);
 int			load_sprite(t_world **world);
-void		draw_sprites(t_world *world, t_sprite *sprite);
 void		sprite_finder(t_world *world);
 int			make_screen(t_world *all);
 int			close_red_cross(t_world **world);
 int			close_esc(t_world **world);
 void		check_resolution(void*mlx, m_config **config);
-// void		cleanup_xpm(t_xpm **p_tex);
 void		cleanup_all_tex(t_tex **p_textures, t_world *world);
 void		cleanup_sprites(t_sprite **sprites_head);
 void		cleanup_all_world(t_world **p_world);

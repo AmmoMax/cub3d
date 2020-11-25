@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 15:27:15 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/24 23:51:46 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/25 22:21:18 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void			cleanup_map(t_list **map_head)
 {
-	t_list	*addr_next;
-	t_list	*counter;
+	t_list		*addr_next;
+	t_list		*counter;
 
 	counter = *map_head;
 	while (counter)
@@ -32,6 +32,7 @@ void			cleanup_map(t_list **map_head)
 void			clean_config_all(m_config **p_config)
 {
 	m_config	*config;
+
 	config = *p_config;
 	free(config->no_texture);
 	config->no_texture = NULL;
@@ -56,6 +57,7 @@ void			clean_config_all(m_config **p_config)
 void			clean_config_no_map(m_config **p_config)
 {
 	m_config	*config;
+
 	config = *p_config;
 	free(config->no_texture);
 	config->no_texture = NULL;
