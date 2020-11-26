@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 15:55:38 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/26 22:13:08 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/27 00:12:08 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #define START_Y 0
 #define CLR_BLK 0xFF1497
 #define CLR_PLR 0x00FF00
-#define SPEED 5
+#define SPEED 10.6
 #define FOV	M_PI / 3
 #define _USE_MATH_DEFINES
 
