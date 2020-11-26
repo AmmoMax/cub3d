@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 22:00:47 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/24 23:55:23 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/26 14:09:38 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,26 +41,26 @@ int			check_path_tex(m_config *config)
 }
 
 void		set_texture(m_config **config, char *str,
-						char *line, char flag, size_t i)
+						char *line, char flag)
 {
-	if(flag == 'N')
+	if (flag == 'N')
 	{
-		(*config)->no_texture = ft_strcpy(str, line + i);
+		(*config)->no_texture = ft_strcpy(str, line);
 		(*config)->count_ntex = 1;
 	}
-	else if(flag == 'S')
+	else if (flag == 'S')
 	{
-		(*config)->so_texture = ft_strcpy(str, line + i);
+		(*config)->so_texture = ft_strcpy(str, line);
 		(*config)->count_stex = 1;
 	}
-	else if(flag =='W')
+	else if (flag == 'W')
 	{
-		(*config)->we_texture = ft_strcpy(str, line + i);
+		(*config)->we_texture = ft_strcpy(str, line);
 		(*config)->count_wtex = 1;
 	}
-	else if(flag == 'E')
+	else if (flag == 'E')
 	{
-		(*config)->ea_texture = ft_strcpy(str, line + i);
+		(*config)->ea_texture = ft_strcpy(str, line);
 		(*config)->count_etex = 1;
 	}
 }
@@ -69,26 +69,27 @@ void		set_texture(m_config **config, char *str,
 ** Валидирует строку с кодом цвета в RGB
 ** Пример валидной строки: "F 220,100,0";
 */
+
 int			color_validator(char *line)
 {
 	size_t	i;
 	size_t	num_cnt;
-	char 	*tmp;
-	size_t	flag_color;
+	char	*tmp;
+	size_t	f_color;
 
 	i = -1;
 	num_cnt = 0;
 	tmp = line;
-	while(line[++i])
+	while (line[++i])
 	{
 		if ((line[i] == 'C' || line[i] == 'F') && line[i + 1] == ' ')
-				flag_color = 1;
+			f_color = 1;
 		else if (line[i] == ' ' || line[i] == ',' ||
 				(ft_isdigit(line[i]) && ft_isdigit(line[i - 1])))
-				;
+			;
 		else if (ft_isdigit(line[i]) && !(ft_isdigit(line[i - 1])))
 		{
-			if (ft_atoi(tmp + i) > 255 || ft_atoi(tmp + i) < 0 || flag_color != 1)
+			if (ft_atoi(tmp + i) > 255 || ft_atoi(tmp + i) < 0 || f_color != 1)
 				return (ERR_INVLINE_COLOR);
 			num_cnt++;
 		}

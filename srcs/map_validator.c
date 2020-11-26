@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 15:09:13 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/24 00:23:17 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/26 13:42:56 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** Валидирует первую строку карты.
 */
+
 static int	validator_1_str(char *str)
 {
 	size_t	i;
@@ -36,6 +37,7 @@ static int	validator_1_str(char *str)
 /*
 ** Валидирует последнюю строку карты.
 */
+
 static int	validator_last_str(char *str)
 {
 	size_t	i;
@@ -59,6 +61,7 @@ static int	validator_last_str(char *str)
 ** Проверяет чтобы клетка с нулем была закрытой - т.е. не соседствовала
 ** с пробелом ни по одному из 8 направлений
 */
+
 static int	check_zero_symbol(char *str, int len)
 {
 	if (*(str - len) == ' ')
@@ -84,6 +87,7 @@ static int	check_zero_symbol(char *str, int len)
 /*
 ** Валирует обычную строку карты относительно других строк.
 */
+
 static int	validator_common_str(char *str, int len, int *flag_gamer)
 {
 	size_t	i;
@@ -95,21 +99,22 @@ static int	validator_common_str(char *str, int len, int *flag_gamer)
 					(str[i] == '0' && check_zero_symbol(str + i, len) == 0))
 				;
 			else if ((str[i] == 'N' || str[i] == 'S' ||
-					 str[i] == 'W' || str[i] == 'E') &&
-					 check_zero_symbol(str + i, len) == 0)
-					(*flag_gamer)++;
+					str[i] == 'W' || str[i] == 'E') &&
+					check_zero_symbol(str + i, len) == 0)
+				(*flag_gamer)++;
 			else
-				return(local_print_error(ERR_INVMAP));
+				return (local_print_error(ERR_INVMAP));
 	else
 		return (local_print_error(ERR_MAP_SURWALLS));
 	return (0);
 }
 
 /*
-* Валидирует карту из двумерного массива.
+** Валидирует карту из двумерного массива.
 ** Вызывает три отдельных валидатора - для первой строки,
 ** для последней и всех остальных.
 */
+
 int			map_validator(char **map, int len_map)
 {
 	int		i;
@@ -130,8 +135,10 @@ int			map_validator(char **map, int len_map)
 					return (ERR_INVMAP);
 			}
 			else
+			{
 				if (!(validator_common_str(map[i], len_str, &flag_gamer) == 0))
 					return (ERR_INVMAP);
+			}
 		}
 	return (check_player(flag_gamer));
 }

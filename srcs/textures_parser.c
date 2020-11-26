@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 22:09:19 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/23 23:22:07 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/26 14:09:15 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	tex_parser(char *line, char flag, m_config **config)
 		return (ERR_MEMALLOC);
 	while (line[i] == ' ')
 		i++;
-	set_texture(config, str, line, flag, i);
+	set_texture(config, str, line + i, flag);
 	return (0);
 }
 

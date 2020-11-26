@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 21:25:15 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/24 01:15:03 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/26 13:33:21 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,18 @@ static t_win	*win_init(m_config **c, int save_flag)
 	if (!save_flag)
 		win->win = mlx_new_window(win->mlx, (*c)->x, (*c)->y, "Cub3D");
 	win->img = mlx_new_image(win->mlx, (*c)->x, (*c)->y);
-	win->addr = mlx_get_data_addr(win->img, &win->bbp, &win->line_length, &win->endian);
+	win->addr = mlx_get_data_addr(win->img, &win->bbp,
+							&win->line_length, &win->endian);
 	return (win);
 }
 
 /*
 ** Точка входа в отрисовку графики.
 ** Принимает указатель на общий конфиг с настройками.
-** Создает внутри себя структуры для графики и запускает нужные функции отрисовки.
+** Создает внутри себя структуры для графики
+** и запускает нужные функции отрисовки.
 */
+
 int				g_engine(m_config *config, int save_flag)
 {
 	t_win		*win;
@@ -76,8 +79,8 @@ int				g_engine(m_config *config, int save_flag)
 	if ((res = load_sprite(&world)) != 0)
 		return (res);
 	draw_3d_map(world, save_flag);
-	mlx_hook(win->win, 17, 1L<<17, close_red_cross, &world);
-	mlx_hook(win->win, 2, 1L<<0, key_handler, &world);
+	mlx_hook(win->win, 17, 1L << 17, close_red_cross, &world);
+	mlx_hook(win->win, 2, 1L << 0, key_handler, &world);
 	mlx_loop(win->mlx);
 	return (0);
 }

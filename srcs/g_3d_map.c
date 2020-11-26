@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 14:53:16 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/24 23:50:28 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/26 13:21:18 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void		draw_3d_map(t_world *world, int save_flag)
 	if (save_flag)
 		make_screen(world);
 	mlx_do_sync(world->win->mlx);
-	mlx_put_image_to_window(world->win->mlx, world->win->win, world->win->img, START_X, START_Y);
+	mlx_put_image_to_window(world->win->mlx, world->win->win, \
+					world->win->img, START_X, START_Y);
 }
 
 int			get_tex_pix_v2(t_world *world, float x, float *y, t_xpm *tex)
@@ -32,7 +33,7 @@ int			get_tex_pix_v2(t_world *world, float x, float *y, t_xpm *tex)
 	y_tex = tex->y_tex;
 	y_t_end = tex->y_t_end;
 	x_tex = tex->x_tex;
-	while(y_tex < y_t_end)
+	while (y_tex < y_t_end)
 	{
 		color = my_mlx_get_color(tex, (int)x_tex, (int)y_tex);
 		my_mlx_pixel_put(world->win, x, (*y), color);

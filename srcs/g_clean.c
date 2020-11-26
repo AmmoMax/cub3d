@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 23:58:24 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/24 23:52:52 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/26 13:23:38 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void		cleanup_xpm(t_xpm **p_tex, t_world *world)
 	t_xpm		*tex;
 
 	tex = *p_tex;
-	if(tex)
+	if (tex)
 	{
 		mlx_destroy_image(world->win->mlx, tex->img);
 		free(tex->tex_pix);

@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 11:24:53 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/23 20:59:29 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/26 13:33:38 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int			main(int argc, char **argv)
 	{
 		cub_path = argv[1];
 		if (check_filename(cub_path) != 0)
-			return(ERR_INVFILE_CUB);
+			return (ERR_INVFILE_CUB);
 		if (argc == 3)
 			save_flag = argv[2];
 		if (start_cub3d(cub_path, save_flag))

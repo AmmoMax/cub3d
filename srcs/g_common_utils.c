@@ -6,13 +6,13 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 20:24:56 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/24 16:47:54 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/26 13:26:12 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/general.h"
 
-static void save_plr_dir(char plr, t_world **world)
+static void	save_plr_dir(char plr, t_world **world)
 {
 	if (plr == 'N')
 		(*world)->plr->dir = M_PI_2;
@@ -37,7 +37,8 @@ void		save_plr_pos(t_world **world)
 		j = 0;
 		while (map[i][j])
 		{
-			if (map[i][j] == 'N' || map[i][j] == 'W' || map[i][j] == 'E' || map[i][j] == 'S')
+			if (map[i][j] == 'N' || map[i][j] == 'W' ||
+					map[i][j] == 'E' || map[i][j] == 'S')
 			{
 				(*world)->plr->x = j * SCALE + START_X + (SCALE / 2);
 				(*world)->plr->y = i * SCALE + START_Y + (SCALE / 2);
@@ -69,19 +70,21 @@ int			check_plr_pos(t_world *world, int x, int y)
 {
 	if ((x == (int)world->plr->x) && y == (int)world->plr->y)
 		return (1);
-	else if (((int)world->plr->y > y) && ((int)world->plr->y < (y + SCALE)) && (int)world->plr->x == x)
+	else if (((int)world->plr->y > y) && ((int)world->plr->y < (y + SCALE)) &&
+													(int)world->plr->x == x)
 		return (1);
 	else
 		return (0);
 }
 
-void			check_resolution(void*mlx, m_config **config)
+void		check_resolution(void *mlx, m_config **config)
 {
 	int sizex;
 	int sizey;
 
 	mlx_get_screen_size(mlx, &sizex, &sizey);
-	if ((*config)->x > sizex || (*config)->x < 0 || (*config)->y > sizey || (*config)->y < 0)
+	if ((*config)->x > sizex || (*config)->x < 0 ||
+					(*config)->y > sizey || (*config)->y < 0)
 	{
 		(*config)->x = sizex;
 		(*config)->y = sizey;

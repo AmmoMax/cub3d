@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 22:39:43 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/23 21:46:03 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/25 22:25:43 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 ** Получает строку из файла и отправляет в нужный обработчик.
 ** Возвращает код, который вернул обработчик.
 */
+
 int					line_handler(char *line, m_config **config)
 {
 	size_t			len;
@@ -24,12 +25,12 @@ int					line_handler(char *line, m_config **config)
 	if (ft_strchr(line, 'R'))
 		return (res_handler(line, config));
 	else if (ft_strnstr(line, "NO", len) || ft_strnstr(line, "SO", len) ||
-			 ft_strnstr(line, "WE", len) || ft_strnstr(line, "EA", len))
+			ft_strnstr(line, "WE", len) || ft_strnstr(line, "EA", len))
 		return (texture_handler(line, config));
 	else if (ft_strnstr(line, "S ", len))
 		return (sprite_handler(line, config));
-	else if (ft_strchr(line, 'F')|| ft_strchr(line, 'C'))
-		return(color_handler(line, config));
+	else if (ft_strchr(line, 'F') || ft_strchr(line, 'C'))
+		return (color_handler(line, config));
 	else if (ft_strchr(line, '1'))
 		return (map_handler(line, config));
 	else if (line[0] == '\n' || line[0] == 0)
@@ -66,7 +67,7 @@ static void			*local_clean(m_config **config, char **line, int err)
 	return (NULL);
 }
 
-m_config			*read_config (char *path)
+m_config			*read_config(char *path)
 {
 	int				fd;
 	char			*line;
@@ -74,7 +75,8 @@ m_config			*read_config (char *path)
 	int				res_line_handler;
 
 	line = NULL;
-	if (!(config_p = init_config()) || (fd = open(path, O_RDONLY)) < 0)
+	fd = open(path, O_RDONLY);
+	if (!(config_p = init_config()) || fd < 0)
 	{
 		print_err(ERR_OFILE);
 		return (NULL);

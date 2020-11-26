@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 22:47:59 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/24 23:54:06 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/26 13:31:31 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ static void	move_forward_back(t_world **world, int keycode)
 		x = (*world)->plr->x - cos((*world)->plr->dir) * SPEED;
 		y = (*world)->plr->y + sin((*world)->plr->dir) * SPEED;
 	}
-
 	check_location(world, x, y);
-	draw_3d_map(*world , 0);
+	draw_3d_map(*world, 0);
 	mlx_do_sync((*world)->win->mlx);
-	mlx_put_image_to_window((*world)->win->mlx, (*world)->win->win, (*world)->win->img, START_X, START_Y);
+	mlx_put_image_to_window((*world)->win->mlx, (*world)->win->win,
+								(*world)->win->img, START_X, START_Y);
 }
 
 static void	turn_left_right(t_world **world, int keycode)
@@ -54,7 +54,8 @@ static void	turn_left_right(t_world **world, int keycode)
 	}
 	draw_3d_map(*world, 0);
 	mlx_do_sync((*world)->win->mlx);
-	mlx_put_image_to_window((*world)->win->mlx, (*world)->win->win, (*world)->win->img, START_X, START_Y);
+	mlx_put_image_to_window((*world)->win->mlx, (*world)->win->win,
+								(*world)->win->img, START_X, START_Y);
 }
 
 static void	move_left_right(t_world **world, int keycode)
@@ -75,7 +76,8 @@ static void	move_left_right(t_world **world, int keycode)
 	check_location(world, x, y);
 	draw_3d_map(*world, 0);
 	mlx_do_sync((*world)->win->mlx);
-	mlx_put_image_to_window((*world)->win->mlx, (*world)->win->win, (*world)->win->img, START_X, START_Y);
+	mlx_put_image_to_window((*world)->win->mlx, (*world)->win->win,
+								(*world)->win->img, START_X, START_Y);
 }
 
 int			key_handler(int keycode, t_world **world)

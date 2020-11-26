@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 21:40:16 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/24 00:23:05 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/26 21:28:41 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,12 @@ void		print_err(int err_type);
 int			check_player(int flag);
 int			check_path_tex(m_config *config);
 void		set_texture(m_config **config, char *str,
-					char *line, char flag, size_t i);
+						char *line, char flag);
 int			color_validator(char *line);
 int			max_len_line(t_list *head);
 int			local_print_error(int err);
+double		find_dist_h(t_world *w, t_plr *ray);
+int			find_wall(t_world *world, float x, float y);
+int			get_height(t_world *world, float dist);
 
 #endif

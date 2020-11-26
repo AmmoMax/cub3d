@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 13:24:06 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/24 13:24:54 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/26 13:24:13 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int			close_esc(t_world **world)
 ** относительно окна и записывает туда цвет.
 ** Изначально line_length будет отличаться от фактической ширины окна
 */
+
 void		my_mlx_pixel_put(t_win *win, int x, int y, int color)
 {
 	char	*dst;

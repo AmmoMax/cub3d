@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 15:55:38 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/25 00:07:21 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/26 21:10:52 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,10 @@ typedef struct 			s_plr
 	float				height;
 	float				y_start;
 	float				y_tex;
+	float				p_x;
+	float				p_y;
+	float				step_y;
+	float				step_x;
 }						t_plr;
 
 typedef struct			s_xpm
