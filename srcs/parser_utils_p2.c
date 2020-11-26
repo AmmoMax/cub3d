@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 00:21:48 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/26 21:28:32 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/26 22:24:31 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,11 @@ int		get_height(t_world *world, float dist)
 	plane = (world->config->x / 2) / tan(FOV / 2);
 	height = (SCALE / dist) * plane;
 	return ((int)height);
+}
+
+int		get_sprite_color(t_world *world, int i, int j, t_sprite *s)
+{
+	return (my_mlx_get_color(world->t->sprite_tex, i *
+						world->t->w_tex->width /
+				s->sprite_size, j * world->t->w_tex->height / s->sprite_size));
 }

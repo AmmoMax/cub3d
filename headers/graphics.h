@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 15:55:38 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/26 21:10:52 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/26 22:13:08 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,9 @@ typedef struct			s_sprite
 	float				dist;
 	float				dir;
 	struct s_sprite		*next;
+	int					p_x;
+	int					p_y;
+	float				sprite_size;
 }						t_sprite;
 
 typedef struct			s_world
@@ -125,8 +128,12 @@ void		cleanup_sprites(t_sprite **sprites_head);
 void		cleanup_all_world(t_world **p_world);
 void		cleanup_win(t_win **win);
 void		cleanup_save_sprite_pos(t_world **world);
-int		get_tex_pix_v2(t_world *world, float x, float *y, t_xpm *tex);
-void	set_y_start(t_world *world, t_plr **ray);
-t_xpm	*set_textures(t_world *world, char c_wall);
+int			get_tex_pix_v2(t_world *world, float x, float *y, t_xpm *tex);
+void		set_y_start(t_world *world, t_plr **ray);
+t_xpm		*set_textures(t_world *world, char c_wall);
+double		find_dist_h(t_world *w, t_plr *ray);
+int			find_wall(t_world *world, float x, float y);
+int			get_height(t_world *world, float dist);
+int		get_sprite_color(t_world *world, int i, int j, t_sprite *s);
 
 #endif

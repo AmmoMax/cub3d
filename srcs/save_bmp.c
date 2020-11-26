@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 22:16:10 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/25 00:03:48 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/26 21:40:15 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ static int			get_sr_color(t_world *all, int x, int y)
 {
 	char		*dst;
 
-	dst = all->win->addr + (y * all->win->line_length + x * (all->win->bbp / 8));
+	dst = all->win->addr + (y * all->win->line_length +
+						x * (all->win->bbp / 8));
 	return (*(unsigned int*)dst);
 }
 
@@ -62,8 +63,8 @@ static void			screen(t_world *all, int fd, int res)
 			write(fd, &color, 3);
 			x++;
 		}
-			y--;
-			x = 0;
+		y--;
+		x = 0;
 	}
 }
 
@@ -74,17 +75,18 @@ int					make_screen(t_world *all)
 	int				count;
 	int				size;
 	int				temp_res;
+
 	temp_res = all->config->y;
 	if (all->config->y % 4)
-	 temp_res = all->config->y - (all->config->y % 4);
+		temp_res = all->config->y - (all->config->y % 4);
 	size = temp_res * all->config->y + 54;
 	count = 0;
 	if ((fd = open("./screenshot.bmp", O_RDWR | O_CREAT, 0666)) < 0)
-	 return (-1);
+		return (-1);
 	while (count < 54)
 	{
-	 header_arr[count] = (unsigned char)0;
-	 count++;
+		header_arr[count] = (unsigned char)0;
+		count++;
 	}
 	header(header_arr, size, all, temp_res);
 	write(fd, header_arr, 54);

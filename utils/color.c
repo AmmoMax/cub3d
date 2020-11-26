@@ -82,7 +82,7 @@ static int	color_validator(char *line)
 	return (num_cnt == 3 ? 0 : 1);
 }
 
-static void	color_writer(char *line, color **color)
+static void	color_writer(char *line, t_color **color)
 {
 	size_t	i;
 
@@ -106,18 +106,18 @@ static void	color_writer(char *line, color **color)
 
 /*
 *
-* Парсит валидную строку, сохраняет данные в структуру и 
+* Парсит валидную строку, сохраняет данные в структуру и
 * адрес этой структуры записывает в общую структуру config
 * C 100,255,255
 */
 static void	color_parser(char *line, m_config **config)
 {
-	color	*floor_p;
-	color	*ceiling_p;
+	t_color	*floor_p;
+	t_color	*ceiling_p;
 
 	if (ft_strchr(line, 'C'))
 	{
-		ceiling_p  = (color *)(malloc(sizeof(color)));
+		ceiling_p  = (t_color *)(malloc(sizeof(t_color)));
 		ceiling_p->red = -1;
 		ceiling_p->green = -1;
 		ceiling_p->blue = -1;
@@ -126,7 +126,7 @@ static void	color_parser(char *line, m_config **config)
 	}
 	if (ft_strchr(line, 'F'))
 	{
-		floor_p  = (color *)(malloc(sizeof(color)));
+		floor_p  = (t_color *)(malloc(sizeof(t_color)));
 		floor_p->red = -1;
 		floor_p->green = -1;
 		floor_p->blue = -1;
@@ -137,10 +137,10 @@ static void	color_parser(char *line, m_config **config)
 
 int	color_handler(char *line, m_config **config)
 {
-	color		floor;
-	color		*floor_p;
-	color		ceiling;
-	color		*ceiling_p;
+	t_color		floor;
+	t_color		*floor_p;
+	t_color		ceiling;
+	t_color		*ceiling_p;
 
 	if (color_validator(line) == 0)
 	{

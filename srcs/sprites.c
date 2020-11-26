@@ -6,42 +6,47 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/14 20:42:37 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/25 22:00:07 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/26 22:24:28 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/general.h"
 
-static void		set_pixel_sprite(t_world *world, t_sprite *sprite, int i, int *j)
+static void		set_sprite_params(t_world *world, t_sprite **s)
 {
-	int			x;
-	int			y;
-	float		sprite_size;
+	(*s)->sprite_size = (world->config->x / 2) / tan(FOV / 2) *
+								(SCALE / (*s)->dist);
+	(*s)->p_x = (world->config->x / 2) - (world->config->x /
+								(FOV * 180 / M_PI)) *
+		(((*s)->dir - world->plr->dir) * 180 / M_PI) - (*s)->sprite_size / 2;
+	(*s)->p_y = world->config->y / 2 - (*s)->sprite_size / 2;
+}
+
+static void		set_pixel_sprite(t_world *world, t_sprite *s, int i, int *j)
+{
 	int			color;
 
-	sprite_size = (world->config->x / 2) / tan(FOV / 2) * (SCALE / sprite->dist);
-	x = (world->config->x / 2) - (world->config->x / (FOV * 180 / M_PI))*((sprite->dir - world->plr->dir) * 180 / M_PI) - sprite_size / 2;
-	y = world->config->y / 2 - sprite_size / 2;
-	while (*j < sprite_size)
+	set_sprite_params(world, &s);
+	while (*j < s->sprite_size)
 	{
-		if (y + *j < 0 || y + *j > world->config->y)
+		if (s->p_y + *j < 0 || s->p_y + *j > world->config->y)
 		{
 			(*j)++;
 			continue;
 		}
-		if (sprite->dist < world->dist_wall[(int)(x + i)])
+		if (s->dist < world->dist_wall[(int)(s->p_x + i)])
 		{
-			color = my_mlx_get_color(world->t->sprite_tex, i * world->t->w_tex->width / sprite_size, (*j) * world->t->w_tex->height / sprite_size);
+			color = get_sprite_color(world, i, *j, s);
 			if (color == -16777216 || color == 0)
 			{
 				(*j)++;
 				continue;
 			}
-			my_mlx_pixel_put(world->win, x + i, y + (*j), color);
+			my_mlx_pixel_put(world->win, s->p_x + i, s->p_y + (*j), color);
 			(*j)++;
 		}
 		else
-			break;
+			break ;
 	}
 }
 
@@ -50,10 +55,11 @@ static void		draw_sprite(t_world *world, t_sprite *sprite, int i, int j)
 	int			x;
 	int			y;
 	float		sprite_size;
-	// int			color;
 
-	sprite_size = (world->config->x / 2) / tan(FOV / 2) * (SCALE / sprite->dist);
-	x = (world->config->x / 2) - (world->config->x / (FOV * 180 / M_PI))*((sprite->dir - world->plr->dir) * 180 / M_PI) - sprite_size / 2;
+	sprite_size = (world->config->x / 2) / tan(FOV / 2) *
+									(SCALE / sprite->dist);
+	x = (world->config->x / 2) - (world->config->x / (FOV * 180 / M_PI)) *
+			((sprite->dir - world->plr->dir) * 180 / M_PI) - sprite_size / 2;
 	y = world->config->y / 2 - sprite_size / 2;
 	while (i < sprite_size)
 	{
@@ -67,7 +73,6 @@ static void		draw_sprite(t_world *world, t_sprite *sprite, int i, int j)
 		i++;
 	}
 }
-
 
 static void		sprite_sort(t_world *world)
 {
@@ -105,17 +110,20 @@ void			sprite_finder(t_world *world)
 	while (tmp)
 	{
 		tmp->dir = atan2(world->plr->y - tmp->y, tmp->x - world->plr->x);
-		if (tmp->dir < 0 && world->plr->dir >= M_PI / 6 && world->plr->dir <= (M_PI * 2 - M_PI / 6))
+		if (tmp->dir < 0 && world->plr->dir >= M_PI / 6 &&
+					world->plr->dir <= (M_PI * 2 - M_PI / 6))
 			tmp->dir += 2 * M_PI;
 		if (world->plr->dir > (M_PI * 2 - M_PI / 6) && world->plr->dir <= 7)
 			tmp->dir += 2 * M_PI;
-		if ((tmp->dir - world->plr->dir - FOV / 2) < (FOV / 2) || (tmp->dir - world->plr->dir + FOV / 2) > (- FOV / 2))
-			tmp->dist = sqrt(pow(world->plr->x - tmp->x, 2) + pow(world->plr->y - tmp->y, 2));
-	else
-		tmp->dist = -1;
-	if (tmp->dist > 0 && tmp->dist < SCALE / 7)
-		tmp->dist = -1;
-	tmp = tmp->next;
+		if ((tmp->dir - world->plr->dir - FOV / 2) < (FOV / 2) ||
+					(tmp->dir - world->plr->dir + FOV / 2) > (-FOV / 2))
+			tmp->dist = sqrt(pow(world->plr->x - tmp->x, 2) +
+								pow(world->plr->y - tmp->y, 2));
+		else
+			tmp->dist = -1;
+		if (tmp->dist > 0 && tmp->dist < SCALE / 7)
+			tmp->dist = -1;
+		tmp = tmp->next;
 	}
 	sprite_sort(world);
 }

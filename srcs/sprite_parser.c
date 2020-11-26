@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 22:22:19 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/24 00:34:58 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/26 22:28:24 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 ** Валидная строка: S ./path_to_the_sprite_texture
 ** Невалидная строка: X  S ./path_to_the_sprite_texture
 */
+
 static int	sprite_validator(char *line)
 {
 	size_t	i;
@@ -26,7 +27,6 @@ static int	sprite_validator(char *line)
 	i = 0;
 	flag_s = 0;
 	flag_path = 0;
-
 	while (line[i])
 		if (line[i] == ' ')
 			i++;
@@ -48,16 +48,17 @@ static int	sprite_validator(char *line)
 /*
 ** Принимает уже валидную строку, парсит и сохраняет ее в структуру конфига.
 */
+
 static int	sprite_parser(char *line, m_config **config)
 {
 	size_t	i;
-	char *str;
+	char	*str;
 
 	str = (char *)malloc(sizeof(char) * ft_strlen(line) + 1);
 	if (!str)
 		return (ERR_MEMALLOC);
 	i = 0;
-	while(line[i] == ' ' || line[i] == 'S')
+	while (line[i] == ' ' || line[i] == 'S')
 		i++;
 	(*config)->s_texture = ft_strcpy(str, line + i);
 	(*config)->count_sprtex = 1;
@@ -80,6 +81,7 @@ static int	check_path_sprite(m_config *config)
 int			sprite_handler(char *line, m_config **config)
 {
 	int		res;
+
 	if ((res = sprite_validator(line)) == 0)
 	{
 		if ((*config)->count_sprtex == 0)

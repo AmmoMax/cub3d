@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/14 12:22:56 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/25 00:05:14 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/26 21:52:20 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void			lst_add_back(t_sprite **head, t_sprite *new)
 	start = *head;
 	if (start)
 	{
-		while(start->next)
+		while (start->next)
 			start = start->next;
 		start->next = new;
 		new->next = NULL;
@@ -51,21 +51,20 @@ static void			local_clean(t_world **w)
 
 int					save_sprites_pos(t_world **world)
 {
-	char			**map;
 	t_sprite		*sprite;
 	size_t			i;
 	size_t			j;
 
-	map = (*world)->map;
 	i = -1;
-	while (map[++i])
+	while ((*world)->map[++i])
 	{
 		j = 0;
-		while (map[i][j])
+		while ((*world)->map[i][j])
 		{
-			if (map[i][j] == '2')
+			if ((*world)->map[i][j] == '2')
 			{
-				if(!(sprite = new_sprite(j * SCALE + (SCALE / 2), i * SCALE + (SCALE / 2))))
+				if (!(sprite = new_sprite(j * SCALE +
+					(SCALE / 2), i * SCALE + (SCALE / 2))))
 				{
 					cleanup_save_sprite_pos(world);
 					return (ERR_MEMALLOC);
@@ -81,7 +80,8 @@ int					save_sprites_pos(t_world **world)
 /*
 ** Загружает спрайт в общую структуру мира
 */
-int				load_sprite(t_world **world)
+
+int					load_sprite(t_world **world)
 {
 	t_xpm		*tex;
 
@@ -90,10 +90,13 @@ int				load_sprite(t_world **world)
 		local_clean(world);
 		return (ERR_MEMALLOC);
 	}
-	tex->img = mlx_xpm_file_to_image((*world)->win->mlx, (*world)->config->s_texture, &tex->width, &tex->height);
-	tex->addr = mlx_get_data_addr(tex->img, &tex->bbp, &tex->line_length, &tex->endian);
-	tex->tex_pix = (int *)ft_calloc(1, sizeof(int) * (tex->height * tex->width + 1));
-	if(!tex->tex_pix)
+	tex->img = mlx_xpm_file_to_image((*world)->win->mlx,
+		(*world)->config->s_texture, &tex->width, &tex->height);
+	tex->addr = mlx_get_data_addr(tex->img, &tex->bbp,
+							&tex->line_length, &tex->endian);
+	tex->tex_pix = (int *)ft_calloc(1, sizeof(int) *
+							(tex->height * tex->width + 1));
+	if (!tex->tex_pix)
 	{
 		mlx_destroy_image((*world)->win->mlx, tex->img);
 		free(tex);
