@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 23:58:24 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/26 13:23:38 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/28 21:56:41 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void			cleanup_all_world(t_world **p_world)
 	cleanup_all_tex(&world->t, world);
 	cleanup_sprites(&world->sprites);
 	free(world->dist_wall);
+	world->dist_wall = NULL;
 	mlx_destroy_image(world->win->mlx, world->win->img);
 	mlx_destroy_window(world->win->mlx, world->win->win);
 	free(world->win);

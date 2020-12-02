@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 17:28:03 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/22 21:47:09 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/28 20:33:37 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,18 @@ typedef enum	e_errors
 	ERR_OK = 0,
 	ERR_PARSE_CFILE = -1,
 	ERR_MEMALLOC = -2,
-	ERR_INVMAP = -3, 
+	ERR_INVMAP = -3,
 	ERR_GET_SPRITES = -4,
 	ERR_PARSE_TEX = -5,
 	ERR_PARSE_SPRITE = -6,
-	ERR_INVSPRITE = -7, 
+	ERR_INVSPRITE = -7,
 	ERR_INVCOLOR = -8,
 	ERR_OFILE = -9,
 	ERR_INVLINE_CONF = -10,
 	ERR_DOUBLE_RES = -11,
 	ERR_INVRES = -12,
 	ERR_MEMALLOC_TEXPARSER = -13,
-	ERR_INVLINE_TEX = -14, 
+	ERR_INVLINE_TEX = -14,
 	ERR_DOUBLE_TEX = -15,
 	ERR_MEMALLOC_SPRTPARSER = -16,
 	ERR_INVLINE_SPRITE = -17,
@@ -56,7 +56,8 @@ typedef enum	e_errors
 	ERR_NO_CLRC = -38,
 	ERR_INCPATH_TEX = -39,
 	ERR_INCPATH_SPR = -40,
-	ERR_INVFILE_CUB = -41
+	ERR_INVFILE_CUB = -41,
+	ERR_NO_MAP_INCONF = -42
 }				t_error;
 
 #endif

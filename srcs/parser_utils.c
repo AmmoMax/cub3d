@@ -6,41 +6,13 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 22:00:47 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/26 14:09:38 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/28 18:34:01 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/general.h"
 
-int			check_path_tex(m_config *config)
-{
-	int		fd;
-
-	if ((fd = open(config->no_texture, O_RDONLY)) < 0)
-	{
-		print_err(ERR_INCPATH_TEX);
-		return (ERR_INCPATH_TEX);
-	}
-	else if ((fd = open(config->so_texture, O_RDONLY)) < 0)
-	{
-		print_err(ERR_INCPATH_TEX);
-		return (ERR_INCPATH_TEX);
-	}
-	else if ((fd = open(config->ea_texture, O_RDONLY)) < 0)
-	{
-		print_err(ERR_INCPATH_TEX);
-		return (ERR_INCPATH_TEX);
-	}
-	else if ((fd = open(config->we_texture, O_RDONLY)) < 0)
-	{
-		print_err(ERR_INCPATH_TEX);
-		return (ERR_INCPATH_TEX);
-	}
-	else
-		return (0);
-}
-
-void		set_texture(m_config **config, char *str,
+void		set_texture(t_config **config, char *str,
 						char *line, char flag)
 {
 	if (flag == 'N')
@@ -63,6 +35,21 @@ void		set_texture(m_config **config, char *str,
 		(*config)->ea_texture = ft_strcpy(str, line);
 		(*config)->count_etex = 1;
 	}
+}
+
+static int	comma_counter(char *line)
+{
+	size_t	i;
+	size_t	comma_count;
+
+	i = -1;
+	comma_count = 0;
+	while (line[++i])
+	{
+		if (line[i] == ',')
+			comma_count++;
+	}
+	return (comma_count == 2 ? 0 : ERR_INVLINE_COLOR);
 }
 
 /*
@@ -96,7 +83,7 @@ int			color_validator(char *line)
 		else
 			return (ERR_INVLINE_COLOR);
 	}
-	return (num_cnt == 3 ? 0 : ERR_INVLINE_COLOR);
+	return (num_cnt == 3 ? comma_counter(line) : ERR_INVLINE_COLOR);
 }
 
 int			max_len_line(t_list *head)
@@ -106,7 +93,7 @@ int			max_len_line(t_list *head)
 
 	max_len = 0;
 	len = 0;
-	while (head->next)
+	while (head)
 	{
 		len = ft_strlen(head->content);
 		if (len > max_len)

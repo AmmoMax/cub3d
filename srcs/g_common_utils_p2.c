@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 13:24:06 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/26 13:24:13 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/27 14:39:59 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int			close_red_cross(t_world **world)
 {
-	printf("Close the window by red cross!\n");
 	cleanup_all_world(world);
 	free(*world);
 	*world = NULL;
@@ -23,7 +22,6 @@ int			close_red_cross(t_world **world)
 
 int			close_esc(t_world **world)
 {
-	printf("Close the window by Esc!\n");
 	cleanup_all_world(world);
 	free(*world);
 	*world = NULL;

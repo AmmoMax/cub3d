@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 20:24:56 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/27 00:13:08 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/27 14:49:33 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int			check_plr_pos(t_world *world, int x, int y)
 		return (0);
 }
 
-void		check_resolution(void *mlx, m_config **config)
+void		check_resolution(void *mlx, t_config **config)
 {
 	int sizex;
 	int sizey;

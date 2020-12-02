@@ -6,25 +6,22 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/01 19:50:39 by amayor            #+#    #+#             */
-/*   Updated: 2020/09/15 21:40:55 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/27 14:47:30 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#ifndef BUFFER_SIZE
-# define BUFFER_SIZE 10
-#endif
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# define BUFFER_SIZE 10
 # include <unistd.h>
 # include <stdlib.h>
 
-typedef struct			s_list
+typedef struct		s_list
 {
-	void				*content;
-	struct s_list		*next;
-}						t_list;
+	void			*content;
+	struct s_list	*next;
+}					t_list;
 
 void				*ft_memset(void *dst, int c, size_t count);
 void				ft_bzero(void *s, size_t n);
@@ -75,11 +72,12 @@ void				ft_strclr(char *str);
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 												void (*del)(void *));
 /*
-* Utils functions for get_next_line
+** Utils functions for get_next_line
 */
 char				*check_rest(char *rest, char **line);
 int					free_line(char **line, char **buf);
-int					check_buffer(int rb, char **res_strchr, char **buf, char **rest);
+int					check_buffer(int rb, char **res_strchr,
+									char **buf, char **rest);
 int					get_next_line(int fd, char **line);
 
 #endif

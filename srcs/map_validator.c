@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 15:09:13 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/26 13:42:56 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/28 20:01:51 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	validator_1_str(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == '1' || str[i] == ' ')
+		if (str[i] == '1')
 			i++;
 		else
 		{
@@ -45,7 +45,7 @@ static int	validator_last_str(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == '1' || str[i] == ' ')
+		if (str[i] == '1')
 			i++;
 		else
 		{

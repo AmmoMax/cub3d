@@ -6,13 +6,13 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 21:25:15 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/26 13:33:21 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/28 22:15:35 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/general.h"
 
-static t_world	*world_init(t_win **win, m_config **config)
+static t_world	*world_init(t_win **win, t_config **config)
 {
 	t_world		*world;
 
@@ -22,7 +22,8 @@ static t_world	*world_init(t_win **win, m_config **config)
 		clean_config_all(config);
 		return (NULL);
 	}
-	if (!(world->dist_wall = (float *)malloc(sizeof(float) * (*config)->x)))
+	if (!(world->dist_wall = (float *)ft_calloc((*config)->x,
+								sizeof(float) + 1)))
 	{
 		cleanup_win(win);
 		clean_config_all(config);
@@ -32,7 +33,7 @@ static t_world	*world_init(t_win **win, m_config **config)
 	return (world);
 }
 
-static t_win	*win_init(m_config **c, int save_flag)
+static t_win	*win_init(t_config **c, int save_flag)
 {
 	t_win		*win;
 
@@ -58,7 +59,7 @@ static t_win	*win_init(m_config **c, int save_flag)
 ** и запускает нужные функции отрисовки.
 */
 
-int				g_engine(m_config *config, int save_flag)
+int				g_engine(t_config *config, int save_flag)
 {
 	t_win		*win;
 	t_world		*world;

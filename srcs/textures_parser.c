@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 22:09:19 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/26 22:25:16 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/27 14:49:33 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Парсит строку с путем к текстуре из файла и сохраняет ее в структуру конфига.
 */
 
-static int	tex_parser(char *line, char flag, m_config **config)
+static int	tex_parser(char *line, char flag, t_config **config)
 {
 	size_t	i;
 	char	*str;
@@ -37,7 +37,7 @@ static int	local_print_err(int err)
 	return (err);
 }
 
-static int	get_tex_parser(m_config **config, char *line, size_t i)
+static int	get_tex_parser(t_config **config, char *line, size_t i)
 {
 	if (line[i] == 'S' && line[i + 1] == 'O' && line[i + 2] == ' ')
 		if ((*config)->count_stex == 0)
@@ -63,7 +63,7 @@ static int	get_tex_parser(m_config **config, char *line, size_t i)
 		return (local_print_err(ERR_INVLINE_TEX));
 }
 
-static int	tex_validator_v2(char *line, m_config **config)
+static int	tex_validator_v2(char *line, t_config **config)
 {
 	size_t	i;
 
@@ -73,7 +73,7 @@ static int	tex_validator_v2(char *line, m_config **config)
 	return (get_tex_parser(config, line, i));
 }
 
-int			texture_handler(char *line, m_config **config)
+int			texture_handler(char *line, t_config **config)
 {
 	int	res;
 

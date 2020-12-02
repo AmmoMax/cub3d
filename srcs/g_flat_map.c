@@ -6,19 +6,19 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 23:24:26 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/26 13:29:42 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/27 14:49:33 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/general.h"
 
-static int		get_floor_color(m_config *config)
+static int		get_floor_color(t_config *config)
 {
 	return ((config->floor->red << 16) + \
 		(config->floor->green << 8) + config->floor->blue);
 }
 
-static int		get_ceiling_color(m_config *config)
+static int		get_ceiling_color(t_config *config)
 {
 	return ((config->ceiling->red << 16) +
 		(config->ceiling->green << 8) + config->ceiling->blue);

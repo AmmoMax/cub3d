@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/08 22:18:55 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/26 23:31:28 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/27 14:49:33 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static t_color	*set_color_tex(char tex, char *line)
 ** C 100,255,255
 */
 
-static int		color_parser(char *line, m_config **config)
+static int		color_parser(char *line, t_config **config)
 {
 	t_color		*color_p;
 
@@ -92,7 +92,7 @@ static int		color_parser(char *line, m_config **config)
 	return (0);
 }
 
-int				color_handler(char *line, m_config **config)
+int				color_handler(char *line, t_config **config)
 {
 	int			res;
 

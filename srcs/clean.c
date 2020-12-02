@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 15:27:15 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/26 23:33:17 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/27 14:49:33 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ void			cleanup_map(t_list **map_head)
 	*map_head = NULL;
 }
 
-void			clean_config_all(m_config **p_config)
+void			clean_config_all(t_config **p_config)
 {
-	m_config	*config;
+	t_config	*config;
 
 	config = *p_config;
 	free(config->no_texture);
@@ -54,9 +54,9 @@ void			clean_config_all(m_config **p_config)
 	p_config = NULL;
 }
 
-void			clean_config_no_map(m_config **p_config)
+void			clean_config_no_map(t_config **p_config)
 {
-	m_config	*config;
+	t_config	*config;
 
 	config = *p_config;
 	free(config->no_texture);

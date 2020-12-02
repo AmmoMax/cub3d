@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 13:48:41 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/26 13:37:40 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/28 20:46:55 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** Принимает строку и общий конфиг.
 */
 
-static int		map_parser(char *line, m_config **config)
+static int		map_parser(char *line, t_config **config)
 {
 	t_list		*map_string;
 	t_list		**map;
@@ -37,6 +37,12 @@ static int		map_parser(char *line, m_config **config)
 	return (ft_lstadd_back(map, map_string));
 }
 
+static void		*с_local_print_error(int err)
+{
+	print_err(err);
+	return (NULL);
+}
+
 /*
 ** Общий обработчик строки карты.
 ** В зависимости от строки вызывает нужный валидатор.
@@ -44,9 +50,9 @@ static int		map_parser(char *line, m_config **config)
 ** который записывает строку из файла в односвязный список.
 */
 
-int				map_handler(char *line, m_config **config)
+int				map_handler(char *line, t_config **config)
 {
-	m_config	*tmp;
+	t_config	*tmp;
 	int			res;
 
 	tmp = *config;
@@ -59,8 +65,8 @@ int				map_handler(char *line, m_config **config)
 }
 
 /*
-** Нормализует карту, дополняя каждую строку
-** пробелами до длины самой длинной строки.
+** Нормализует карту, дополняя кажду
+** строку пробелами до длины самой длинной строки.
 ** Принимает указатель на карту и максимальную длину строки в карте.
 */
 
@@ -86,21 +92,15 @@ static void		normalize_map(char **map, int max_len)
 	}
 }
 
-static void		*с_local_print_error(int err)
-{
-	print_err(err);
-	return (NULL);
-}
-
 /*
 ** Конвертирует карту из формата односвязного списка в двумерный массив.
-** Сохраняет в общий конфиг максимальный
-** и минимальный x и y в двумерном массиве.
+** Сохраняет в общий конфиг максимальный и
+** минимальный x и y в двумерном массиве.
 ** Принимает указатель на первый элемент списка.
 ** Возвращает указатель на двумерный массив.
 */
 
-char			**convert_map(t_list *head, m_config **config)
+char			**convert_map(t_list *head, t_config **config)
 {
 	char		**map;
 	int			max_len;

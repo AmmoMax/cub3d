@@ -6,13 +6,13 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 11:49:02 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/25 22:26:47 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/28 22:16:28 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/general.h"
 
-int				check_config(m_config *config)
+int				check_config(t_config *config)
 {
 	if (config->count_res == 0)
 		return (ERR_NO_RES);
@@ -30,11 +30,13 @@ int				check_config(m_config *config)
 		return (ERR_NO_CLRF);
 	else if (config->count_clrc == 0)
 		return (ERR_NO_CLRC);
+	else if (config->count_map == 0)
+		return (ERR_NO_MAP_INCONF);
 	else
 		return (0);
 }
 
-static int		print_check_config(m_config *config)
+static int		print_check_config(t_config *config)
 {
 	int			res;
 
@@ -47,7 +49,7 @@ static int		print_check_config(m_config *config)
 		return (0);
 }
 
-static int		clean_flat_map(m_config *config)
+static int		clean_flat_map(t_config *config)
 {
 	cleanup_map(&config->map);
 	clean_config_no_map(&config);
@@ -56,7 +58,7 @@ static int		clean_flat_map(m_config *config)
 
 int				start_cub3d(char *path, char *save_f)
 {
-	m_config	*config;
+	t_config	*config;
 	int			len_map;
 	int			save_flag;
 

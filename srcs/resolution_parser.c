@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/12 22:28:35 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/26 21:38:29 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/28 15:00:06 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** Разрешение экрана строка типа: R 1920 1080
 */
 
-static void	res_parser(char *line, m_config **config)
+static void	res_parser(char *line, t_config **config)
 {
 	size_t	i;
 	size_t	flag_x;
@@ -84,7 +84,7 @@ static int	res_validator(char *line)
 ** Если строка невалидна - возвращает ошибку.
 */
 
-int			res_handler(char *line, m_config **config)
+int			res_handler(char *line, t_config **config)
 {
 	if (res_validator(line) == 0)
 	{
@@ -104,4 +104,32 @@ int			res_handler(char *line, m_config **config)
 		print_err(ERR_INVRES);
 		return (1);
 	}
+}
+
+int			check_path_tex(t_config *config)
+{
+	int		fd;
+
+	if ((fd = open(config->no_texture, O_RDONLY)) < 0)
+	{
+		print_err(ERR_INCPATH_TEX);
+		return (ERR_INCPATH_TEX);
+	}
+	else if ((fd = open(config->so_texture, O_RDONLY)) < 0)
+	{
+		print_err(ERR_INCPATH_TEX);
+		return (ERR_INCPATH_TEX);
+	}
+	else if ((fd = open(config->ea_texture, O_RDONLY)) < 0)
+	{
+		print_err(ERR_INCPATH_TEX);
+		return (ERR_INCPATH_TEX);
+	}
+	else if ((fd = open(config->we_texture, O_RDONLY)) < 0)
+	{
+		print_err(ERR_INCPATH_TEX);
+		return (ERR_INCPATH_TEX);
+	}
+	else
+		return (0);
 }

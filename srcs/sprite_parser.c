@@ -6,7 +6,7 @@
 /*   By: amayor <amayor@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 22:22:19 by amayor            #+#    #+#             */
-/*   Updated: 2020/11/26 22:28:24 by amayor           ###   ########.fr       */
+/*   Updated: 2020/11/28 22:46:17 by amayor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static int	sprite_validator(char *line)
 ** Принимает уже валидную строку, парсит и сохраняет ее в структуру конфига.
 */
 
-static int	sprite_parser(char *line, m_config **config)
+static int	sprite_parser(char *line, t_config **config)
 {
 	size_t	i;
 	char	*str;
@@ -65,7 +65,7 @@ static int	sprite_parser(char *line, m_config **config)
 	return (0);
 }
 
-static int	check_path_sprite(m_config *config)
+static int	check_path_sprite(t_config *config)
 {
 	int		fd;
 
@@ -78,7 +78,7 @@ static int	check_path_sprite(m_config *config)
 		return (0);
 }
 
-int			sprite_handler(char *line, m_config **config)
+int			sprite_handler(char *line, t_config **config)
 {
 	int		res;
 
