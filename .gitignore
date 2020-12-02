@@ -89,6 +89,4 @@ dkms.conf
 # Ignore all local history of files
 .history
 
-/libft
-/ext_libs
 cub3D
